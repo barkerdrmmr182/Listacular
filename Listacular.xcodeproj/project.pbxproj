@@ -1,0 +1,678 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7A52AF4F1C202E0F009ECC09 /* SLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF4E1C202E0F009ECC09 /* SLTableViewCell.swift */; };
+		7A52AF531C203115009ECC09 /* SCList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */; };
+		7A52AF541C203115009ECC09 /* TDList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF511C203115009ECC09 /* TDList+CoreDataProperties.swift */; };
+		7A52AF551C203115009ECC09 /* PList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF521C203115009ECC09 /* PList+CoreDataProperties.swift */; };
+		7A6170671C195E1100A6F263 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170661C195E1100A6F263 /* AppDelegate.swift */; };
+		7A6170691C195E1100A6F263 /* SLEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170681C195E1100A6F263 /* SLEdit.swift */; };
+		7A61706C1C195E1100A6F263 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A61706A1C195E1100A6F263 /* Main.storyboard */; };
+		7A61706F1C195E1100A6F263 /* Listacular.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A61706D1C195E1100A6F263 /* Listacular.xcdatamodeld */; };
+		7A6170711C195E1100A6F263 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170701C195E1100A6F263 /* Assets.xcassets */; };
+		7A6170741C195E1100A6F263 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170721C195E1100A6F263 /* LaunchScreen.storyboard */; };
+		7A61707F1C195E1200A6F263 /* ListacularTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A61707E1C195E1200A6F263 /* ListacularTests.swift */; };
+		7A61708A1C195E1200A6F263 /* ListacularUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170891C195E1200A6F263 /* ListacularUITests.swift */; };
+		7A6170A31C195E4900A6F263 /* GroceryIcon40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170971C195E4900A6F263 /* GroceryIcon40.png */; };
+		7A6170A41C195E4900A6F263 /* GroceryIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170981C195E4900A6F263 /* GroceryIcon58.png */; };
+		7A6170A51C195E4900A6F263 /* GroceryIcon60.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170991C195E4900A6F263 /* GroceryIcon60.png */; };
+		7A6170A61C195E4900A6F263 /* GroceryIcon76.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A61709A1C195E4900A6F263 /* GroceryIcon76.png */; };
+		7A6170A71C195E4900A6F263 /* GroceryIcon80-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A61709B1C195E4900A6F263 /* GroceryIcon80-1.png */; };
+		7A6170A81C195E4900A6F263 /* GroceryIcon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A61709C1C195E4900A6F263 /* GroceryIcon80.png */; };
+		7A6170A91C195E4900A6F263 /* GroceryIcon87.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A61709D1C195E4900A6F263 /* GroceryIcon87.png */; };
+		7A6170AA1C195E4900A6F263 /* GroceryIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A61709E1C195E4900A6F263 /* GroceryIcon120.png */; };
+		7A6170AB1C195E4900A6F263 /* GroceryIcon152.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A61709F1C195E4900A6F263 /* GroceryIcon152.png */; };
+		7A6170AC1C195E4900A6F263 /* GroceryIcon180.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170A01C195E4900A6F263 /* GroceryIcon180.png */; };
+		7A6170AD1C195E4900A6F263 /* GroceryIcon291.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170A11C195E4900A6F263 /* GroceryIcon291.png */; };
+		7A6170AE1C195E4900A6F263 /* Old Paper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170A21C195E4900A6F263 /* Old Paper.jpg */; };
+		7A6170B01C195EE600A6F263 /* skull.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170AF1C195EE600A6F263 /* skull.png */; };
+		7A6170B41C195F0100A6F263 /* bunting.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170B11C195F0100A6F263 /* bunting.png */; };
+		7A6170B51C195F0100A6F263 /* flower.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170B21C195F0100A6F263 /* flower.png */; };
+		7A6170B61C195F0100A6F263 /* monster.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170B31C195F0100A6F263 /* monster.png */; };
+		7A6170BB1C19622200A6F263 /* PLIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170B71C19622200A6F263 /* PLIcon.png */; };
+		7A6170BC1C19622200A6F263 /* TDIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170B81C19622200A6F263 /* TDIcon.png */; };
+		7A6170BD1C19622200A6F263 /* SCIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170B91C19622200A6F263 /* SCIcon.png */; };
+		7A6170BE1C19622200A6F263 /* SLIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6170BA1C19622200A6F263 /* SLIcon.png */; };
+		7A6170C01C196A1800A6F263 /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170BF1C196A1800A6F263 /* ShoppingList.swift */; };
+		7A6170C21C196A3000A6F263 /* PantryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C11C196A3000A6F263 /* PantryList.swift */; };
+		7A6170C41C196A4400A6F263 /* PLEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C31C196A4400A6F263 /* PLEdit.swift */; };
+		7A6170C61C196A5600A6F263 /* SCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C51C196A5600A6F263 /* SCart.swift */; };
+		7A6170C81C196A6900A6F263 /* SCEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C71C196A6900A6F263 /* SCEdit.swift */; };
+		7A6170CA1C196A7A00A6F263 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C91C196A7A00A6F263 /* ToDoList.swift */; };
+		7A6170CC1C196A8600A6F263 /* TDEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170CB1C196A8600A6F263 /* TDEdit.swift */; };
+		7A6170D61C196BEB00A6F263 /* TDList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170CE1C196BEB00A6F263 /* TDList.swift */; };
+		7A6170D81C196BEB00A6F263 /* SList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170D01C196BEB00A6F263 /* SList.swift */; };
+		7A6170DA1C196BEB00A6F263 /* SCList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170D21C196BEB00A6F263 /* SCList.swift */; };
+		7A6170DC1C196BEB00A6F263 /* PList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170D41C196BEB00A6F263 /* PList.swift */; };
+		7A8896B71C1FE621007BDCCD /* SList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8896B61C1FE621007BDCCD /* SList+CoreDataProperties.swift */; };
+		7A9443D31C198FE7000CC8E7 /* edit pen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9443D21C198FE7000CC8E7 /* edit pen.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7A61707B1C195E1200A6F263 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A61705B1C195E1100A6F263 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A6170621C195E1100A6F263;
+			remoteInfo = Listacular;
+		};
+		7A6170861C195E1200A6F263 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A61705B1C195E1100A6F263 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A6170621C195E1100A6F263;
+			remoteInfo = Listacular;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7A52AF4E1C202E0F009ECC09 /* SLTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLTableViewCell.swift; sourceTree = "<group>"; };
+		7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCList+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7A52AF511C203115009ECC09 /* TDList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TDList+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7A52AF521C203115009ECC09 /* PList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PList+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7A6170631C195E1100A6F263 /* Listacular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Listacular.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A6170661C195E1100A6F263 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7A6170681C195E1100A6F263 /* SLEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLEdit.swift; sourceTree = "<group>"; };
+		7A61706B1C195E1100A6F263 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7A61706E1C195E1100A6F263 /* Listacular.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Listacular.xcdatamodel; sourceTree = "<group>"; };
+		7A6170701C195E1100A6F263 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A6170731C195E1100A6F263 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7A6170751C195E1100A6F263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A61707A1C195E1100A6F263 /* ListacularTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ListacularTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A61707E1C195E1200A6F263 /* ListacularTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListacularTests.swift; sourceTree = "<group>"; };
+		7A6170801C195E1200A6F263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A6170851C195E1200A6F263 /* ListacularUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ListacularUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A6170891C195E1200A6F263 /* ListacularUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListacularUITests.swift; sourceTree = "<group>"; };
+		7A61708B1C195E1200A6F263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A6170971C195E4900A6F263 /* GroceryIcon40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon40.png; sourceTree = "<group>"; };
+		7A6170981C195E4900A6F263 /* GroceryIcon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon58.png; sourceTree = "<group>"; };
+		7A6170991C195E4900A6F263 /* GroceryIcon60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon60.png; sourceTree = "<group>"; };
+		7A61709A1C195E4900A6F263 /* GroceryIcon76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon76.png; sourceTree = "<group>"; };
+		7A61709B1C195E4900A6F263 /* GroceryIcon80-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroceryIcon80-1.png"; sourceTree = "<group>"; };
+		7A61709C1C195E4900A6F263 /* GroceryIcon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon80.png; sourceTree = "<group>"; };
+		7A61709D1C195E4900A6F263 /* GroceryIcon87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon87.png; sourceTree = "<group>"; };
+		7A61709E1C195E4900A6F263 /* GroceryIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon120.png; sourceTree = "<group>"; };
+		7A61709F1C195E4900A6F263 /* GroceryIcon152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon152.png; sourceTree = "<group>"; };
+		7A6170A01C195E4900A6F263 /* GroceryIcon180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon180.png; sourceTree = "<group>"; };
+		7A6170A11C195E4900A6F263 /* GroceryIcon291.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroceryIcon291.png; sourceTree = "<group>"; };
+		7A6170A21C195E4900A6F263 /* Old Paper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Old Paper.jpg"; sourceTree = "<group>"; };
+		7A6170AF1C195EE600A6F263 /* skull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skull.png; sourceTree = "<group>"; };
+		7A6170B11C195F0100A6F263 /* bunting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bunting.png; sourceTree = "<group>"; };
+		7A6170B21C195F0100A6F263 /* flower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flower.png; sourceTree = "<group>"; };
+		7A6170B31C195F0100A6F263 /* monster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monster.png; sourceTree = "<group>"; };
+		7A6170B71C19622200A6F263 /* PLIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PLIcon.png; sourceTree = "<group>"; };
+		7A6170B81C19622200A6F263 /* TDIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TDIcon.png; sourceTree = "<group>"; };
+		7A6170B91C19622200A6F263 /* SCIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SCIcon.png; sourceTree = "<group>"; };
+		7A6170BA1C19622200A6F263 /* SLIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SLIcon.png; sourceTree = "<group>"; };
+		7A6170BF1C196A1800A6F263 /* ShoppingList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
+		7A6170C11C196A3000A6F263 /* PantryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PantryList.swift; sourceTree = "<group>"; };
+		7A6170C31C196A4400A6F263 /* PLEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLEdit.swift; sourceTree = "<group>"; };
+		7A6170C51C196A5600A6F263 /* SCart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCart.swift; sourceTree = "<group>"; };
+		7A6170C71C196A6900A6F263 /* SCEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCEdit.swift; sourceTree = "<group>"; };
+		7A6170C91C196A7A00A6F263 /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
+		7A6170CB1C196A8600A6F263 /* TDEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDEdit.swift; sourceTree = "<group>"; };
+		7A6170CE1C196BEB00A6F263 /* TDList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDList.swift; sourceTree = "<group>"; };
+		7A6170D01C196BEB00A6F263 /* SList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SList.swift; sourceTree = "<group>"; };
+		7A6170D21C196BEB00A6F263 /* SCList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCList.swift; sourceTree = "<group>"; };
+		7A6170D41C196BEB00A6F263 /* PList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PList.swift; sourceTree = "<group>"; };
+		7A8896B61C1FE621007BDCCD /* SList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SList+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7A9443D21C198FE7000CC8E7 /* edit pen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit pen.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A6170601C195E1100A6F263 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A6170771C195E1100A6F263 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A6170821C195E1200A6F263 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A61705A1C195E1100A6F263 = {
+			isa = PBXGroup;
+			children = (
+				7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */,
+				7A52AF511C203115009ECC09 /* TDList+CoreDataProperties.swift */,
+				7A52AF521C203115009ECC09 /* PList+CoreDataProperties.swift */,
+				7A6170CE1C196BEB00A6F263 /* TDList.swift */,
+				7A8896B61C1FE621007BDCCD /* SList+CoreDataProperties.swift */,
+				7A6170D01C196BEB00A6F263 /* SList.swift */,
+				7A6170D21C196BEB00A6F263 /* SCList.swift */,
+				7A6170D41C196BEB00A6F263 /* PList.swift */,
+				7A6170651C195E1100A6F263 /* Listacular */,
+				7A61707D1C195E1200A6F263 /* ListacularTests */,
+				7A6170881C195E1200A6F263 /* ListacularUITests */,
+				7A6170641C195E1100A6F263 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7A6170641C195E1100A6F263 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A6170631C195E1100A6F263 /* Listacular.app */,
+				7A61707A1C195E1100A6F263 /* ListacularTests.xctest */,
+				7A6170851C195E1200A6F263 /* ListacularUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A6170651C195E1100A6F263 /* Listacular */ = {
+			isa = PBXGroup;
+			children = (
+				7A6170661C195E1100A6F263 /* AppDelegate.swift */,
+				7A52AF4E1C202E0F009ECC09 /* SLTableViewCell.swift */,
+				7A6170BF1C196A1800A6F263 /* ShoppingList.swift */,
+				7A6170681C195E1100A6F263 /* SLEdit.swift */,
+				7A6170C11C196A3000A6F263 /* PantryList.swift */,
+				7A6170C31C196A4400A6F263 /* PLEdit.swift */,
+				7A6170C51C196A5600A6F263 /* SCart.swift */,
+				7A6170C71C196A6900A6F263 /* SCEdit.swift */,
+				7A6170C91C196A7A00A6F263 /* ToDoList.swift */,
+				7A6170CB1C196A8600A6F263 /* TDEdit.swift */,
+				7A61706A1C195E1100A6F263 /* Main.storyboard */,
+				7A6170701C195E1100A6F263 /* Assets.xcassets */,
+				7A9443D21C198FE7000CC8E7 /* edit pen.png */,
+				7A6170AF1C195EE600A6F263 /* skull.png */,
+				7A6170B11C195F0100A6F263 /* bunting.png */,
+				7A6170B21C195F0100A6F263 /* flower.png */,
+				7A6170B31C195F0100A6F263 /* monster.png */,
+				7A6170971C195E4900A6F263 /* GroceryIcon40.png */,
+				7A6170981C195E4900A6F263 /* GroceryIcon58.png */,
+				7A6170991C195E4900A6F263 /* GroceryIcon60.png */,
+				7A61709A1C195E4900A6F263 /* GroceryIcon76.png */,
+				7A61709B1C195E4900A6F263 /* GroceryIcon80-1.png */,
+				7A61709C1C195E4900A6F263 /* GroceryIcon80.png */,
+				7A61709D1C195E4900A6F263 /* GroceryIcon87.png */,
+				7A61709E1C195E4900A6F263 /* GroceryIcon120.png */,
+				7A61709F1C195E4900A6F263 /* GroceryIcon152.png */,
+				7A6170A01C195E4900A6F263 /* GroceryIcon180.png */,
+				7A6170A11C195E4900A6F263 /* GroceryIcon291.png */,
+				7A6170B71C19622200A6F263 /* PLIcon.png */,
+				7A6170B81C19622200A6F263 /* TDIcon.png */,
+				7A6170B91C19622200A6F263 /* SCIcon.png */,
+				7A6170BA1C19622200A6F263 /* SLIcon.png */,
+				7A6170A21C195E4900A6F263 /* Old Paper.jpg */,
+				7A6170721C195E1100A6F263 /* LaunchScreen.storyboard */,
+				7A6170751C195E1100A6F263 /* Info.plist */,
+				7A61706D1C195E1100A6F263 /* Listacular.xcdatamodeld */,
+			);
+			path = Listacular;
+			sourceTree = "<group>";
+		};
+		7A61707D1C195E1200A6F263 /* ListacularTests */ = {
+			isa = PBXGroup;
+			children = (
+				7A61707E1C195E1200A6F263 /* ListacularTests.swift */,
+				7A6170801C195E1200A6F263 /* Info.plist */,
+			);
+			path = ListacularTests;
+			sourceTree = "<group>";
+		};
+		7A6170881C195E1200A6F263 /* ListacularUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7A6170891C195E1200A6F263 /* ListacularUITests.swift */,
+				7A61708B1C195E1200A6F263 /* Info.plist */,
+			);
+			path = ListacularUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A6170621C195E1100A6F263 /* Listacular */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A61708E1C195E1200A6F263 /* Build configuration list for PBXNativeTarget "Listacular" */;
+			buildPhases = (
+				7A61705F1C195E1100A6F263 /* Sources */,
+				7A6170601C195E1100A6F263 /* Frameworks */,
+				7A6170611C195E1100A6F263 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Listacular;
+			productName = Listacular;
+			productReference = 7A6170631C195E1100A6F263 /* Listacular.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7A6170791C195E1100A6F263 /* ListacularTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A6170911C195E1200A6F263 /* Build configuration list for PBXNativeTarget "ListacularTests" */;
+			buildPhases = (
+				7A6170761C195E1100A6F263 /* Sources */,
+				7A6170771C195E1100A6F263 /* Frameworks */,
+				7A6170781C195E1100A6F263 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A61707C1C195E1200A6F263 /* PBXTargetDependency */,
+			);
+			name = ListacularTests;
+			productName = ListacularTests;
+			productReference = 7A61707A1C195E1100A6F263 /* ListacularTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7A6170841C195E1200A6F263 /* ListacularUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A6170941C195E1200A6F263 /* Build configuration list for PBXNativeTarget "ListacularUITests" */;
+			buildPhases = (
+				7A6170811C195E1200A6F263 /* Sources */,
+				7A6170821C195E1200A6F263 /* Frameworks */,
+				7A6170831C195E1200A6F263 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A6170871C195E1200A6F263 /* PBXTargetDependency */,
+			);
+			name = ListacularUITests;
+			productName = ListacularUITests;
+			productReference = 7A6170851C195E1200A6F263 /* ListacularUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A61705B1C195E1100A6F263 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Will Zimmer";
+				TargetAttributes = {
+					7A6170621C195E1100A6F263 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 9XLT3NVRU3;
+					};
+					7A6170791C195E1100A6F263 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 9XLT3NVRU3;
+						TestTargetID = 7A6170621C195E1100A6F263;
+					};
+					7A6170841C195E1200A6F263 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 9XLT3NVRU3;
+						TestTargetID = 7A6170621C195E1100A6F263;
+					};
+				};
+			};
+			buildConfigurationList = 7A61705E1C195E1100A6F263 /* Build configuration list for PBXProject "Listacular" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7A61705A1C195E1100A6F263;
+			productRefGroup = 7A6170641C195E1100A6F263 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A6170621C195E1100A6F263 /* Listacular */,
+				7A6170791C195E1100A6F263 /* ListacularTests */,
+				7A6170841C195E1200A6F263 /* ListacularUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A6170611C195E1100A6F263 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A6170AE1C195E4900A6F263 /* Old Paper.jpg in Resources */,
+				7A6170A71C195E4900A6F263 /* GroceryIcon80-1.png in Resources */,
+				7A6170AB1C195E4900A6F263 /* GroceryIcon152.png in Resources */,
+				7A6170A51C195E4900A6F263 /* GroceryIcon60.png in Resources */,
+				7A6170A31C195E4900A6F263 /* GroceryIcon40.png in Resources */,
+				7A6170A91C195E4900A6F263 /* GroceryIcon87.png in Resources */,
+				7A6170B41C195F0100A6F263 /* bunting.png in Resources */,
+				7A6170B61C195F0100A6F263 /* monster.png in Resources */,
+				7A9443D31C198FE7000CC8E7 /* edit pen.png in Resources */,
+				7A6170A81C195E4900A6F263 /* GroceryIcon80.png in Resources */,
+				7A6170BC1C19622200A6F263 /* TDIcon.png in Resources */,
+				7A6170B01C195EE600A6F263 /* skull.png in Resources */,
+				7A6170BB1C19622200A6F263 /* PLIcon.png in Resources */,
+				7A6170A41C195E4900A6F263 /* GroceryIcon58.png in Resources */,
+				7A6170AD1C195E4900A6F263 /* GroceryIcon291.png in Resources */,
+				7A6170BD1C19622200A6F263 /* SCIcon.png in Resources */,
+				7A6170741C195E1100A6F263 /* LaunchScreen.storyboard in Resources */,
+				7A6170B51C195F0100A6F263 /* flower.png in Resources */,
+				7A6170711C195E1100A6F263 /* Assets.xcassets in Resources */,
+				7A6170BE1C19622200A6F263 /* SLIcon.png in Resources */,
+				7A6170AC1C195E4900A6F263 /* GroceryIcon180.png in Resources */,
+				7A6170AA1C195E4900A6F263 /* GroceryIcon120.png in Resources */,
+				7A6170A61C195E4900A6F263 /* GroceryIcon76.png in Resources */,
+				7A61706C1C195E1100A6F263 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A6170781C195E1100A6F263 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A6170831C195E1200A6F263 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A61705F1C195E1100A6F263 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A6170C21C196A3000A6F263 /* PantryList.swift in Sources */,
+				7A8896B71C1FE621007BDCCD /* SList+CoreDataProperties.swift in Sources */,
+				7A6170D81C196BEB00A6F263 /* SList.swift in Sources */,
+				7A61706F1C195E1100A6F263 /* Listacular.xcdatamodeld in Sources */,
+				7A52AF4F1C202E0F009ECC09 /* SLTableViewCell.swift in Sources */,
+				7A6170DC1C196BEB00A6F263 /* PList.swift in Sources */,
+				7A6170CA1C196A7A00A6F263 /* ToDoList.swift in Sources */,
+				7A6170C61C196A5600A6F263 /* SCart.swift in Sources */,
+				7A6170C81C196A6900A6F263 /* SCEdit.swift in Sources */,
+				7A52AF551C203115009ECC09 /* PList+CoreDataProperties.swift in Sources */,
+				7A6170CC1C196A8600A6F263 /* TDEdit.swift in Sources */,
+				7A6170C01C196A1800A6F263 /* ShoppingList.swift in Sources */,
+				7A52AF541C203115009ECC09 /* TDList+CoreDataProperties.swift in Sources */,
+				7A6170DA1C196BEB00A6F263 /* SCList.swift in Sources */,
+				7A6170C41C196A4400A6F263 /* PLEdit.swift in Sources */,
+				7A52AF531C203115009ECC09 /* SCList+CoreDataProperties.swift in Sources */,
+				7A6170691C195E1100A6F263 /* SLEdit.swift in Sources */,
+				7A6170671C195E1100A6F263 /* AppDelegate.swift in Sources */,
+				7A6170D61C196BEB00A6F263 /* TDList.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A6170761C195E1100A6F263 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A61707F1C195E1200A6F263 /* ListacularTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A6170811C195E1200A6F263 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A61708A1C195E1200A6F263 /* ListacularUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7A61707C1C195E1200A6F263 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A6170621C195E1100A6F263 /* Listacular */;
+			targetProxy = 7A61707B1C195E1200A6F263 /* PBXContainerItemProxy */;
+		};
+		7A6170871C195E1200A6F263 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A6170621C195E1100A6F263 /* Listacular */;
+			targetProxy = 7A6170861C195E1200A6F263 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7A61706A1C195E1100A6F263 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A61706B1C195E1100A6F263 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7A6170721C195E1100A6F263 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A6170731C195E1100A6F263 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A61708C1C195E1200A6F263 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A61708D1C195E1200A6F263 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A61708F1C195E1200A6F263 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Listacular/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willzimmer.Listacular;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7A6170901C195E1200A6F263 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Listacular/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willzimmer.Listacular;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7A6170921C195E1200A6F263 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ListacularTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willzimmer.ListacularTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Listacular.app/Listacular";
+			};
+			name = Debug;
+		};
+		7A6170931C195E1200A6F263 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ListacularTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willzimmer.ListacularTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Listacular.app/Listacular";
+			};
+			name = Release;
+		};
+		7A6170951C195E1200A6F263 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ListacularUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willzimmer.ListacularUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Listacular;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		7A6170961C195E1200A6F263 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ListacularUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.willzimmer.ListacularUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Listacular;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A61705E1C195E1100A6F263 /* Build configuration list for PBXProject "Listacular" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A61708C1C195E1200A6F263 /* Debug */,
+				7A61708D1C195E1200A6F263 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A61708E1C195E1200A6F263 /* Build configuration list for PBXNativeTarget "Listacular" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A61708F1C195E1200A6F263 /* Debug */,
+				7A6170901C195E1200A6F263 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A6170911C195E1200A6F263 /* Build configuration list for PBXNativeTarget "ListacularTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A6170921C195E1200A6F263 /* Debug */,
+				7A6170931C195E1200A6F263 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A6170941C195E1200A6F263 /* Build configuration list for PBXNativeTarget "ListacularUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A6170951C195E1200A6F263 /* Debug */,
+				7A6170961C195E1200A6F263 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7A61706D1C195E1100A6F263 /* Listacular.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7A61706E1C195E1100A6F263 /* Listacular.xcdatamodel */,
+			);
+			currentVersion = 7A61706E1C195E1100A6F263 /* Listacular.xcdatamodel */;
+			path = Listacular.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 7A61705B1C195E1100A6F263 /* Project object */;
+}
