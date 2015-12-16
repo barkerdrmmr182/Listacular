@@ -28,7 +28,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "slcross", cacheName: nil)
         return frc
-    } 
+    }
     
     @IBOutlet weak var tableView: UITableView!
     @IBAction func AddNew(sender: AnyObject) {
