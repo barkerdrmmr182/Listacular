@@ -65,7 +65,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         //TableView Background Color
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.separatorColor = UIColor.blackColor()
-        self.tableView.rowHeight = 80
+        self.tableView.rowHeight = 60
         tableView.reloadData()
         
         //"edit" bar button item
@@ -130,6 +130,21 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         }
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        return 40
+    }
+    //Header Background/Text Color
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        //header background color
+        view.tintColor = UIColor.lightGrayColor()
+        
+        //header text color
+        let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        headerView.textLabel!.textColor = UIColor.blueColor()
+        
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfRowsInSection = frc.sections?[section].numberOfObjects
         return numberOfRowsInSection!
@@ -139,12 +154,19 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SLTableViewCell
         let items = frc.objectAtIndexPath(indexPath) as! SList
         cell.backgroundColor = UIColor.clearColor()
+        cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.slitem!) - Qty: \(items.slqty!)"
         cell.cellLabel.font = UIFont.systemFontOfSize(30)
         if (items.slcross == true) {
             cell.accessoryType = .Checkmark
+            cell.cellLabel.textColor = UIColor.grayColor()
+            cell.cellLabel.font = UIFont.systemFontOfSize(25)
+            self.tableView.rowHeight = 50
         } else {
             cell.accessoryType = .None
+            cell.cellLabel.textColor = UIColor.blackColor()
+            cell.cellLabel.font = UIFont.systemFontOfSize(30)
+            self.tableView.rowHeight = 60
         }
         return cell
     }
