@@ -11,6 +11,12 @@ import UIKit
 class SLTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var cellLabel: UILabel!
+    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,5 +27,7 @@ class SLTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
 
 }

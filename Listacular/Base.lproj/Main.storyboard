@@ -27,13 +27,44 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="80" id="BnA-GM-hNb">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="80" id="BnA-GM-hNb" customClass="SLTableViewCell" customModule="Listacular" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BnA-GM-hNb" id="W8r-ZR-dei">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfQ-xd-Nbu">
+                                                    <rect key="frame" x="306" y="0.0" width="61" height="66"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="61" id="o9v-9O-8Ot"/>
+                                                    </constraints>
+                                                    <state key="normal" backgroundImage="edit pen.png"/>
+                                                    <connections>
+                                                        <segue destination="BYZ-38-t0r" kind="show" id="3d0-kJ-FpT"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjg-Xy-k2i">
+                                                    <rect key="frame" x="8" y="8" width="245" height="64"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="AfQ-xd-Nbu" firstAttribute="top" secondItem="W8r-ZR-dei" secondAttribute="top" id="9Dy-bE-KnO"/>
+                                                <constraint firstItem="AfQ-xd-Nbu" firstAttribute="leading" secondItem="hjg-Xy-k2i" secondAttribute="trailing" constant="53" id="DMw-if-oFc"/>
+                                                <constraint firstItem="hjg-Xy-k2i" firstAttribute="centerY" secondItem="W8r-ZR-dei" secondAttribute="centerY" id="IdO-Zq-r43"/>
+                                                <constraint firstItem="AfQ-xd-Nbu" firstAttribute="trailing" secondItem="W8r-ZR-dei" secondAttribute="trailingMargin" id="Z4G-2u-vvz"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="AfQ-xd-Nbu" secondAttribute="bottom" constant="5.5" id="mPU-Qe-3GM"/>
+                                                <constraint firstItem="hjg-Xy-k2i" firstAttribute="top" secondItem="W8r-ZR-dei" secondAttribute="topMargin" id="w7W-wF-jtt"/>
+                                                <constraint firstItem="hjg-Xy-k2i" firstAttribute="leading" secondItem="W8r-ZR-dei" secondAttribute="leadingMargin" id="x0L-eR-RdP"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="button" destination="AfQ-xd-Nbu" id="x6f-Xu-Et4"/>
+                                            <outlet property="cellLabel" destination="hjg-Xy-k2i" id="3h7-as-zDT"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -474,7 +505,7 @@
                                     <constraint firstAttribute="height" constant="30" id="Kfw-L2-qny"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="OCS-qy-L0y">
@@ -910,13 +941,15 @@
         <image name="SLIcon.png" width="64" height="64"/>
         <image name="TDIcon.png" width="50" height="50"/>
         <image name="bunting.png" width="2400" height="3000"/>
+        <image name="edit pen.png" width="1024" height="1024"/>
         <image name="flower.png" width="2400" height="3000"/>
         <image name="monster.png" width="2400" height="3000"/>
         <image name="skull.png" width="1586" height="1983"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zI8-sk-19c"/>
-        <segue reference="m2E-Zn-B9y"/>
         <segue reference="FCB-Ui-aXo"/>
+        <segue reference="m2E-Zn-B9y"/>
+        <segue reference="3d0-kJ-FpT"/>
     </inferredMetricsTieBreakers>
 </document>

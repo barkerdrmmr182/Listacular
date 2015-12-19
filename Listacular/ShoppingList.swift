@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate {
-   
+    
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var frc : NSFetchedResultsController = NSFetchedResultsController()
@@ -65,6 +65,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         //TableView Background Color
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.separatorColor = UIColor.blackColor()
+        self.tableView.rowHeight = 80
         tableView.reloadData()
         
         //"edit" bar button item
@@ -135,17 +136,16 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SLTableViewCell
         let items = frc.objectAtIndexPath(indexPath) as! SList
         cell.backgroundColor = UIColor.clearColor()
-        cell.textLabel?.text = "\(items.slitem!) - Qty: \(items.slqty!)"
-        cell.textLabel?.font = UIFont.systemFontOfSize(30)
+        cell.cellLabel.text = "\(items.slitem!) - Qty: \(items.slqty!)"
+        cell.cellLabel.font = UIFont.systemFontOfSize(30)
         if (items.slcross == true) {
             cell.accessoryType = .Checkmark
         } else {
             cell.accessoryType = .None
         }
-        
         return cell
     }
     
@@ -174,7 +174,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     //segue to add/edit
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-        if segue.identifier == "edit" {
+        if segue.identifier == "editCell" {
             
             let cell = sender as! UITableViewCell
             let indexPath = tableView.indexPathForCell(cell)
@@ -183,4 +183,5 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             SListController.item = items
         }
     }
+    
 }
