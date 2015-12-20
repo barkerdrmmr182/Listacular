@@ -152,7 +152,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate {
             
             let cell = sender as! UITableViewCell
             let indexPath = tableView.indexPathForCell(cell)
-            let PListController:PLEdit = segue.destinationViewController as! PLEdit
+            let PListController:PantryItems = segue.destinationViewController as! PantryItems
             let items:PList = frc.objectAtIndexPath(indexPath!) as! PList
             PListController.item = items
             

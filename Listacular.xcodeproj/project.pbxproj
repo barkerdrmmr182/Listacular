@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A32D9DE1C26FDED00BCEE0B /* PantryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A32D9DD1C26FDED00BCEE0B /* PantryItems.swift */; };
 		7A52AF4F1C202E0F009ECC09 /* SLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF4E1C202E0F009ECC09 /* SLTableViewCell.swift */; };
 		7A52AF531C203115009ECC09 /* SCList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */; };
 		7A52AF541C203115009ECC09 /* TDList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF511C203115009ECC09 /* TDList+CoreDataProperties.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A32D9DD1C26FDED00BCEE0B /* PantryItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PantryItems.swift; sourceTree = "<group>"; };
 		7A52AF4E1C202E0F009ECC09 /* SLTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLTableViewCell.swift; sourceTree = "<group>"; };
 		7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7A52AF511C203115009ECC09 /* TDList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TDList+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				7A6170681C195E1100A6F263 /* SLEdit.swift */,
 				7A6170C11C196A3000A6F263 /* PantryList.swift */,
 				7A6170C31C196A4400A6F263 /* PLEdit.swift */,
+				7A32D9DD1C26FDED00BCEE0B /* PantryItems.swift */,
 				7A6170C51C196A5600A6F263 /* SCart.swift */,
 				7A6170C71C196A6900A6F263 /* SCEdit.swift */,
 				7A6170C91C196A7A00A6F263 /* ToDoList.swift */,
@@ -410,6 +413,7 @@
 				7A6170DA1C196BEB00A6F263 /* SCList.swift in Sources */,
 				7A6170C41C196A4400A6F263 /* PLEdit.swift in Sources */,
 				7A52AF531C203115009ECC09 /* SCList+CoreDataProperties.swift in Sources */,
+				7A32D9DE1C26FDED00BCEE0B /* PantryItems.swift in Sources */,
 				7A6170691C195E1100A6F263 /* SLEdit.swift in Sources */,
 				7A6170671C195E1100A6F263 /* AppDelegate.swift in Sources */,
 				7A6170D61C196BEB00A6F263 /* TDList.swift in Sources */,
