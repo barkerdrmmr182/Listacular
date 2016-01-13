@@ -41,7 +41,7 @@
                                                     </constraints>
                                                     <state key="normal" backgroundImage="edit pen.png"/>
                                                     <connections>
-                                                        <segue destination="BYZ-38-t0r" kind="show" id="3d0-kJ-FpT"/>
+                                                        <segue destination="BYZ-38-t0r" kind="show" identifier="editCell" id="3d0-kJ-FpT"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjg-Xy-k2i">
@@ -323,9 +323,15 @@
                             </imageView>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Kd8-5U-anf">
                                 <rect key="frame" x="20" y="308" width="94" height="29"/>
+                                <connections>
+                                    <action selector="qtyStepperChanged:" destination="Fbr-mt-hnl" eventType="valueChanged" id="WBV-EH-qOV"/>
+                                </connections>
                             </stepper>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="HY1-MP-qdJ">
                                 <rect key="frame" x="212" y="308" width="94" height="29"/>
+                                <connections>
+                                    <action selector="minStepperChanged:" destination="Fbr-mt-hnl" eventType="valueChanged" id="ppl-1U-QJt"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Item:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twN-SG-gmP">
                                 <rect key="frame" x="20" y="107" width="307" height="36"/>
@@ -378,13 +384,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Pantry" id="UI9-3b-KHb"/>
+                    <navigationItem key="navigationItem" title="Pantry" id="UI9-3b-KHb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="lcA-I7-ON5">
+                            <connections>
+                                <action selector="saveButton:" destination="Fbr-mt-hnl" id="v8o-Aj-VML"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="minStepper" destination="HY1-MP-qdJ" id="Tkc-Nh-ZGW"/>
+                        <outlet property="minStepperLabel" destination="cAJ-Bp-DXw" id="ESk-zX-tfW"/>
                         <outlet property="pdesc" destination="x0S-TS-nfP" id="jWD-nw-nzd"/>
                         <outlet property="pitem" destination="twN-SG-gmP" id="iQC-mF-Eht"/>
                         <outlet property="pprice" destination="7EZ-bc-333" id="bWX-Ob-C5D"/>
                         <outlet property="pqty" destination="xWD-VF-R1L" id="Jhy-82-avz"/>
+                        <outlet property="qtyStepper" destination="Kd8-5U-anf" id="GvT-OX-XtR"/>
+                        <outlet property="qtyStepperLabel" destination="xWD-VF-R1L" id="toe-Ba-ryl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jHZ-Yn-zqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1032,8 +1048,8 @@
         <image name="skull.png" width="1586" height="1983"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FCB-Ui-aXo"/>
         <segue reference="zI8-sk-19c"/>
         <segue reference="3d0-kJ-FpT"/>
+        <segue reference="FCB-Ui-aXo"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -194,16 +194,20 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     }
     
     //segue to add/edit
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    
+    /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-        if segue.identifier == "editCell" {
-            
-            let cell = sender as! UITableViewCell
-            let indexPath = tableView.indexPathForCell(cell)
-            let SListController:SLEdit = segue.destinationViewController as! SLEdit
-            let items:SList = frc.objectAtIndexPath(indexPath!) as! SList
-            SListController.item = items
+        if segue.identifier == "editRow" {
+        let button = sender as! UIButton
+        let view = button.superview!
+        let cell = view.superview as! SLTableViewCell
+        
+        let indexPath = UITableView.indexPathForCell(cell)
+        
+        let SListController:SLEdit = segue.destinationViewController as! SLEdit
+        let items:SList = frc.objectAtIndexPath(indexPath) as! SList
+        SListController.item = items
         }
-    }
+    }*/
     
 }

@@ -19,6 +19,18 @@ class PantryItems: UIViewController {
     @IBOutlet weak var pqty: UILabel!
     @IBOutlet weak var pprice: UILabel!
     
+    @IBOutlet weak var minStepperLabel: UILabel!
+    @IBOutlet weak var minStepper: UIStepper!
+    @IBAction func minStepperChanged(sender: UIStepper) {
+        minStepperLabel.text = Int(sender.value).description
+    }
+    
+    @IBOutlet weak var qtyStepperLabel: UILabel!
+    @IBOutlet weak var qtyStepper: UIStepper!
+    @IBAction func qtyStepperChanged(sender: UIStepper) {
+        qtyStepperLabel.text = Int(sender.value).description
+    }
+    
     
     var item: PList? = nil
     
@@ -32,12 +44,47 @@ class PantryItems: UIViewController {
             pdesc.text = item?.pdesc
             pqty.text = item?.pqty
             pprice.text = item?.pprice
+            qtyStepperLabel.text = item?.pqty
+            minStepperLabel.text = item?.minstepperlabel
+            
+            
             
             
         }
+        let myDouble = Double(pqty.text!)
+        qtyStepper.value = myDouble!
+        qtyStepper.minimumValue = 0
+        qtyStepper.wraps = false
+        qtyStepper.autorepeat = true
+        qtyStepper.maximumValue = 100
         
         
+        
+        if minStepperLabel.text == nil {
+            minStepper.value = 1
+            let myDouble2 = minStepper.value
+            let myDoubleString = String(myDouble2)
+            minStepperLabel.text = myDoubleString
+        }else{
+        let myDouble1 = Double(minStepperLabel.text!)
+        minStepper.value = myDouble1!
+        minStepper.minimumValue = 1
+        minStepper.wraps = false
+        minStepper.autorepeat = true
+        minStepper.maximumValue = 100
+        print(qtyStepper.value, minStepper.value)
     }
+        if qtyStepper.value == minStepper.value{
+            let alertController = UIAlertController(title: "Min Qty Alert", message:
+                "You are running low on \(pitem.text)", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+        }
+    
+    
+    
     
     override func didReceiveMemoryWarning() {
         
@@ -80,6 +127,11 @@ class PantryItems: UIViewController {
         item.pqty = pqty.text
         item.pdesc = pdesc.text
         item.pprice = pprice.text
+        item.qtystepperlabel = pqty.text
+        item.minstepperlabel = minStepperLabel.text
+        item.minsteppervalue = minStepper.value
+        
+        
         
         if pitem.text == nil{
             createitems()
@@ -101,6 +153,10 @@ class PantryItems: UIViewController {
         item?.pqty = pqty.text!
         item?.pdesc = pdesc.text!
         item?.pprice = pprice.text!
+        item?.qtystepperlabel = pqty.text!
+        item?.minstepperlabel = minStepperLabel.text!
+        item?.minsteppervalue = minStepper.value
+        
         
         
         do {

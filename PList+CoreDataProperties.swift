@@ -2,8 +2,8 @@
 //  PList+CoreDataProperties.swift
 //  Listacular
 //
-//  Created by Will Zimmer on 12/15/15.
-//  Copyright © 2015 Will Zimmer. All rights reserved.
+//  Created by Will Zimmer on 1/13/16.
+//  Copyright © 2016 Will Zimmer. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
 //  to delete and recreate this implementation file for your updated model.
@@ -19,5 +19,8 @@ extension PList {
     @NSManaged var pitem: String?
     @NSManaged var pprice: String?
     @NSManaged var pqty: String?
+    @NSManaged var qtystepperlabel: String?
+    @NSManaged var minstepperlabel: String?
+    @NSManaged var minsteppervalue: NSNumber?
 
 }

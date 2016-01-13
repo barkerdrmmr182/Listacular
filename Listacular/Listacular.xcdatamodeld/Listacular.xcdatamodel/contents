@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
     <entity name="PList" representedClassName=".PList" syncable="YES">
+        <attribute name="minstepperlabel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="minsteppervalue" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="pcross" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="pdesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pitem" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pprice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pqty" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="qtystepperlabel" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="SCList" representedClassName=".SCList" syncable="YES">
         <attribute name="sccross" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -29,7 +32,7 @@
         <attribute name="tdtime" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="PList" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="PList" positionX="-54" positionY="-9" width="128" height="165"/>
         <element name="SCList" positionX="-36" positionY="9" width="128" height="120"/>
         <element name="SList" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="TDList" positionX="-18" positionY="27" width="128" height="120"/>
