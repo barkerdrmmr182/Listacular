@@ -72,19 +72,8 @@ class PantryItems: UIViewController {
         minStepper.wraps = false
         minStepper.autorepeat = true
         minStepper.maximumValue = 100
-        print(qtyStepper.value, minStepper.value)
     }
-        if qtyStepper.value == minStepper.value{
-            let alertController = UIAlertController(title: "Min Qty Alert", message:
-                "You are running low on \(pitem.text)", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-            
-            self.presentViewController(alertController, animated: true, completion: nil)
-        }
-        }
-    
-    
-    
+    }
     
     override func didReceiveMemoryWarning() {
         
@@ -106,10 +95,20 @@ class PantryItems: UIViewController {
         
         if item != nil {
             edititems()
+            if qtyStepper.value <= minStepper.value{
+                let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
+                    "Your inventory of \(pitem.text!) is low.", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default,handler: nil))
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction!) in
+                self.dismissVC()}))
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+
         } else {
             createitems()
         }
-        
         
         dismissVC()
         
