@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 
-class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, SLTableCellDelegate {
     
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var frc : NSFetchedResultsController = NSFetchedResultsController()
+    
+    var selectedItem : SList?
     
     func itemFetchRequest() -> NSFetchRequest{
         
@@ -70,17 +72,17 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         //"edit" bar button item
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
-        }
+    }
     
-        func editButtonPressed(){
-            tableView.setEditing(!tableView.editing, animated: true)
-            if tableView.editing == true{
-                navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
-            }else{
-                navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
-            }
-
-        }//end edit button
+    func editButtonPressed(){
+        tableView.setEditing(!tableView.editing, animated: true)
+        if tableView.editing == true{
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+        }else{
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+        }
+        
+    }//end edit button
     
     
     override func viewDidDisappear(animated: Bool) {
@@ -123,10 +125,10 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             if (sectionInfo.name == "0") { // "0" is the string equivalent of false
                 return sectionHeader
             } else {
-                return sectionHeader1 
-            } 
-        } else { 
-            return nil; 
+                return sectionHeader1
+            }
+        } else {
+            return nil;
         }
     }
     
@@ -151,12 +153,18 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SLTableViewCell
+        
+        //assign delegate
+        cell.delegate = self
+        
         let items = frc.objectAtIndexPath(indexPath) as! SList
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.slitem!) - Qty: \(items.slqty!)"
         cell.cellLabel.font = UIFont.systemFontOfSize(30)
+        
         if (items.slcross == true) {
             cell.accessoryType = .Checkmark
             cell.cellLabel.textColor = UIColor.grayColor()
@@ -171,6 +179,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         return cell
     }
     
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let items = frc.objectAtIndexPath(indexPath) as! SList
@@ -182,32 +191,31 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         }
         tableView.reloadData()
     }
-   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()
     }
     
+    //delegate method
+    
+    func cellButtonTapped(cell: SLTableViewCell) {
+        let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
+        selectedItem = frc.objectAtIndexPath(indexPath) as? SList
+        
+        self.performSegueWithIdentifier("editItem", sender: self)
+    }
+    
     //segue to add/edit
     
-    /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        
-        if segue.identifier == "editRow" {
-        let button = sender as! UIButton
-        let view = button.superview!
-        let cell = view.superview as! SLTableViewCell
-        
-        let indexPath = UITableView.indexPathForCell(cell)
-        
-        let SListController:SLEdit = segue.destinationViewController as! SLEdit
-        let items:SList = frc.objectAtIndexPath(indexPath) as! SList
-        SListController.item = items
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "editItem" {
+            let SListController:SLEdit = segue.destinationViewController as! SLEdit
+            SListController.item = selectedItem
         }
-    }*/
+    }
     
 }

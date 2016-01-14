@@ -7,9 +7,16 @@
 //
 
 import UIKit
+import CoreData
+
+protocol SLTableCellDelegate {
+    func cellButtonTapped(cell: SLTableViewCell)
+}
 
 class SLTableViewCell: UITableViewCell {
 
+    //delegate variable
+    var delegate: SLTableCellDelegate?
     
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var cellLabel: UILabel!
@@ -28,6 +35,9 @@ class SLTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
+    @IBAction func buttonTapped(sender: AnyObject) {
+        //call delegate method
+        delegate?.cellButtonTapped(self)
+    }
 
 }
