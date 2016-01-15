@@ -48,12 +48,12 @@
 		7A6170C61C196A5600A6F263 /* SCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C51C196A5600A6F263 /* SCart.swift */; };
 		7A6170C81C196A6900A6F263 /* SCEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C71C196A6900A6F263 /* SCEdit.swift */; };
 		7A6170CA1C196A7A00A6F263 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C91C196A7A00A6F263 /* ToDoList.swift */; };
-		7A6170CC1C196A8600A6F263 /* TDEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170CB1C196A8600A6F263 /* TDEdit.swift */; };
 		7A6170D61C196BEB00A6F263 /* TDList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170CE1C196BEB00A6F263 /* TDList.swift */; };
 		7A6170D81C196BEB00A6F263 /* SList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170D01C196BEB00A6F263 /* SList.swift */; };
 		7A6170DA1C196BEB00A6F263 /* SCList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170D21C196BEB00A6F263 /* SCList.swift */; };
 		7A6170DC1C196BEB00A6F263 /* PList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170D41C196BEB00A6F263 /* PList.swift */; };
 		7A8896B71C1FE621007BDCCD /* SList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8896B61C1FE621007BDCCD /* SList+CoreDataProperties.swift */; };
+		7A8D4DAF1C49525A00A2030A /* TDEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8D4DAE1C49525A00A2030A /* TDEdit.swift */; };
 		7A9365EA1C4671D000ABAD98 /* PList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9365E91C4671D000ABAD98 /* PList+CoreDataProperties.swift */; };
 		7A9443D31C198FE7000CC8E7 /* edit pen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9443D21C198FE7000CC8E7 /* edit pen.png */; };
 /* End PBXBuildFile section */
@@ -123,12 +123,12 @@
 		7A6170C51C196A5600A6F263 /* SCart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCart.swift; sourceTree = "<group>"; };
 		7A6170C71C196A6900A6F263 /* SCEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCEdit.swift; sourceTree = "<group>"; };
 		7A6170C91C196A7A00A6F263 /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
-		7A6170CB1C196A8600A6F263 /* TDEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDEdit.swift; sourceTree = "<group>"; };
 		7A6170CE1C196BEB00A6F263 /* TDList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDList.swift; sourceTree = "<group>"; };
 		7A6170D01C196BEB00A6F263 /* SList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SList.swift; sourceTree = "<group>"; };
 		7A6170D21C196BEB00A6F263 /* SCList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCList.swift; sourceTree = "<group>"; };
 		7A6170D41C196BEB00A6F263 /* PList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PList.swift; sourceTree = "<group>"; };
 		7A8896B61C1FE621007BDCCD /* SList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SList+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7A8D4DAE1C49525A00A2030A /* TDEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDEdit.swift; sourceTree = "<group>"; };
 		7A9365E91C4671D000ABAD98 /* PList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7A9443D21C198FE7000CC8E7 /* edit pen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit pen.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,7 +202,7 @@
 				7A0A5F3D1C49237D00295D1D /* SCartCell.swift */,
 				7A6170C91C196A7A00A6F263 /* ToDoList.swift */,
 				7A0A5F3F1C49239100295D1D /* TDCell.swift */,
-				7A6170CB1C196A8600A6F263 /* TDEdit.swift */,
+				7A8D4DAE1C49525A00A2030A /* TDEdit.swift */,
 				7A61706A1C195E1100A6F263 /* Main.storyboard */,
 				7A6170701C195E1100A6F263 /* Assets.xcassets */,
 				7A9443D21C198FE7000CC8E7 /* edit pen.png */,
@@ -414,12 +414,12 @@
 				7A52AF4F1C202E0F009ECC09 /* SLTableViewCell.swift in Sources */,
 				7A6170DC1C196BEB00A6F263 /* PList.swift in Sources */,
 				7A6170CA1C196A7A00A6F263 /* ToDoList.swift in Sources */,
+				7A8D4DAF1C49525A00A2030A /* TDEdit.swift in Sources */,
 				7A6170C61C196A5600A6F263 /* SCart.swift in Sources */,
 				7A0A5F401C49239100295D1D /* TDCell.swift in Sources */,
 				7A0A5F421C49248B00295D1D /* PantryCell.swift in Sources */,
 				7A0A5F3E1C49237D00295D1D /* SCartCell.swift in Sources */,
 				7A6170C81C196A6900A6F263 /* SCEdit.swift in Sources */,
-				7A6170CC1C196A8600A6F263 /* TDEdit.swift in Sources */,
 				7A6170C01C196A1800A6F263 /* ShoppingList.swift in Sources */,
 				7A52AF541C203115009ECC09 /* TDList+CoreDataProperties.swift in Sources */,
 				7A6170DA1C196BEB00A6F263 /* SCList.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class TDEdit: UIViewController {
-
+    
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     
@@ -79,6 +79,7 @@ class TDEdit: UIViewController {
         
         item.tditem = tditem.text
         item.tddesc = tddesc.text
+        item.tdcross = false
         
         if tditem.text == nil{
             createitems()
