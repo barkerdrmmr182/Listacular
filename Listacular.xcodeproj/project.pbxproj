@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0A5F3E1C49237D00295D1D /* SCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A5F3D1C49237D00295D1D /* SCartCell.swift */; };
+		7A0A5F401C49239100295D1D /* TDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A5F3F1C49239100295D1D /* TDCell.swift */; };
+		7A0A5F421C49248B00295D1D /* PantryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A5F411C49248B00295D1D /* PantryCell.swift */; };
 		7A32D9DE1C26FDED00BCEE0B /* PantryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A32D9DD1C26FDED00BCEE0B /* PantryItems.swift */; };
 		7A52AF4F1C202E0F009ECC09 /* SLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF4E1C202E0F009ECC09 /* SLTableViewCell.swift */; };
 		7A52AF531C203115009ECC09 /* SCList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */; };
@@ -73,6 +76,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A0A5F3D1C49237D00295D1D /* SCartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCartCell.swift; sourceTree = "<group>"; };
+		7A0A5F3F1C49239100295D1D /* TDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDCell.swift; sourceTree = "<group>"; };
+		7A0A5F411C49248B00295D1D /* PantryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PantryCell.swift; path = ../PantryCell.swift; sourceTree = "<group>"; };
 		7A32D9DD1C26FDED00BCEE0B /* PantryItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PantryItems.swift; sourceTree = "<group>"; };
 		7A52AF4E1C202E0F009ECC09 /* SLTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLTableViewCell.swift; sourceTree = "<group>"; };
 		7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCList+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -155,14 +161,14 @@
 		7A61705A1C195E1100A6F263 = {
 			isa = PBXGroup;
 			children = (
-				7A9365E91C4671D000ABAD98 /* PList+CoreDataProperties.swift */,
-				7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */,
-				7A52AF511C203115009ECC09 /* TDList+CoreDataProperties.swift */,
 				7A6170CE1C196BEB00A6F263 /* TDList.swift */,
-				7A8896B61C1FE621007BDCCD /* SList+CoreDataProperties.swift */,
+				7A52AF511C203115009ECC09 /* TDList+CoreDataProperties.swift */,
 				7A6170D01C196BEB00A6F263 /* SList.swift */,
+				7A8896B61C1FE621007BDCCD /* SList+CoreDataProperties.swift */,
 				7A6170D21C196BEB00A6F263 /* SCList.swift */,
+				7A52AF501C203115009ECC09 /* SCList+CoreDataProperties.swift */,
 				7A6170D41C196BEB00A6F263 /* PList.swift */,
+				7A9365E91C4671D000ABAD98 /* PList+CoreDataProperties.swift */,
 				7A6170651C195E1100A6F263 /* Listacular */,
 				7A61707D1C195E1200A6F263 /* ListacularTests */,
 				7A6170881C195E1200A6F263 /* ListacularUITests */,
@@ -188,11 +194,14 @@
 				7A6170BF1C196A1800A6F263 /* ShoppingList.swift */,
 				7A6170681C195E1100A6F263 /* SLEdit.swift */,
 				7A6170C11C196A3000A6F263 /* PantryList.swift */,
+				7A0A5F411C49248B00295D1D /* PantryCell.swift */,
 				7A6170C31C196A4400A6F263 /* PLEdit.swift */,
 				7A32D9DD1C26FDED00BCEE0B /* PantryItems.swift */,
 				7A6170C51C196A5600A6F263 /* SCart.swift */,
 				7A6170C71C196A6900A6F263 /* SCEdit.swift */,
+				7A0A5F3D1C49237D00295D1D /* SCartCell.swift */,
 				7A6170C91C196A7A00A6F263 /* ToDoList.swift */,
+				7A0A5F3F1C49239100295D1D /* TDCell.swift */,
 				7A6170CB1C196A8600A6F263 /* TDEdit.swift */,
 				7A61706A1C195E1100A6F263 /* Main.storyboard */,
 				7A6170701C195E1100A6F263 /* Assets.xcassets */,
@@ -406,6 +415,9 @@
 				7A6170DC1C196BEB00A6F263 /* PList.swift in Sources */,
 				7A6170CA1C196A7A00A6F263 /* ToDoList.swift in Sources */,
 				7A6170C61C196A5600A6F263 /* SCart.swift in Sources */,
+				7A0A5F401C49239100295D1D /* TDCell.swift in Sources */,
+				7A0A5F421C49248B00295D1D /* PantryCell.swift in Sources */,
+				7A0A5F3E1C49237D00295D1D /* SCartCell.swift in Sources */,
 				7A6170C81C196A6900A6F263 /* SCEdit.swift in Sources */,
 				7A6170CC1C196A8600A6F263 /* TDEdit.swift in Sources */,
 				7A6170C01C196A1800A6F263 /* ShoppingList.swift in Sources */,

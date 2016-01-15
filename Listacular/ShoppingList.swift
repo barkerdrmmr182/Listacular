@@ -45,11 +45,9 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             return
         }
         self.tableView.reloadData()
-        
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         frc = getFetchRequetController()
@@ -61,7 +59,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             print("Failed to perform inital fetch.")
             return
         }
-        
         self.tableView.reloadData()
         
         //TableView Background Color
@@ -112,11 +109,11 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
         let numberOfSections = frc.sections?.count
         return numberOfSections!
     }
     
+    //Table Section Headers
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         let sectionHeader = "Items - #\(frc.sections![section].numberOfObjects)"
         let sectionHeader1 = "Crossed Off Items - #\(frc.sections![section].numberOfObjects)"
@@ -179,7 +176,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         return cell
     }
     
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let items = frc.objectAtIndexPath(indexPath) as! SList
@@ -201,7 +197,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     }
     
     //delegate method
-    
     func cellButtonTapped(cell: SLTableViewCell) {
         let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
         selectedItem = frc.objectAtIndexPath(indexPath) as? SList
@@ -210,7 +205,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     }
     
     //segue to add/edit
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "editItem" {
             let SListController:SLEdit = segue.destinationViewController as! SLEdit

@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 
-class SCart: UIViewController, NSFetchedResultsControllerDelegate {
+class SCart: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, SCartCellDelegate {
     
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var frc : NSFetchedResultsController = NSFetchedResultsController()
+    
+    var selectedItem : SCList?
     
     func itemFetchRequest() -> NSFetchRequest{
         
@@ -27,7 +29,7 @@ class SCart: UIViewController, NSFetchedResultsControllerDelegate {
     
     func getFetchRequetController() ->NSFetchedResultsController{
         
-        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "sccross", cacheName: nil)
         return frc
         
     }
@@ -67,9 +69,22 @@ class SCart: UIViewController, NSFetchedResultsControllerDelegate {
         
         //TableView Background Color
         self.tableView.backgroundColor = UIColor.clearColor()
+        self.tableView.separatorColor = UIColor.blackColor()
+        self.tableView.rowHeight = 60
         tableView.reloadData()
         
-        self.tableView.separatorColor = UIColor.blackColor()
+        //"edit" bar button item
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+    }
+    
+    func editButtonPressed(){
+        tableView.setEditing(!tableView.editing, animated: true)
+        if tableView.editing == true{
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+        }else{
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+        }
+
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -109,14 +124,31 @@ class SCart: UIViewController, NSFetchedResultsControllerDelegate {
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         let sectionHeader = "Items - #\(frc.sections![section].numberOfObjects)"
         let sectionHeader1 = "Crossed Off Items - #\(frc.sections![section].numberOfObjects)"
-        if (section == 0) {
-            return sectionHeader
+        if (frc.sections!.count > 0) {
+            let sectionInfo = frc.sections![section]
+            if (sectionInfo.name == "0") { // "0" is the string equivalent of false
+                return sectionHeader
+            } else {
+                return sectionHeader1
+            }
+        } else {
+            return nil;
         }
-        if (section == 1){
-            return sectionHeader1
-        }else{
-            return nil
-        }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        return 40
+    }
+    //Header Background/Text Color
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        //header background color
+        view.tintColor = UIColor.lightGrayColor()
+        
+        //header text color
+        let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        headerView.textLabel!.textColor = UIColor.blueColor()
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -125,15 +157,43 @@ class SCart: UIViewController, NSFetchedResultsControllerDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SCartCell
+        
+        //assign delegate
+        cell.delegate = self
+        
         let items = frc.objectAtIndexPath(indexPath) as! SCList
         cell.backgroundColor = UIColor.clearColor()
-        cell.textLabel?.text = "\(items.scitem!), Qty: \(items.scqty!)"
-        cell.textLabel?.font = UIFont.systemFontOfSize(23)
+        cell.tintColor = UIColor.grayColor()
+        cell.cellLabel.text = "\(items.scitem!) - Qty: \(items.scqty!)"
+        cell.cellLabel.font = UIFont.systemFontOfSize(30)
         
+        if (items.sccross == true) {
+            cell.accessoryType = .Checkmark
+            cell.cellLabel.textColor = UIColor.grayColor()
+            cell.cellLabel.font = UIFont.systemFontOfSize(25)
+            self.tableView.rowHeight = 50
+        } else {
+            cell.accessoryType = .None
+            cell.cellLabel.textColor = UIColor.blackColor()
+            cell.cellLabel.font = UIFont.systemFontOfSize(30)
+            self.tableView.rowHeight = 60
+        }
         return cell
     }
     
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let items = frc.objectAtIndexPath(indexPath) as! SCList
+        
+        if (items.sccross == true) {
+            items.sccross = false
+        } else {
+            items.sccross = true
+        }
+        tableView.reloadData()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -144,17 +204,21 @@ class SCart: UIViewController, NSFetchedResultsControllerDelegate {
         tableView.reloadData()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+    //delegate method
+    
+    func cellButtonTapped(cell: SCartCell) {
+        let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
+        selectedItem = frc.objectAtIndexPath(indexPath) as? SCList
         
-        if segue.identifier == "edit" {
-            
-            let cell = sender as! UITableViewCell
-            let indexPath = tableView.indexPathForCell(cell)
+        self.performSegueWithIdentifier("editItem", sender: self)
+    }
+    
+    //segue to add/edit
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "editItem" {
             let SCListController:SCEdit = segue.destinationViewController as! SCEdit
-            let items:SCList = frc.objectAtIndexPath(indexPath!) as! SCList
-            SCListController.item = items
-            
-            
+            SCListController.item = selectedItem
         }
     }
     

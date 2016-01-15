@@ -73,13 +73,13 @@ class SCEdit: UIViewController {
         
         let entityDescription = NSEntityDescription.entityForName("SCList", inManagedObjectContext: moc)
         
-        
         let item = SCList(entity: entityDescription!, insertIntoManagedObjectContext: moc)
         
         item.scitem = scitem.text
         item.scdesc = scdesc.text
         item.scqty = scqty.text
         item.scprice = scprice.text
+        item.sccross = false
         
         if scitem.text == nil{
             createitems()
@@ -88,20 +88,18 @@ class SCEdit: UIViewController {
             edititems()
         }
         
-        
-        
         do {
             try moc.save()
         } catch _ {
             return
         }
     }
+    
     func edititems() {
         item?.scitem = scitem.text!
         item?.scdesc = scdesc.text!
         item?.scqty = scqty.text!
         item?.scprice = scprice.text!
-        
         
         do {
             try moc.save()
@@ -109,7 +107,6 @@ class SCEdit: UIViewController {
             return
         }
     }
-    
     
 }
 

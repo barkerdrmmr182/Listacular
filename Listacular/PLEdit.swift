@@ -84,6 +84,7 @@ class PLEdit: UIViewController {
         item.pqty = pqty.text
         item.pdesc = pdesc.text
         item.pprice = pprice.text
+        item.pcross = false
         
         if pitem.text == nil{
             createitems()
