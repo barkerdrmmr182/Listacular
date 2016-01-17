@@ -99,9 +99,9 @@ class PantryItems: UIViewController {
                 let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
                     "Your inventory of \(pitem.text!) is low.", preferredStyle: UIAlertControllerStyle.Alert)
                 
-                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default,handler: { (action:UIAlertAction!) in
+                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default,handler: nil))
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction!) in
                     self.dismissVC()}))
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
@@ -113,8 +113,6 @@ class PantryItems: UIViewController {
         dismissVC()
         
     }
-    
-    
     
     func createitems() {
         
