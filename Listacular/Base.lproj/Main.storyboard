@@ -807,7 +807,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I1R-zL-tqn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1541.5" y="1672.5"/>
+            <point key="canvasLocation" x="1513.5" y="1672.5"/>
         </scene>
         <!--Shopping Cart Add/Edit-->
         <scene sceneID="aAZ-dJ-Hfm">

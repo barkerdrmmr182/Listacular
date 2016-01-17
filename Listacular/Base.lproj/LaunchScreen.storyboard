@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,18 +18,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Listacular" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g8k-df-CV4">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Listacular" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g8k-df-CV4">
                                 <rect key="frame" x="137" y="449" width="100" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="qXe-DP-GTn"/>
+                                </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GroceryIcon180.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tdf-AW-lMV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GroceryIcon180.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tdf-AW-lMV">
                                 <rect key="frame" x="95" y="249" width="185" height="170"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="g8k-df-CV4" firstAttribute="top" secondItem="Tdf-AW-lMV" secondAttribute="bottom" constant="30" id="ERj-cb-vDB"/>
+                            <constraint firstItem="g8k-df-CV4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="QJB-2r-Oz9"/>
+                            <constraint firstItem="Tdf-AW-lMV" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="229" id="UfT-M5-OqR"/>
+                            <constraint firstItem="g8k-df-CV4" firstAttribute="centerX" secondItem="Tdf-AW-lMV" secondAttribute="centerX" id="mGe-BH-WoU"/>
+                            <constraint firstItem="Tdf-AW-lMV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="w2W-Ld-Y57"/>
+                            <constraint firstItem="Tdf-AW-lMV" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="79" id="z0m-L1-wor"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
