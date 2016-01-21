@@ -26,6 +26,22 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="DJC-Uh-Og8">
+                                    <rect key="frame" x="0.0" y="108" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEI-4W-HQh">
+                                            <rect key="frame" x="99" y="8" width="177" height="36"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <state key="normal" title="Move to Shopping Cart"/>
+                                            <connections>
+                                                <action selector="moveToSC:" destination="epY-7e-Ef6" eventType="touchUpInside" id="fz7-lM-FwC"/>
+                                                <segue destination="AMD-eA-R30" kind="show" identifier="moveToSC" id="7vI-B3-hiF"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="80" id="BnA-GM-hNb" customClass="SLTableViewCell" customModule="Listacular" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
@@ -1201,7 +1217,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="TQU-aT-vVQ"/>
-        <segue reference="bUv-G7-RnD"/>
+        <segue reference="7vI-B3-hiF"/>
         <segue reference="up9-xt-UnD"/>
     </inferredMetricsTieBreakers>
 </document>

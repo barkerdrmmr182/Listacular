@@ -196,6 +196,12 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         tableView.reloadData()
     }
     
+    
+    @IBAction func moveToSC(sender: AnyObject) {
+        
+        //perform segue if slcross = true "moveToSC"
+    }
+    
     //delegate method
     func cellButtonTapped(cell: SLTableViewCell) {
         let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
@@ -209,6 +215,9 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         if segue.identifier == "editItem" {
             let SListController:SLEdit = segue.destinationViewController as! SLEdit
             SListController.item = selectedItem
+        }
+        if segue.identifier == "moveToSC" {
+            //code needed to segue
         }
     }
     
