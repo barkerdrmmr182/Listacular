@@ -15,14 +15,15 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     
     var frc : NSFetchedResultsController = NSFetchedResultsController()
     
-    var selectedItem : PList?
+    var selectedItem : List?
     
     func itemFetchRequest() -> NSFetchRequest{
         
-        let fetchRequest = NSFetchRequest(entityName: "PList")
+        let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "pcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "pitem", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "plist", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
+        fetchRequest.predicate = NSPredicate(format:"plist == true")
         return fetchRequest
     }
     
@@ -154,7 +155,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         //assign delegate
         cell.delegate = self
         
-        let items = frc.objectAtIndexPath(indexPath) as! PList
+        let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.pitem!) - Qty: \(items.pqty!)"
@@ -176,7 +177,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let items = frc.objectAtIndexPath(indexPath) as! PList
+        let items = frc.objectAtIndexPath(indexPath) as! List
         
         if (items.pcross == true) {
             items.pcross = false
@@ -194,9 +195,37 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         self.tableView.reloadData()
     }
     
+    @IBAction func moveToSL(sender: AnyObject) {
+        let sectionInfo = self.frc.sections![1]
+        let objectsToAppend = sectionInfo.objects as! [List]
+        for item in objectsToAppend {
+            item.slist = true
+            item.slcross = false
+            item.plist = false
+            item.pitem = item.slitem
+            item.pqty = item.slqty
+            item.pdesc = item.sldesc
+            item.pprice = item.slprice
+            
+        }
+        self.performSegueWithIdentifier("moveToSL", sender: self)
+        
+        frc = getFetchRequetController()
+        frc.delegate = self
+        
+        do {
+            try frc.performFetch()
+        } catch _ {
+            print("Failed to perform inital fetch.")
+            return
+        }
+       
+    }
+    
+    
     func cellButtonTapped(cell: PantryCell) {
         let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
-        selectedItem = frc.objectAtIndexPath(indexPath) as? PList
+        selectedItem = frc.objectAtIndexPath(indexPath) as? List
         
         self.performSegueWithIdentifier("editItem", sender: self)
     }

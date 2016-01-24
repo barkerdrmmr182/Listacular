@@ -32,7 +32,7 @@ class PantryItems: UIViewController {
     }
     
     
-    var item: PList? = nil
+    var item: List? = nil
     
     
     
@@ -45,7 +45,7 @@ class PantryItems: UIViewController {
             pqty.text = item?.pqty
             pprice.text = item?.pprice
             qtyStepperLabel.text = item?.pqty
-            minStepperLabel.text = item?.minstepperlabel
+            minStepperLabel.text = item?.pminstepperlabel
             
             
             
@@ -116,17 +116,17 @@ class PantryItems: UIViewController {
     
     func createitems() {
         
-        let entityDescripition = NSEntityDescription.entityForName("PList", inManagedObjectContext: moc)
+        let entityDescripition = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
         
-        let item = PList(entity: entityDescripition!, insertIntoManagedObjectContext: moc)
+        let item = List(entity: entityDescripition!, insertIntoManagedObjectContext: moc)
         
         item.pitem = pitem.text
         item.pqty = pqty.text
         item.pdesc = pdesc.text
         item.pprice = pprice.text
-        item.qtystepperlabel = pqty.text
-        item.minstepperlabel = minStepperLabel.text
-        item.minsteppervalue = minStepper.value
+        item.pqtystepperlabel = pqty.text
+        item.pminstepperlabel = minStepperLabel.text
+        item.pminsteppervalue = minStepper.value
         
         
         
@@ -150,9 +150,9 @@ class PantryItems: UIViewController {
         item?.pqty = pqty.text!
         item?.pdesc = pdesc.text!
         item?.pprice = pprice.text!
-        item?.qtystepperlabel = pqty.text!
-        item?.minstepperlabel = minStepperLabel.text!
-        item?.minsteppervalue = minStepper.value
+        item?.pqtystepperlabel = pqty.text!
+        item?.pminstepperlabel = minStepperLabel.text!
+        item?.pminsteppervalue = minStepper.value
         
         
         

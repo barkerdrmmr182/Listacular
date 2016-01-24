@@ -21,7 +21,7 @@ class SLEdit: UIViewController {
     
     
     
-    var item: SList? = nil
+    var item: List? = nil
     
     
     override func viewDidLoad() {
@@ -72,14 +72,15 @@ class SLEdit: UIViewController {
     
     func createitems() {
         
-        let entityDescription = NSEntityDescription.entityForName("SList", inManagedObjectContext: moc)
+        let entityDescription = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
         
-        let item = SList(entity: entityDescription!, insertIntoManagedObjectContext: moc)
+        let item = List(entity: entityDescription!, insertIntoManagedObjectContext: moc)
         
         item.slitem = slitem.text
         item.sldesc = sldesc.text
         item.slqty = slqty.text
         item.slprice = slprice.text
+        item.slist = true
         item.slcross = false
         
         if slitem.text == nil{

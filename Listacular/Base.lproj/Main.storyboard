@@ -36,7 +36,6 @@
                                             <state key="normal" title="Move to Shopping Cart"/>
                                             <connections>
                                                 <action selector="moveToSC:" destination="epY-7e-Ef6" eventType="touchUpInside" id="fz7-lM-FwC"/>
-                                                <segue destination="AMD-eA-R30" kind="show" identifier="moveToSC" id="7vI-B3-hiF"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -112,6 +111,7 @@
                     <connections>
                         <outlet property="tableView" destination="kqe-CB-Jpq" id="Gsh-Oa-1Jh"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="editItem" id="TQU-aT-vVQ"/>
+                        <segue destination="CY9-4k-Vfw" kind="show" identifier="moveToSC" id="HZL-oC-Zha"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guz-Pd-m2R" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -136,6 +136,21 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v2q-kf-N8N">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="KC4-ig-3bO">
+                                    <rect key="frame" x="0.0" y="108" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PE3-4H-l77">
+                                            <rect key="frame" x="99" y="8" width="177" height="36"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <state key="normal" title="Move To Shopping List"/>
+                                            <connections>
+                                                <action selector="moveToSL:" destination="H7L-hA-Fua" eventType="touchUpInside" id="RsU-9i-Qom"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="80" id="VhB-fN-c8i" customClass="PantryCell" customModule="Listacular" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
@@ -207,6 +222,7 @@
                     <connections>
                         <outlet property="tableView" destination="v2q-kf-N8N" id="mF3-YN-kLu"/>
                         <segue destination="Fbr-mt-hnl" kind="show" identifier="editItem" id="pRf-U5-SCQ"/>
+                        <segue destination="epY-7e-Ef6" kind="show" identifier="moveToSL" id="5u5-He-GKz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qe-oD-3Kn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -521,6 +537,21 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bNj-yh-iYk">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="Tgw-in-0Fn">
+                                    <rect key="frame" x="0.0" y="108" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wFY-e2-gQE">
+                                            <rect key="frame" x="99" y="4" width="177" height="36"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <state key="normal" title="Move To Pantry"/>
+                                            <connections>
+                                                <action selector="moveToPL:" destination="CY9-4k-Vfw" eventType="touchUpInside" id="5OM-dm-NcT"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="80" id="3N9-VL-ZSa" customClass="SCartCell" customModule="Listacular" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
@@ -593,6 +624,7 @@
                     <connections>
                         <outlet property="tableView" destination="bNj-yh-iYk" id="rw5-Qy-zOA"/>
                         <segue destination="AMD-eA-R30" kind="show" identifier="editItem" id="tDU-rC-pwQ"/>
+                        <segue destination="H7L-hA-Fua" kind="show" identifier="moveToPL" id="Xgl-Zy-qFU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Srs-mt-2Uj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1216,8 +1248,11 @@
         <image name="skull.png" width="1586" height="1983"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Xgl-Zy-qFU"/>
+        <segue reference="HZL-oC-Zha"/>
+        <segue reference="5u5-He-GKz"/>
         <segue reference="TQU-aT-vVQ"/>
-        <segue reference="7vI-B3-hiF"/>
+        <segue reference="tDU-rC-pwQ"/>
         <segue reference="up9-xt-UnD"/>
     </inferredMetricsTieBreakers>
 </document>

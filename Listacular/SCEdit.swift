@@ -20,7 +20,7 @@ class SCEdit: UIViewController {
     @IBOutlet weak var scprice: UITextField!
     
     
-    var item: SCList? = nil
+    var item: List? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,14 +71,15 @@ class SCEdit: UIViewController {
     
     func createitems() {
         
-        let entityDescription = NSEntityDescription.entityForName("SCList", inManagedObjectContext: moc)
+        let entityDescription = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
         
-        let item = SCList(entity: entityDescription!, insertIntoManagedObjectContext: moc)
+        let item = List(entity: entityDescription!, insertIntoManagedObjectContext: moc)
         
         item.scitem = scitem.text
         item.scdesc = scdesc.text
         item.scqty = scqty.text
         item.scprice = scprice.text
+        item.sclist = true
         item.sccross = false
         
         if scitem.text == nil{

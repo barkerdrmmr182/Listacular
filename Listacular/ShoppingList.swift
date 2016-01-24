@@ -15,14 +15,15 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
     var frc : NSFetchedResultsController = NSFetchedResultsController()
     
-    var selectedItem : SList?
+    var selectedItem : List?
     
     func itemFetchRequest() -> NSFetchRequest{
         
-        let fetchRequest = NSFetchRequest(entityName: "SList")
+        let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "slcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "slitem", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "slist", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
+        fetchRequest.predicate = NSPredicate(format:"slist == true")
         return fetchRequest
     }
     
@@ -156,7 +157,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         //assign delegate
         cell.delegate = self
         
-        let items = frc.objectAtIndexPath(indexPath) as! SList
+        let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.slitem!) - Qty: \(items.slqty!)"
@@ -178,7 +179,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let items = frc.objectAtIndexPath(indexPath) as! SList
+        let items = frc.objectAtIndexPath(indexPath) as! List
         
         if (items.slcross == true) {
             items.slcross = false
@@ -199,13 +200,25 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
     @IBAction func moveToSC(sender: AnyObject) {
         
-        //perform segue if slcross = true "moveToSC"
+        let sectionInfo = self.frc.sections![1]
+        let objectsToAppend = sectionInfo.objects as! [List]
+        for item in objectsToAppend {
+            item.sclist = true
+            item.sccross = false
+            item.slist = false
+            item.scitem = item.slitem
+            item.scqty = item.slqty
+            item.scdesc = item.sldesc
+            item.scprice = item.slprice
+            
+        }
+        self.performSegueWithIdentifier("moveToSC", sender: self)
     }
     
     //delegate method
     func cellButtonTapped(cell: SLTableViewCell) {
         let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
-        selectedItem = frc.objectAtIndexPath(indexPath) as? SList
+        selectedItem = frc.objectAtIndexPath(indexPath) as? List
         
         self.performSegueWithIdentifier("editItem", sender: self)
     }

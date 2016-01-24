@@ -20,7 +20,7 @@ class PLEdit: UIViewController {
     @IBOutlet weak var pprice: UITextField!
     
     
-    var item: PList? = nil
+    var item: List? = nil
     
     
     
@@ -76,14 +76,15 @@ class PLEdit: UIViewController {
     
     func createitems() {
         
-        let entityDescripition = NSEntityDescription.entityForName("PList", inManagedObjectContext: moc)
+        let entityDescripition = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
         
-        let item = PList(entity: entityDescripition!, insertIntoManagedObjectContext: moc)
+        let item = List(entity: entityDescripition!, insertIntoManagedObjectContext: moc)
         
         item.pitem = pitem.text
         item.pqty = pqty.text
         item.pdesc = pdesc.text
         item.pprice = pprice.text
+        item.plist = true
         item.pcross = false
         
         if pitem.text == nil{
