@@ -36,7 +36,7 @@ extension List {
     @NSManaged var slcross: NSNumber?
     @NSManaged var slist: NSNumber?
     @NSManaged var tditem: String?
-    @NSManaged var tdcross: String?
+    @NSManaged var tdcross: NSNumber?
     @NSManaged var tddate: String?
     @NSManaged var tddesc: String?
     @NSManaged var tdlist: NSNumber?

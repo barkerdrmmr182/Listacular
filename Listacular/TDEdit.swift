@@ -19,7 +19,7 @@ class TDEdit: UIViewController {
     
     
     
-    var item: TDList? = nil
+    var item: List? = nil
     
     
     
@@ -73,13 +73,14 @@ class TDEdit: UIViewController {
     
     func createitems() {
         
-        let entityDescripition = NSEntityDescription.entityForName("TDList", inManagedObjectContext: moc)
+        let entityDescripition = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
         
-        let item = TDList(entity: entityDescripition!, insertIntoManagedObjectContext: moc)
+        let item = List(entity: entityDescripition!, insertIntoManagedObjectContext: moc)
         
         item.tditem = tditem.text
         item.tddesc = tddesc.text
         item.tdcross = false
+        item.tdlist = true
         
         if tditem.text == nil{
             createitems()

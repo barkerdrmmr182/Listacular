@@ -15,14 +15,15 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
     
     var frc : NSFetchedResultsController = NSFetchedResultsController()
     
-    var selectedItem : TDList?
+    var selectedItem : List?
     
     func itemFetchRequest() -> NSFetchRequest{
         
-        let fetchRequest = NSFetchRequest(entityName: "TDList")
+        let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "tdcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "tditem", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "tdlist", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
+        fetchRequest.predicate = NSPredicate(format:"tdlist == true")
         return fetchRequest
         
     }
@@ -163,13 +164,13 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         //assign delegate
         cell.delegate = self
         
-        let items = frc.objectAtIndexPath(indexPath) as! TDList
+        let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.tditem!)"
         cell.cellLabel.font = UIFont.systemFontOfSize(30)
         
-        if (items.tdcross == true) {
+        if (items.tdcross! == true) {
             cell.accessoryType = .Checkmark
             cell.cellLabel.textColor = UIColor.grayColor()
             cell.cellLabel.font = UIFont.systemFontOfSize(25)
@@ -185,13 +186,16 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let items = frc.objectAtIndexPath(indexPath) as! TDList
+        
+        
+        let items = frc.objectAtIndexPath(indexPath) as! List
         
         if (items.tdcross == true) {
             items.tdcross = false
         } else {
             items.tdcross = true
         }
+
         tableView.reloadData()
     }
     
@@ -208,7 +212,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
     //delegate method
     func cellButtonTapped(cell: TDCell) {
         let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
-        selectedItem = frc.objectAtIndexPath(indexPath) as? TDList
+        selectedItem = frc.objectAtIndexPath(indexPath) as? List
         
         self.performSegueWithIdentifier("editItem", sender: self)
     }
