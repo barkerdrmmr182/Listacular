@@ -225,20 +225,16 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         if (sender.direction == .Left) {
-            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("PantryList")
             let navigationController = UINavigationController(rootViewController: vc)
             self.presentViewController(navigationController, animated: false, completion: nil)
-            
         }
-        
         if (sender.direction == .Right) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("ToDoList")
             let navigationController = UINavigationController(rootViewController: vc)
             self.presentViewController(navigationController, animated: false, completion: nil)
-            
         }
     }
     
@@ -246,7 +242,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     func cellButtonTapped(cell: SLTableViewCell) {
         let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
         selectedItem = frc.objectAtIndexPath(indexPath) as? List
-        
         self.performSegueWithIdentifier("editItem", sender: self)
     }
     
@@ -257,5 +252,4 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             SListController.item = selectedItem
         }
     }
-    
 }
