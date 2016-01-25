@@ -60,7 +60,14 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             print("Failed to perform inital fetch.")
             return
         }
-        self.tableView.reloadData()
+        //Swipe Between Tabs
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        rightSwipe.direction = .Right
+        leftSwipe.direction = .Left
+        view.addGestureRecognizer(rightSwipe)
+        view.addGestureRecognizer(leftSwipe)
+        //end Swipe
         
         //TableView Background Color
         self.tableView.backgroundColor = UIColor.clearColor()
@@ -81,6 +88,8 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         }
         
     }//end "edit" button
+    
+    
     
     override func viewDidDisappear(animated: Bool) {
         
@@ -207,21 +216,26 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             item.pdesc = item.sldesc
             item.pprice = item.slprice
             
+            
         }
-        self.performSegueWithIdentifier("moveToSL", sender: self)
-        
-        frc = getFetchRequetController()
-        frc.delegate = self
-        
-        do {
-            try frc.performFetch()
-        } catch _ {
-            print("Failed to perform inital fetch.")
-            return
-        }
-       
+//        self.performSegueWithIdentifier("moveToSL", sender: self)
     }
     
+    //SwipeFunc
+    func handleSwipes(sender:UISwipeGestureRecognizer) {
+        if (sender.direction == .Right) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("ShoppingList")
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.presentViewController(navigationController, animated: false, completion: nil)
+        }
+        if (sender.direction == .Left) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("ToDoList")
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.presentViewController(navigationController, animated: false, completion: nil)
+        }
+    }//EndSwipeFunc
     
     func cellButtonTapped(cell: PantryCell) {
         let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!

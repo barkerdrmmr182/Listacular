@@ -60,7 +60,15 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             print("Failed to perform inital fetch.")
             return
         }
-        self.tableView.reloadData()
+        
+        //Swipe Between Tabs
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        rightSwipe.direction = .Right
+        leftSwipe.direction = .Left
+        view.addGestureRecognizer(rightSwipe)
+        view.addGestureRecognizer(leftSwipe)
+        //end Swipe
         
         //TableView Background Color
         self.tableView.backgroundColor = UIColor.clearColor()
@@ -116,8 +124,8 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
     //Table Section Headers
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        let sectionHeader = "Items - #\(frc.sections![section].numberOfObjects)"
-        let sectionHeader1 = "Crossed Off Items - #\(frc.sections![section].numberOfObjects)"
+        let sectionHeader = "Items Needed - #\(frc.sections![section].numberOfObjects)"
+        let sectionHeader1 = "Items in Cart - #\(frc.sections![section].numberOfObjects)"
         if (frc.sections!.count > 0) {
             let sectionInfo = frc.sections![section]
             if (sectionInfo.name == "0") { // "0" is the string equivalent of false
@@ -197,22 +205,41 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         tableView.reloadData()
     }
     
-    
-    @IBAction func moveToSC(sender: AnyObject) {
+    @IBAction func moveToPantry(sender: AnyObject) {
         
         let sectionInfo = self.frc.sections![1]
         let objectsToAppend = sectionInfo.objects as! [List]
         for item in objectsToAppend {
-            item.sclist = true
-            item.sccross = false
+            item.plist = true
+            item.pcross = false
             item.slist = false
-            item.scitem = item.slitem
-            item.scqty = item.slqty
-            item.scdesc = item.sldesc
-            item.scprice = item.slprice
+            item.pitem = item.slitem
+            item.pqty = item.slqty
+            item.pdesc = item.sldesc
+            item.pprice = item.slprice
             
         }
-        self.performSegueWithIdentifier("moveToSC", sender: self)
+//        self.performSegueWithIdentifier("moveToPantry", sender: self)
+//        navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func handleSwipes(sender:UISwipeGestureRecognizer) {
+        if (sender.direction == .Left) {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("PantryList")
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.presentViewController(navigationController, animated: false, completion: nil)
+            
+        }
+        
+        if (sender.direction == .Right) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("ToDoList")
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.presentViewController(navigationController, animated: false, completion: nil)
+            
+        }
     }
     
     //delegate method
@@ -228,9 +255,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         if segue.identifier == "editItem" {
             let SListController:SLEdit = segue.destinationViewController as! SLEdit
             SListController.item = selectedItem
-        }
-        if segue.identifier == "moveToSC" {
-            //code needed to segue
         }
     }
     

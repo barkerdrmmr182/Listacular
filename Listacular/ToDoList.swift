@@ -66,7 +66,14 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
             print("Failed to perform inital fetch.")
             return
         }
-        self.tableView.reloadData()
+        //SwipeGesture
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        rightSwipe.direction = .Right
+        leftSwipe.direction = .Left
+        view.addGestureRecognizer(rightSwipe)
+        view.addGestureRecognizer(leftSwipe)
+        //EndSwipe
         
         //TableView Background Color
         self.tableView.backgroundColor = UIColor.clearColor()
@@ -204,6 +211,21 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         super.didReceiveMemoryWarning()
     }
     
+    //SwipeFunc
+    func handleSwipes(sender:UISwipeGestureRecognizer) {
+        if (sender.direction == .Right) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("PantryList")
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.presentViewController(navigationController, animated: false, completion: nil)
+        }
+        if (sender.direction == .Left) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("ShoppingList")
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.presentViewController(navigationController, animated: false, completion: nil)
+        }
+    }//EndSwipeFunc
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()
