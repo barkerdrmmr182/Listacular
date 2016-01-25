@@ -21,7 +21,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "slcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "slist", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "slitem", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
         fetchRequest.predicate = NSPredicate(format:"slist == true")
         return fetchRequest
@@ -169,18 +169,21 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.slitem!) - Qty: \(items.slqty!)"
-        cell.cellLabel.font = UIFont.systemFontOfSize(30)
+        cell.cellLabel.font = UIFont.systemFontOfSize(25)
+        moveToPL.hidden = true
         
         if (items.slcross == true) {
             cell.accessoryType = .Checkmark
             cell.cellLabel.textColor = UIColor.grayColor()
-            cell.cellLabel.font = UIFont.systemFontOfSize(25)
+            cell.cellLabel.font = UIFont.systemFontOfSize(20)
             self.tableView.rowHeight = 50
+            moveToPL.hidden = false
         } else {
             cell.accessoryType = .None
             cell.cellLabel.textColor = UIColor.blackColor()
-            cell.cellLabel.font = UIFont.systemFontOfSize(30)
+            cell.cellLabel.font = UIFont.systemFontOfSize(25)
             self.tableView.rowHeight = 60
+            moveToPL.hidden = true
         }
         return cell
     }
@@ -205,6 +208,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         tableView.reloadData()
     }
     
+    @IBOutlet weak var moveToPL: UIButton!
     @IBAction func moveToPantry(sender: AnyObject) {
         
         let sectionInfo = self.frc.sections![1]
@@ -217,6 +221,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             item.pqty = item.slqty
             item.pdesc = item.sldesc
             item.pprice = item.slprice
+            
             
         }
 //        self.performSegueWithIdentifier("moveToPantry", sender: self)

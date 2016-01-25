@@ -21,7 +21,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         
         let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "pcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "plist", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "pitem", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
         fetchRequest.predicate = NSPredicate(format:"plist == true")
         return fetchRequest
@@ -124,8 +124,8 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     
     //table section headers
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        let sectionHeader = "Items - #\(frc.sections![section].numberOfObjects)"
-        let sectionHeader1 = "Crossed Off Items - #\(frc.sections![section].numberOfObjects)"
+        let sectionHeader = "Pantry Inventory - #\(frc.sections![section].numberOfObjects)"
+        let sectionHeader1 = "Inevtory Needed - #\(frc.sections![section].numberOfObjects)"
         if (frc.sections!.count > 0) {
             let sectionInfo = frc.sections![section]
             if (sectionInfo.name == "0") { // "0" is the string equivalent of false
@@ -168,18 +168,21 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.pitem!) - Qty: \(items.pqty!)"
-        cell.cellLabel.font = UIFont.systemFontOfSize(30)
+        cell.cellLabel.font = UIFont.systemFontOfSize(25)
+        moveToSL.hidden = true
         
         if (items.pcross == true) {
             cell.accessoryType = .Checkmark
             cell.cellLabel.textColor = UIColor.grayColor()
-            cell.cellLabel.font = UIFont.systemFontOfSize(25)
+            cell.cellLabel.font = UIFont.systemFontOfSize(20)
             self.tableView.rowHeight = 50
+            moveToSL.hidden = false
         } else {
             cell.accessoryType = .None
             cell.cellLabel.textColor = UIColor.blackColor()
-            cell.cellLabel.font = UIFont.systemFontOfSize(30)
+            cell.cellLabel.font = UIFont.systemFontOfSize(25)
             self.tableView.rowHeight = 60
+            moveToSL.hidden = true
         }
         return cell
     }
@@ -204,6 +207,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         self.tableView.reloadData()
     }
     
+    @IBOutlet weak var moveToSL: UIButton!
     @IBAction func moveToSL(sender: AnyObject) {
         let sectionInfo = self.frc.sections![1]
         let objectsToAppend = sectionInfo.objects as! [List]
@@ -211,10 +215,10 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             item.slist = true
             item.slcross = false
             item.plist = false
-            item.pitem = item.slitem
-            item.pqty = item.slqty
-            item.pdesc = item.sldesc
-            item.pprice = item.slprice
+            item.slitem = item.pitem
+            item.slqty = item.pqty
+            item.sldesc = item.pdesc
+            item.slprice = item.pprice
             
             
         }
