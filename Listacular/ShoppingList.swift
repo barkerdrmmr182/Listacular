@@ -74,6 +74,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.separatorColor = UIColor.blackColor()
         self.tableView.rowHeight = 60
+        moveToPL.hidden = true
         tableView.reloadData()
         
         //"edit" bar button item

@@ -73,6 +73,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.separatorColor = UIColor.blackColor()
         self.tableView.rowHeight = 60
+        moveToSL.hidden = true
         tableView.reloadData()
         
         //"edit" bar button item
