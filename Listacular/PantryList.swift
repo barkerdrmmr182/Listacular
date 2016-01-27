@@ -232,13 +232,13 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("ShoppingList")
             let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: false, completion: nil)
+            self.presentViewController(navigationController, animated: true, completion: nil)
         }
         if (sender.direction == .Left) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("ToDoList")
             let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: false, completion: nil)
+            self.presentViewController(navigationController, animated: true, completion: nil)
         }
     }//EndSwipeFunc
     

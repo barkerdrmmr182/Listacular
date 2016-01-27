@@ -135,7 +135,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
                 return sectionHeader1
             }
         } else {
-            return nil;
+            return nil
         }
     }
     
@@ -179,6 +179,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             cell.cellLabel.font = UIFont.systemFontOfSize(20)
             self.tableView.rowHeight = 50
             moveToPL.hidden = false
+            
         } else {
             cell.accessoryType = .None
             cell.cellLabel.textColor = UIColor.blackColor()
@@ -222,11 +223,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             item.pqty = item.slqty
             item.pdesc = item.sldesc
             item.pprice = item.slprice
-            
-            
         }
-//        self.performSegueWithIdentifier("moveToPantry", sender: self)
-//        navigationController?.popViewControllerAnimated(true)
     }
     
     func handleSwipes(sender:UISwipeGestureRecognizer) {
@@ -234,13 +231,13 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("PantryList")
             let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: false, completion: nil)
+            self.presentViewController(navigationController, animated: true, completion: nil)
         }
         if (sender.direction == .Right) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("ToDoList")
             let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: false, completion: nil)
+            self.presentViewController(navigationController, animated: true, completion: nil)
         }
     }
     

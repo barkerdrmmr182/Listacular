@@ -51,6 +51,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         self.tableView.reloadData()
         
     }
+    @IBOutlet weak var deleteCompleted: UIButton!
     
     
     
@@ -79,6 +80,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.separatorColor = UIColor.blackColor()
         self.tableView.rowHeight = 60
+        deleteCompleted.hidden = true
         tableView.reloadData()
         
         //"edit" bar button item
@@ -175,18 +177,21 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.tditem!)"
-        cell.cellLabel.font = UIFont.systemFontOfSize(30)
+        cell.cellLabel.font = UIFont.systemFontOfSize(25)
+        deleteCompleted.hidden = true
         
         if (items.tdcross! == true) {
             cell.accessoryType = .Checkmark
             cell.cellLabel.textColor = UIColor.grayColor()
-            cell.cellLabel.font = UIFont.systemFontOfSize(25)
+            cell.cellLabel.font = UIFont.systemFontOfSize(20)
             self.tableView.rowHeight = 50
+            deleteCompleted.hidden = false
         } else {
             cell.accessoryType = .None
             cell.cellLabel.textColor = UIColor.blackColor()
-            cell.cellLabel.font = UIFont.systemFontOfSize(30)
+            cell.cellLabel.font = UIFont.systemFontOfSize(25)
             self.tableView.rowHeight = 60
+            deleteCompleted.hidden = true
         }
         return cell
     }
@@ -217,16 +222,22 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("PantryList")
             let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: false, completion: nil)
+            self.presentViewController(navigationController, animated: true, completion: nil)
         }
         if (sender.direction == .Left) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("ShoppingList")
             let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: false, completion: nil)
+            self.presentViewController(navigationController, animated: true, completion: nil)
         }
     }//EndSwipeFunc
     
+    @IBAction func deleteTasks(sender: AnyObject) {
+/*        let items = frc.objectAtIndexPath(indexPath) as! List
+        if (items.tdcross == true){
+            deleteTasks(self)
+        }*/
+    }
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()
     }

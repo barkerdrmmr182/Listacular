@@ -34,8 +34,6 @@ class PantryItems: UIViewController {
     
     var item: List? = nil
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -99,7 +97,7 @@ class PantryItems: UIViewController {
                 let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
                     "Your inventory of \(pitem.text!) is low.", preferredStyle: UIAlertControllerStyle.Alert)
                 
-                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default,handler: nil))
+                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default, handler: nil))
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction!) in
                     self.dismissVC()}))
                 
