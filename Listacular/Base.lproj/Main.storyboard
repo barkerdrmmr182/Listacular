@@ -1217,7 +1217,6 @@
                     <connections>
                         <segue destination="6jt-39-k37" kind="relationship" relationship="viewControllers" id="Vo4-qD-w0t"/>
                         <segue destination="1ml-QA-1Vm" kind="relationship" relationship="viewControllers" id="QjJ-qx-jLC"/>
-                        <segue destination="IBX-Ib-ohR" kind="relationship" relationship="viewControllers" id="e7e-h0-ACu"/>
                         <segue destination="2dz-Te-KVR" kind="relationship" relationship="viewControllers" id="LvS-Qy-4sg"/>
                     </connections>
                 </tabBarController>
@@ -1317,10 +1316,10 @@
         <image name="skull.png" width="1586" height="1983"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="im9-VL-3T6"/>
-        <segue reference="QHx-KG-wry"/>
+        <segue reference="5u5-He-GKz"/>
+        <segue reference="Xgl-Zy-qFU"/>
         <segue reference="tDU-rC-pwQ"/>
-        <segue reference="up9-xt-UnD"/>
         <segue reference="TQU-aT-vVQ"/>
+        <segue reference="up9-xt-UnD"/>
     </inferredMetricsTieBreakers>
 </document>

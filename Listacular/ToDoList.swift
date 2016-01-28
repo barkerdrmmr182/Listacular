@@ -218,18 +218,14 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
     
     //SwipeFunc
     func handleSwipes(sender:UISwipeGestureRecognizer) {
-        if (sender.direction == .Right) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("PantryList")
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: true, completion: nil)
-        }
         if (sender.direction == .Left) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("ShoppingList")
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: true, completion: nil)
+            self.navigationController!.tabBarController!.selectedIndex = 0
         }
+        if (sender.direction == .Right) {
+            self.navigationController!.tabBarController!.selectedIndex = 1
+        }
+    
+
     }//EndSwipeFunc
     
     @IBAction func deleteTasks(sender: AnyObject) {

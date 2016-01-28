@@ -21,7 +21,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "slcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "slitem", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "slitem", ascending: false)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
         fetchRequest.predicate = NSPredicate(format:"slist == true")
         return fetchRequest
@@ -223,21 +223,17 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             item.pqty = item.slqty
             item.pdesc = item.sldesc
             item.pprice = item.slprice
+            item.pminstepperlabel = item.slminqty
+            
         }
     }
     
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         if (sender.direction == .Left) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("PantryList")
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: true, completion: nil)
+            self.navigationController!.tabBarController!.selectedIndex = 1
         }
         if (sender.direction == .Right) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("ToDoList")
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: true, completion: nil)
+            self.navigationController!.tabBarController!.selectedIndex = 2
         }
     }
     

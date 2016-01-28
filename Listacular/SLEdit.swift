@@ -63,18 +63,31 @@ class SLEdit: UIViewController {
     
     
     @IBAction func saveButton(sender: AnyObject) {
-        
+        if (item?.slminqty == nil) {
         let alert = UIAlertController(title: "Minimun Qty", message: "Please set minimun Qty. for pantry.", preferredStyle: UIAlertControllerStyle.Alert)
         
         alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "Minimun Qty."
             textField.keyboardType = .NumbersAndPunctuation
-            
+            textField.clearButtonMode = UITextFieldViewMode.WhileEditing
         }
-        
-        alert.addAction(UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {saveitem}()))
+            
         alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {saveitem}()))
-        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {saveitem}()))
+           
+            self.presentViewController(alert, animated: true, completion: nil)
+        
+        }else{
+            
+            if item != nil {
+                edititems()
+                print(item!.slminqty!)
+            } else {
+                createitems()
+            }
+            
+            dismissVC()
+        }
     }
     
     func saveitem(sender: AnyObject) {
@@ -86,6 +99,7 @@ class SLEdit: UIViewController {
         } else {
             createitems()
         }
+        print(item?.slminqty)
         
         dismissVC()
     }
@@ -104,6 +118,9 @@ class SLEdit: UIViewController {
         item.slprice = slprice.text
         item.slist = true
         item.slcross = false
+        
+        
+        
         
         if slitem.text == nil{
             createitems()

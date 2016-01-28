@@ -126,7 +126,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     //table section headers
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         let sectionHeader = "Pantry Inventory - #\(frc.sections![section].numberOfObjects)"
-        let sectionHeader1 = "Inevtory Needed - #\(frc.sections![section].numberOfObjects)"
+        let sectionHeader1 = "Inventory Needed - #\(frc.sections![section].numberOfObjects)"
         if (frc.sections!.count > 0) {
             let sectionInfo = frc.sections![section]
             if (sectionInfo.name == "0") { // "0" is the string equivalent of false
@@ -220,6 +220,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             item.slqty = item.pqty
             item.sldesc = item.pdesc
             item.slprice = item.pprice
+            item.slminqty = item.pminstepperlabel
             
             
         }
@@ -229,20 +230,15 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     
     //SwipeFunc
     func handleSwipes(sender:UISwipeGestureRecognizer) {
-        if (sender.direction == .Right) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("ShoppingList")
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: true, completion: nil)
-            
-        }
         if (sender.direction == .Left) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("ToDoList")
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.presentViewController(navigationController, animated: true, completion: nil)
-            
+            self.navigationController!.tabBarController!.selectedIndex = 2
         }
+        if (sender.direction == .Right) {
+            
+            self.navigationController!.tabBarController!.selectedIndex = 0
+        }
+    
+
     }//EndSwipeFunc
     
     func cellButtonTapped(cell: PantryCell) {
