@@ -90,8 +90,6 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         
     }//end "edit" button
     
-    
-    
     override func viewDidDisappear(animated: Bool) {
         
         frc = getFetchRequetController()
@@ -210,7 +208,9 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     
     @IBOutlet weak var moveToSL: UIButton!
     @IBAction func moveToSL(sender: AnyObject) {
+        
         let sectionInfo = self.frc.sections![1]
+              if (sectionInfo.name == "1") {
         let objectsToAppend = sectionInfo.objects as! [List]
         for item in objectsToAppend {
             item.slist = true
@@ -221,12 +221,10 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             item.sldesc = item.pdesc
             item.slprice = item.pprice
             item.slminqty = item.pminstepperlabel
-            
-            
+                }
         }
-//        self.performSegueWithIdentifier("moveToSL", sender: self)
+
     }
-    
     
     //SwipeFunc
     func handleSwipes(sender:UISwipeGestureRecognizer) {
@@ -234,10 +232,8 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             self.navigationController!.tabBarController!.selectedIndex = 2
         }
         if (sender.direction == .Right) {
-            
             self.navigationController!.tabBarController!.selectedIndex = 0
         }
-    
 
     }//EndSwipeFunc
     

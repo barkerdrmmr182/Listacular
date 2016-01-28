@@ -13,7 +13,6 @@ class TDEdit: UIViewController {
     
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    
     @IBOutlet weak var tditem: UITextField!
     @IBOutlet weak var tddesc: UITextField!
     @IBOutlet weak var tddate: UIDatePicker!
@@ -21,10 +20,7 @@ class TDEdit: UIViewController {
     @IBOutlet weak var setDateButton: UIButton!
     @IBOutlet weak var changeDate: UIButton!
     
-    
     var item: List? = nil
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,14 +58,13 @@ class TDEdit: UIViewController {
     override func didReceiveMemoryWarning() {
         
         super.didReceiveMemoryWarning()
-        
     }
     
     func dismissVC() {
         
         navigationController?.popViewControllerAnimated(true)
-        
     }
+    
     @IBAction func changeDate(sender: AnyObject) {
         tddate.hidden = false
         setDateButton.hidden = true
@@ -80,16 +75,12 @@ class TDEdit: UIViewController {
         tddate.hidden = false
     }
     
-    
-    // Dispose of any resources that can be recreated.
     @IBAction func doneBy(sender: AnyObject) {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy hh:mm a"
         let strDate = dateFormatter.stringFromDate(tddate.date)
         self.tdDoneLabel.text = strDate
-        
     }
-    
     
     @IBAction func saveButton(sender: AnyObject) {
         
@@ -99,12 +90,8 @@ class TDEdit: UIViewController {
             createitems()
         }
         
-        
         dismissVC()
-        
     }
-    
-    
     
     func createitems() {
         
@@ -126,20 +113,18 @@ class TDEdit: UIViewController {
             edititems()
         }
         
-        
-        
         do {
             try moc.save()
         } catch _ {
             return
         }
     }
+    
     func edititems() {
         item?.tditem = tditem.text!
         item?.tddesc = tddesc.text!
         item?.tdtime = tdDoneLabel.text!
         item?.tddate = tdDoneLabel.text!
-        
         
         do {
             try moc.save()
@@ -147,7 +132,4 @@ class TDEdit: UIViewController {
             return
         }
     }
-    
-    
-    
 }

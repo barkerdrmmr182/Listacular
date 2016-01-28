@@ -13,16 +13,12 @@ class PLEdit: UIViewController {
 
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    
     @IBOutlet weak var pitem: UITextField!
     @IBOutlet weak var pdesc: UITextField!
     @IBOutlet weak var pqty: UITextField!
     @IBOutlet weak var pprice: UITextField!
     
-    
     var item: List? = nil
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +28,6 @@ class PLEdit: UIViewController {
             pdesc.text = item?.pdesc
             pqty.text = item?.pqty
             pprice.text = item?.pprice
-            
-            
         }
         
         // "x" Delete Feature
@@ -57,7 +51,6 @@ class PLEdit: UIViewController {
     func dismissVC() {
         
         navigationController?.popViewControllerAnimated(true)
-        
     }
     
     
@@ -72,12 +65,8 @@ class PLEdit: UIViewController {
             createitems()
         }
         
-        
         dismissVC()
-        
     }
-    
-    
     
     func createitems() {
         
@@ -99,14 +88,13 @@ class PLEdit: UIViewController {
             edititems()
         }
         
-        
-        
         do {
             try moc.save()
         } catch _ {
             return
         }
     }
+    
     func edititems() {
         item?.pitem = pitem.text!
         item?.pqty = pqty.text!
@@ -120,7 +108,4 @@ class PLEdit: UIViewController {
             return
         }
     }
-    
-    
-    
 }

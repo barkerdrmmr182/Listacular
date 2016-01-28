@@ -14,17 +14,11 @@ protocol PantryCellDelegate {
 
 class PantryCell: UITableViewCell {
     
-    
-   
-        
         //delegate variable
         var delegate: PantryCellDelegate?
         
         @IBOutlet weak var button: UIButton!
         @IBOutlet weak var cellLabel: UILabel!
-        
-        
-        
         
         override func awakeFromNib() {
             super.awakeFromNib()

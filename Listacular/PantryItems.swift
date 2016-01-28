@@ -13,7 +13,6 @@ class PantryItems: UIViewController {
 
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    
     @IBOutlet weak var pitem: UILabel!
     @IBOutlet weak var pdesc: UILabel!
     @IBOutlet weak var pqty: UILabel!
@@ -31,7 +30,6 @@ class PantryItems: UIViewController {
         qtyStepperLabel.text = Int(sender.value).description
     }
     
-    
     var item: List? = nil
     
     override func viewDidLoad() {
@@ -45,9 +43,6 @@ class PantryItems: UIViewController {
             qtyStepperLabel.text = item?.pqty
             minStepperLabel.text = item?.pminstepperlabel
             
-            
-            
-            
         }
         let myDouble = Double(pqty.text!)
         qtyStepper.value = myDouble!
@@ -55,8 +50,6 @@ class PantryItems: UIViewController {
         qtyStepper.wraps = false
         qtyStepper.autorepeat = true
         qtyStepper.maximumValue = 100
-        
-        
         
         if minStepperLabel.text == nil {
             minStepper.value = 1
@@ -84,10 +77,6 @@ class PantryItems: UIViewController {
         navigationController?.popViewControllerAnimated(true)
         
     }
-    
-    
-    // Dispose of any resources that can be recreated.
-    
     
     @IBAction func saveButton(sender: AnyObject) {
         
@@ -122,7 +111,6 @@ class PantryItems: UIViewController {
         dismissVC()
         
     }
-        
     
     func createitems() {
         
@@ -138,8 +126,6 @@ class PantryItems: UIViewController {
         item.pminstepperlabel = minStepperLabel.text
         item.pminsteppervalue = minStepper.value
         
-        
-        
         if pitem.text == nil{
             createitems()
             
@@ -147,14 +133,13 @@ class PantryItems: UIViewController {
             edititems()
         }
         
-        
-        
         do {
             try moc.save()
         } catch _ {
             return
         }
     }
+    
     func edititems() {
         item?.pitem = pitem.text!
         item?.pqty = pqty.text!
@@ -164,12 +149,10 @@ class PantryItems: UIViewController {
         item?.pminstepperlabel = minStepperLabel.text!
         item?.pminsteppervalue = minStepper.value
         
-        
-        
         do {
             try moc.save()
         } catch {
             return
         }
-}
+    }
 }

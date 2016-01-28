@@ -20,9 +20,6 @@ class TDCell: UITableViewCell {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var cellLabel: UILabel!
     
-    
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

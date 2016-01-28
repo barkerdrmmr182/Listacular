@@ -58,10 +58,6 @@ class SLEdit: UIViewController {
         
     }
     
-    
-    // Dispose of any resources that can be recreated.
-    
-    
     @IBAction func saveButton(sender: AnyObject) {
         if (item?.slminqty == nil) {
         let alert = UIAlertController(title: "Minimun Qty", message: "Please set minimun Qty. for pantry.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -92,7 +88,6 @@ class SLEdit: UIViewController {
     
     func saveitem(sender: AnyObject) {
         
-    
         if item != nil {
             edititems()
             
@@ -103,8 +98,6 @@ class SLEdit: UIViewController {
         
         dismissVC()
     }
-    
-    
     
     func createitems() {
         
@@ -118,10 +111,7 @@ class SLEdit: UIViewController {
         item.slprice = slprice.text
         item.slist = true
         item.slcross = false
-        
-        
-        
-        
+                
         if slitem.text == nil{
             createitems()
             

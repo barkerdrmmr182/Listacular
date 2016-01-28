@@ -25,14 +25,12 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
         fetchRequest.predicate = NSPredicate(format:"tdlist == true")
         return fetchRequest
-        
     }
     
     func getFetchRequetController() ->NSFetchedResultsController{
         
         frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "tdcross", cacheName: nil)
         return frc
-        
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -49,11 +47,8 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
             return
         }
         self.tableView.reloadData()
-        
     }
     @IBOutlet weak var deleteCompleted: UIButton!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +94,6 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
     
     override func viewDidDisappear(animated: Bool) {
         
-        
         frc = getFetchRequetController()
         frc.delegate = self
         
@@ -123,7 +117,6 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
             return
         }
     }
-    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         let numberOfSections = frc.sections?.count
@@ -161,7 +154,6 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         
     }
 
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfRowsInSection = frc.sections?[section].numberOfObjects
         return numberOfRowsInSection!
@@ -211,7 +203,6 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         tableView.reloadData()
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -224,7 +215,6 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         if (sender.direction == .Right) {
             self.navigationController!.tabBarController!.selectedIndex = 1
         }
-    
 
     }//EndSwipeFunc
     
