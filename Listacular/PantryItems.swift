@@ -91,19 +91,30 @@ class PantryItems: UIViewController {
     
     @IBAction func saveButton(sender: AnyObject) {
         
-        if item != nil {
-            edititems()
             if qtyStepper.value <= minStepper.value{
+                
                 let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
                     "Your inventory of \(pitem.text!) is low.", preferredStyle: UIAlertControllerStyle.Alert)
                 
-                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default, handler: nil))
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction!) in
-                    self.dismissVC()}))
+                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default, handler: {saveitem}()))
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: {saveitem}()))
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
-            }
-
+            }else{
+                    if item != nil {
+                        edititems()
+                    } else {
+                        createitems()
+                    }
+                    
+                    dismissVC()
+                }
+    }
+    
+        func saveitem(sender: AnyObject){
+        
+            if item != nil {
+                edititems()
         } else {
             createitems()
         }
@@ -111,6 +122,7 @@ class PantryItems: UIViewController {
         dismissVC()
         
     }
+        
     
     func createitems() {
         

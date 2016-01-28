@@ -226,6 +226,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
 //        self.performSegueWithIdentifier("moveToSL", sender: self)
     }
     
+    
     //SwipeFunc
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         if (sender.direction == .Right) {
@@ -233,12 +234,14 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             let vc = storyboard.instantiateViewControllerWithIdentifier("ShoppingList")
             let navigationController = UINavigationController(rootViewController: vc)
             self.presentViewController(navigationController, animated: true, completion: nil)
+            
         }
         if (sender.direction == .Left) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("ToDoList")
             let navigationController = UINavigationController(rootViewController: vc)
             self.presentViewController(navigationController, animated: true, completion: nil)
+            
         }
     }//EndSwipeFunc
     

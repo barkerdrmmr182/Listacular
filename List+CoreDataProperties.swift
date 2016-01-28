@@ -2,7 +2,7 @@
 //  List+CoreDataProperties.swift
 //  Listacular
 //
-//  Created by Will Zimmer on 1/24/16.
+//  Created by Will Zimmer on 1/27/16.
 //  Copyright © 2016 Will Zimmer. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,32 +14,33 @@ import CoreData
 
 extension List {
 
-    @NSManaged var pminstepperlabel: String?
-    @NSManaged var pminsteppervalue: NSNumber?
     @NSManaged var pcross: NSNumber?
     @NSManaged var pdesc: String?
     @NSManaged var pitem: String?
+    @NSManaged var plist: NSNumber?
+    @NSManaged var pminstepperlabel: String?
+    @NSManaged var pminsteppervalue: NSNumber?
     @NSManaged var pprice: String?
     @NSManaged var pqty: String?
     @NSManaged var pqtystepperlabel: String?
-    @NSManaged var plist: NSNumber?
-    @NSManaged var scqty: String?
-    @NSManaged var scdesc: String?
-    @NSManaged var scprice: String?
-    @NSManaged var scitem: String?
     @NSManaged var sccross: NSNumber?
+    @NSManaged var scdesc: String?
+    @NSManaged var scitem: String?
     @NSManaged var sclist: NSNumber?
+    @NSManaged var scprice: String?
+    @NSManaged var scqty: String?
+    @NSManaged var slcross: NSNumber?
     @NSManaged var sldesc: String?
+    @NSManaged var slist: NSNumber?
+    @NSManaged var slitem: String?
     @NSManaged var slprice: String?
     @NSManaged var slqty: String?
-    @NSManaged var slitem: String?
-    @NSManaged var slcross: NSNumber?
-    @NSManaged var slist: NSNumber?
-    @NSManaged var tditem: String?
     @NSManaged var tdcross: NSNumber?
     @NSManaged var tddate: String?
     @NSManaged var tddesc: String?
+    @NSManaged var tditem: String?
     @NSManaged var tdlist: NSNumber?
     @NSManaged var tdtime: String?
+    @NSManaged var slminqty: String?
 
 }

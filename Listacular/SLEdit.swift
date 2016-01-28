@@ -64,8 +64,25 @@ class SLEdit: UIViewController {
     
     @IBAction func saveButton(sender: AnyObject) {
         
+        let alert = UIAlertController(title: "Minimun Qty", message: "Please set minimun Qty. for pantry.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.placeholder = "Minimun Qty."
+            textField.keyboardType = .NumbersAndPunctuation
+            
+        }
+        
+        alert.addAction(UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {saveitem}()))
+        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {saveitem}()))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func saveitem(sender: AnyObject) {
+        
+    
         if item != nil {
             edititems()
+            
         } else {
             createitems()
         }
