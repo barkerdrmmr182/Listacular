@@ -38,14 +38,21 @@ class SLEdit: UIViewController {
         self.sldesc.clearButtonMode = UITextFieldViewMode.WhileEditing
         self.slqty.clearButtonMode = UITextFieldViewMode.WhileEditing
         self.slprice.clearButtonMode = UITextFieldViewMode.WhileEditing
+		let observerBlock: (NSNotification) -> Void = { [unowned self] (notification) in
+			self.btnSave.enabled = self.formIsValid
 
-		slitem.delegate  = self
-		sldesc.delegate  = self
-		slqty.delegate   = self
-		slprice.delegate = self
+		}
+
+		NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slitem, queue: NSOperationQueue.mainQueue(), usingBlock: observerBlock)
+		NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.sldesc, queue: NSOperationQueue.mainQueue(), usingBlock: observerBlock)
+		NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slqty, queue: NSOperationQueue.mainQueue(), usingBlock: observerBlock)
+		NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slprice, queue: NSOperationQueue.mainQueue(), usingBlock: observerBlock)
+
 		// validate the form and apply it to save butotn.
 		btnSave.enabled = formIsValid
     }
+
+	
 	func updateUIFromItem() {
 		if let item = self.item {
 			slitem.text  = item.slitem
@@ -242,17 +249,5 @@ class SLEdit: UIViewController {
     
     
 }
-extension SLEdit : UITextFieldDelegate {
-	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		// check for tha form validation and apply it for the save button.
-//		btnSave.enabled = formIsValid
-		return true
-	}
-	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		return formIsValid
-	}
-	func textFieldDidEndEditing(textField: UITextField) {
-		btnSave.enabled = formIsValid
-	}
-}
+
 
