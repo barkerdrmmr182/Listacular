@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SLEdit: UIViewController {
+class SLEdit: UIViewController, UITextFieldDelegate {
 
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
@@ -41,11 +41,6 @@ class SLEdit: UIViewController {
         self.slprice.clearButtonMode = UITextFieldViewMode.WhileEditing
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
-        view.endEditing(true)
-        super.touchesBegan(touches, withEvent: event)
-    }
-    
     override func didReceiveMemoryWarning() {
         
         super.didReceiveMemoryWarning()
@@ -60,37 +55,40 @@ class SLEdit: UIViewController {
     
     @IBAction func saveButton(sender: AnyObject) {
         if (item?.slminqty == nil) {
-        let alert = UIAlertController(title: "Minimun Qty", message: "Please set minimun Qty. for pantry.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Minimun Qty.", message: "Please set minimun qty. for pantry.", preferredStyle: UIAlertControllerStyle.Alert)
         
-        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            alert.addTextFieldWithConfigurationHandler { (textField: UITextField!) -> Void in
             textField.placeholder = "Minimun Qty."
             textField.keyboardType = .NumbersAndPunctuation
             textField.clearButtonMode = UITextFieldViewMode.WhileEditing
         }
             
         alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: {saveitem}()))
-        alert.addAction(UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {saveitem}()))
-           
+        alert.addAction(UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {(action) -> Void in
+            let textField = alert.textFields!.first as UITextField?
+            self.item?.slminqty = textField?.text
+            
+            self.saveitem(self)}))
+            
             self.presentViewController(alert, animated: true, completion: nil)
-        
+    
         }else{
             
             if item != nil {
                 edititems()
-                print(item!.slminqty!)
             } else {
                 createitems()
             }
+            print(item?.slminqty)
             
             dismissVC()
         }
-    }
+        }
     
     func saveitem(sender: AnyObject) {
         
         if item != nil {
             edititems()
-            
         } else {
             createitems()
         }

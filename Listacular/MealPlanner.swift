@@ -1,35 +1,39 @@
 //
-//  ShoppingList.swift
+//  MealPlanner.swift
 //  Listacular
 //
-//  Created by Will Zimmer on 12/10/15.
-//  Copyright © 2015 Will Zimmer. All rights reserved.
+//  Created by Will Zimmer on 1/31/16.
+//  Copyright © 2016 Will Zimmer. All rights reserved.
 //
 
 import UIKit
 import CoreData
+import EventKit
+import EventKitUI
 
-class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, SLTableCellDelegate {
-    
+class MealPlanner: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var frc : NSFetchedResultsController = NSFetchedResultsController()
     
-    var selectedItem : List?
+//    var selectedItem : List?
+    
+    var events: AnyObject = []
     
     func itemFetchRequest() -> NSFetchRequest{
         
         let fetchRequest = NSFetchRequest(entityName: "List")
-        let primarySortDescription = NSSortDescriptor(key: "slcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "slitem", ascending: false)
-        fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
-        fetchRequest.predicate = NSPredicate(format:"slist == true")
+        let primarySortDescription = NSSortDescriptor(key: "mpitem", ascending: true)
+//        let secondarySortDescription = NSSortDescriptor(key: "mpitem", ascending: true)
+        fetchRequest.sortDescriptors = [primarySortDescription]
+        fetchRequest.predicate = NSPredicate(format:"mplist == true")
         return fetchRequest
     }
     
     func getFetchRequetController() ->NSFetchedResultsController{
         
-        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "slcross", cacheName: nil)
+        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "mpitem", cacheName: nil)
         return frc
     }
     
@@ -74,7 +78,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.separatorColor = UIColor.blackColor()
         self.tableView.rowHeight = 60
-        moveToPL.hidden = true
         tableView.reloadData()
         
         //"edit" bar button item
@@ -106,6 +109,70 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         self.tableView.reloadData()
     }
     
+    override func viewDidAppear(animated: Bool) {
+       
+        //Calendar
+        let eventStore = EKEventStore()
+        
+        switch EKEventStore.authorizationStatusForEntityType(.Event) {
+        case .Authorized:
+            readEvents()
+        case .Denied:
+            print("Access denied")
+        case .NotDetermined:
+            
+            eventStore.requestAccessToEntityType(.Event, completion: { (granted: Bool, NSError) -> Void in
+                if granted {
+                    self.readEvents()
+                    
+                }else{
+                    print("Access denied")
+                }
+                
+                
+                
+            })
+        default:
+            print("Case Default")
+        }
+        self.tableView.reloadData()
+    }
+    
+    func readEvents() {
+        
+        var titles : [String] = []
+        var startDates : [NSDate] = []
+        var endDates : [NSDate] = []
+        
+        let eventStore = EKEventStore()
+        let calendars = eventStore.calendarsForEntityType(.Event)
+        
+        for calendar in calendars {
+            if calendar.source.title == "Calendar" {
+                let oneMonthAgo = NSDate(timeIntervalSinceNow: -30*24*3600)
+                let oneMonthAfter = NSDate(timeIntervalSinceNow: +30*24*3600)
+                
+                
+                let predicate = eventStore.predicateForEventsWithStartDate(oneMonthAgo, endDate: oneMonthAfter, calendars: [calendar])
+                
+                let events = eventStore.eventsMatchingPredicate(predicate)
+                
+                for event in events {
+//                    item.mplist = true
+                    titles.append(event.title)
+                    startDates.append(event.startDate)
+                    endDates.append(event.endDate)
+                    
+                    
+                }
+                
+            }
+        }
+    }//End Caledar
+
+
+
+
     //tableView Data
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let managedObject:NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
@@ -164,28 +231,28 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SLTableViewCell
         
         //assign delegate
-        cell.delegate = self
+//        cell.delegate = self
         
         let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
-        cell.cellLabel.text = "\(items.slitem!) - Qty: \(items.slqty!)"
-        cell.cellLabel.font = UIFont.systemFontOfSize(25)
-        moveToPL.hidden = true
+        cell.textLabel!.text = "\(self.events.title!)"
+        cell.textLabel!.font = UIFont.systemFontOfSize(25)
+       
         
         if (items.slcross == true) {
             cell.accessoryType = .Checkmark
             cell.cellLabel.textColor = UIColor.grayColor()
             cell.cellLabel.font = UIFont.systemFontOfSize(20)
             self.tableView.rowHeight = 50
-            moveToPL.hidden = false
+            
             
         } else {
             cell.accessoryType = .None
             cell.cellLabel.textColor = UIColor.blackColor()
             cell.cellLabel.font = UIFont.systemFontOfSize(25)
             self.tableView.rowHeight = 60
-            moveToPL.hidden = true
+            
         }
         return cell
     }
@@ -210,39 +277,17 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         tableView.reloadData()
     }
     
-    @IBOutlet weak var moveToPL: UIButton!
-    @IBAction func moveToPantry(sender: AnyObject) {
-        
-        let sectionInfo = self.frc.sections![1]
-        let objectsToAppend = sectionInfo.objects as! [List]
-        for item in objectsToAppend {
-            item.plist = true
-            item.pcross = false
-            item.slist = false
-            item.pitem = item.slitem
-            item.pqty = item.slqty
-            item.pdesc = item.sldesc
-            item.pprice = item.slprice
-            
-            let myDouble = Double(item.slminqty!)
-            let qtystepper = myDouble
-            item.pminsteppervalue = qtystepper
-            
-            item.pminstepperlabel = item.slminqty
-            
-        }
-    }
     
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         if (sender.direction == .Left) {
-            self.navigationController!.tabBarController!.selectedIndex = 1
+            self.navigationController!.tabBarController!.selectedIndex = 3
         }
         if (sender.direction == .Right) {
-            self.navigationController!.tabBarController!.selectedIndex = 3
+            self.navigationController!.tabBarController!.selectedIndex = 1
         }
     }
     
-    //delegate method
+/*    //delegate method
     func cellButtonTapped(cell: SLTableViewCell) {
         let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
         selectedItem = frc.objectAtIndexPath(indexPath) as? List
@@ -255,5 +300,5 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             let SListController:SLEdit = segue.destinationViewController as! SLEdit
             SListController.item = selectedItem
         }
-    }
+    }*/
 }

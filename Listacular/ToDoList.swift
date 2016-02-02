@@ -76,6 +76,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         self.tableView.separatorColor = UIColor.blackColor()
         self.tableView.rowHeight = 60
         deleteCompleted.hidden = true
+        self.tableView.allowsMultipleSelection = true
         tableView.reloadData()
         
         //"edit" bar button item
@@ -213,17 +214,20 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
             self.navigationController!.tabBarController!.selectedIndex = 0
         }
         if (sender.direction == .Right) {
-            self.navigationController!.tabBarController!.selectedIndex = 1
+            self.navigationController!.tabBarController!.selectedIndex = 2
         }
 
     }//EndSwipeFunc
     
     @IBAction func deleteTasks(sender: AnyObject) {
-/*        let items = frc.objectAtIndexPath(indexPath) as! List
-        if (items.tdcross == true){
-            deleteTasks(self)
-        }*/
+        let indexPath = NSIndexPath()
+        let items = frc.objectAtIndexPath(indexPath) as! List
+        
+        if items.tdcross == true {
+           //still need to delete section
+        }
     }
+    
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()
     }

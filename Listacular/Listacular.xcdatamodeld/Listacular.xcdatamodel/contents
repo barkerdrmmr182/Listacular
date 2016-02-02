@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
     <entity name="List" representedClassName=".List" syncable="YES">
+        <attribute name="mpitem" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mplist" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="pcross" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="pdesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pitem" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,6 +12,11 @@
         <attribute name="pprice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pqty" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pqtystepperlabel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rcross" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="rdirections" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ringredients" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ritem" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rlist" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sccross" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="scdesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="scitem" optional="YES" attributeType="String" syncable="YES"/>
@@ -31,6 +38,6 @@
         <attribute name="tdtime" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="List" positionX="-36" positionY="45" width="128" height="465"/>
+        <element name="List" positionX="-36" positionY="45" width="128" height="570"/>
     </elements>
 </model>

@@ -2,7 +2,7 @@
 //  List+CoreDataProperties.swift
 //  Listacular
 //
-//  Created by Will Zimmer on 1/27/16.
+//  Created by Will Zimmer on 1/31/16.
 //  Copyright © 2016 Will Zimmer. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,6 +14,8 @@ import CoreData
 
 extension List {
 
+    @NSManaged var mpitem: String?
+    @NSManaged var mplist: NSNumber?
     @NSManaged var pcross: NSNumber?
     @NSManaged var pdesc: String?
     @NSManaged var pitem: String?
@@ -33,6 +35,7 @@ extension List {
     @NSManaged var sldesc: String?
     @NSManaged var slist: NSNumber?
     @NSManaged var slitem: String?
+    @NSManaged var slminqty: String?
     @NSManaged var slprice: String?
     @NSManaged var slqty: String?
     @NSManaged var tdcross: NSNumber?
@@ -41,6 +44,10 @@ extension List {
     @NSManaged var tditem: String?
     @NSManaged var tdlist: NSNumber?
     @NSManaged var tdtime: String?
-    @NSManaged var slminqty: String?
+    @NSManaged var rlist: NSNumber?
+    @NSManaged var ritem: String?
+    @NSManaged var ringredients: String?
+    @NSManaged var rdirections: String?
+    @NSManaged var rcross: NSNumber?
 
 }

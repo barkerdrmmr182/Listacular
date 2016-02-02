@@ -34,7 +34,7 @@ class PantryItems: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(item!.pminsteppervalue!)
         if item != nil{
             pitem.text = item?.pitem
             pdesc.text = item?.pdesc
@@ -85,8 +85,9 @@ class PantryItems: UIViewController {
                 let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
                     "Your inventory of \(pitem.text!) is low.", preferredStyle: UIAlertControllerStyle.Alert)
                 
-                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default, handler: {saveitem}()))
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: {saveitem}()))
+                alertController.addAction(UIAlertAction(title: "Add to Shopping List", style: UIAlertActionStyle.Default, handler: {saveitem}()))
+                
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
             }else{
