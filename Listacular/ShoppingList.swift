@@ -91,21 +91,32 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
     }//end edit button
     
-    
-    override func viewDidDisappear(animated: Bool) {
-        
-        frc = getFetchRequetController()
-        frc.delegate = self
-        
-        do {
-            try frc.performFetch()
-        } catch _ {
-            print("Failed to perform inital fetch.")
-            return
-        }
-        self.tableView.reloadData()
-    }
-    
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		// fetch before view appears. to reftech when coming back for add/edit.
+		do {
+			try frc.performFetch()
+		} catch _ {
+			print("Failed to perform inital fetch.")
+			return
+		}
+		tableView.reloadData()
+
+	}
+//    override func viewDidDisappear(animated: Bool) {
+//        
+//        frc = getFetchRequetController()
+//        frc.delegate = self
+//        
+//        do {
+//            try frc.performFetch()
+//        } catch _ {
+//            print("Failed to perform inital fetch.")
+//            return
+//        }
+//        self.tableView.reloadData()
+//    }
+
     //tableView Data
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let managedObject:NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
