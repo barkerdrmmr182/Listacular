@@ -26,6 +26,7 @@ class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate
         //Get Meals From Calendar
         let eventStore = EKEventStore()
         
+        
         switch EKEventStore.authorizationStatusForEntityType(.Event) {
         case .Authorized:
             readEvents()
@@ -110,7 +111,7 @@ class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         
-        let pastMeals = "Past Meals"
+        let pastMeals = "Meals"
         
         return pastMeals
     }
@@ -136,7 +137,7 @@ class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate
     //Segue when Row Selected.
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        self.performSegueWithIdentifier("mealData", sender: self)
+        self.performSegueWithIdentifier("mealRecipe", sender: self)
         
     }
     //Configure Cell
@@ -163,9 +164,13 @@ class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     /*segue to add/edit
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if segue.identifier == "mealData" {
-            let indexPath = tableView.indexPathForSelectedRow
+        if segue.identifier == "mealRecipe" {
             
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPathForCell(cell)
+            let MPListController:MealRecipe = segue.destinationViewController as! MealRecipe
+            let items:List = frc.objectAtIndexPath(indexPath!) as! List
+            MPListController.item = items
         }
     }*/
 }

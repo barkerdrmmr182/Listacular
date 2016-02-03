@@ -49,6 +49,7 @@
 		7A6170C81C196A6900A6F263 /* SCEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C71C196A6900A6F263 /* SCEdit.swift */; };
 		7A6170CA1C196A7A00A6F263 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6170C91C196A7A00A6F263 /* ToDoList.swift */; };
 		7A6814D51C5EBE7A00724C64 /* MealPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6814D41C5EBE7A00724C64 /* MealPlanner.swift */; };
+		7A6D93841C60B70F0060B90B /* MealRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D93831C60B70F0060B90B /* MealRecipe.swift */; };
 		7A802F731C558DD0001FDE51 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A802F711C558DD0001FDE51 /* List.swift */; };
 		7A8D4DAF1C49525A00A2030A /* TDEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8D4DAE1C49525A00A2030A /* TDEdit.swift */; };
 		7A9443D31C198FE7000CC8E7 /* edit pen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9443D21C198FE7000CC8E7 /* edit pen.png */; };
@@ -121,6 +122,7 @@
 		7A6170C71C196A6900A6F263 /* SCEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCEdit.swift; sourceTree = "<group>"; };
 		7A6170C91C196A7A00A6F263 /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
 		7A6814D41C5EBE7A00724C64 /* MealPlanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealPlanner.swift; sourceTree = "<group>"; };
+		7A6D93831C60B70F0060B90B /* MealRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealRecipe.swift; sourceTree = "<group>"; };
 		7A802F711C558DD0001FDE51 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		7A8D4DAE1C49525A00A2030A /* TDEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDEdit.swift; sourceTree = "<group>"; };
 		7A9443D21C198FE7000CC8E7 /* edit pen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit pen.png"; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				7A32D9DD1C26FDED00BCEE0B /* PantryItems.swift */,
 				7A6814D41C5EBE7A00724C64 /* MealPlanner.swift */,
 				7AC569F01C607BF500DDCF77 /* MealPlanner1.swift */,
+				7A6D93831C60B70F0060B90B /* MealRecipe.swift */,
 				7A6170C51C196A5600A6F263 /* SCart.swift */,
 				7A6170C71C196A6900A6F263 /* SCEdit.swift */,
 				7A0A5F3D1C49237D00295D1D /* SCartCell.swift */,
@@ -416,6 +419,7 @@
 				7A6170C41C196A4400A6F263 /* PLEdit.swift in Sources */,
 				7A32D9DE1C26FDED00BCEE0B /* PantryItems.swift in Sources */,
 				7A6170691C195E1100A6F263 /* SLEdit.swift in Sources */,
+				7A6D93841C60B70F0060B90B /* MealRecipe.swift in Sources */,
 				7A6170671C195E1100A6F263 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
