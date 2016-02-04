@@ -107,7 +107,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         self.tableView.reloadData()
     }
     
-    //TableView Data
+    // MARK: - TableView Data
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let managedObject:NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
         moc.deleteObject(managedObject)

@@ -3,6 +3,7 @@
     <entity name="List" representedClassName=".List" syncable="YES">
         <attribute name="mpitem" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mplist" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="pcategory" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pcross" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="pdesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pitem" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,6 +13,7 @@
         <attribute name="pprice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pqty" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pqtystepperlabel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="psuffix" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rcross" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="rdirections" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ringredients" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,6 +25,7 @@
         <attribute name="sclist" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="scprice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="scqty" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="slcategory" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slcross" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sldesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slist" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -30,6 +33,7 @@
         <attribute name="slminqty" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slprice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slqty" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="slsuffix" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tdcross" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="tddate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tddesc" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,6 +42,6 @@
         <attribute name="tdtime" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="List" positionX="-36" positionY="45" width="128" height="570"/>
+        <element name="List" positionX="-36" positionY="45" width="128" height="630"/>
     </elements>
 </model>

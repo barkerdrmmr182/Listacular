@@ -209,8 +209,8 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     @IBOutlet weak var moveToSL: UIButton!
     @IBAction func moveToSL(sender: AnyObject) {
         
-        let sectionInfo = self.frc.sections![1]
-              if (sectionInfo.name == "1") {
+        let sectionInfo = self.frc.sections![self.frc.sections!.count - 1]
+        
         let objectsToAppend = sectionInfo.objects as! [List]
         for item in objectsToAppend {
             item.slist = true
@@ -221,8 +221,12 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             item.sldesc = item.pdesc
             item.slprice = item.pprice
             item.slminqty = item.pminstepperlabel
+            item.slcategory = item.pcategory
+            item.slsuffix = item.psuffix
+            
+            moveToSL.hidden = true
                 }
-        }
+        
 
     }
     

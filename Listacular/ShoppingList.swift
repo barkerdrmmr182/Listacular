@@ -46,7 +46,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             return
         }
         self.tableView.reloadData()
-    }
+    }//End AddNew
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +79,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         //"edit" bar button item
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
-    }
+    }//End viewDidLoad
     
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
@@ -189,6 +189,12 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             cell.cellLabel.textColor = UIColor.grayColor()
             cell.cellLabel.font = UIFont.systemFontOfSize(20)
             self.tableView.rowHeight = 50
+            
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: cell.cellLabel.text!)
+            attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
+            
+            cell.cellLabel.attributedText = attributeString
+            
             moveToPL.hidden = false
             
         } else {
@@ -224,16 +230,20 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     @IBOutlet weak var moveToPL: UIButton!
     @IBAction func moveToPantry(sender: AnyObject) {
         
-        let sectionInfo = self.frc.sections![1]
+        let sectionInfo = self.frc.sections![self.frc.sections!.count - 1]
+        
         let objectsToAppend = sectionInfo.objects as! [List]
         for item in objectsToAppend {
             item.plist = true
             item.pcross = false
             item.slist = false
             item.pitem = item.slitem
-            item.pqty = item.slqty
+            
             item.pdesc = item.sldesc
             item.pprice = item.slprice
+            item.pcategory = item.slcategory
+            item.psuffix = item.slsuffix
+            
             
             let myDouble = Double(item.slminqty!)
             let qtystepper = myDouble
@@ -241,6 +251,30 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             
             item.pminstepperlabel = item.slminqty
             
+            moveToPL.hidden = true
+            
+        //Handle qty discrepancies
+            if (item.pqty == nil){
+                item.pqty = item.slqty
+            }
+
+            if (item.slqty != item.pqty) {
+            
+                let stringNumber1 = item.slqty
+                let stringNumber2 = item.pqty
+                let numberFromString1 = Int(stringNumber1!)
+                let numberFromString2 = Int(stringNumber2!)
+                
+                let sum = (numberFromString2)! + (numberFromString1)!
+                print(sum)
+                let myInt:Int = sum
+                let myString:String = String(myInt)
+                item.pqty = myString
+                
+                            }else{
+                
+                item.pqty = item.slqty
+        }
         }
     }
     

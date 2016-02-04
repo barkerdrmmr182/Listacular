@@ -19,11 +19,12 @@ class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate
     var endDates : [NSDate] = []
     
     
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Get Meals From Calendar
+        //Get Permission From Calendar
         let eventStore = EKEventStore()
         
         
@@ -52,7 +53,7 @@ class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
     
     
-    
+    //Get Meals Events From Calendar
     func readEvents() {
         
         let eventStore = EKEventStore()

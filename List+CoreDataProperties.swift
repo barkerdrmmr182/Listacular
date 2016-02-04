@@ -17,6 +17,7 @@ extension List {
     @NSManaged var mpitem: String?
     @NSManaged var mplist: NSNumber?
     @NSManaged var pcross: NSNumber?
+    @NSManaged var pcategory: String?
     @NSManaged var pdesc: String?
     @NSManaged var pitem: String?
     @NSManaged var plist: NSNumber?
@@ -25,6 +26,7 @@ extension List {
     @NSManaged var pprice: String?
     @NSManaged var pqty: String?
     @NSManaged var pqtystepperlabel: String?
+    @NSManaged var psuffix: String?
     @NSManaged var sccross: NSNumber?
     @NSManaged var scdesc: String?
     @NSManaged var scitem: String?
@@ -32,12 +34,14 @@ extension List {
     @NSManaged var scprice: String?
     @NSManaged var scqty: String?
     @NSManaged var slcross: NSNumber?
+    @NSManaged var slcategory: String?
     @NSManaged var sldesc: String?
     @NSManaged var slist: NSNumber?
     @NSManaged var slitem: String?
     @NSManaged var slminqty: String?
     @NSManaged var slprice: String?
     @NSManaged var slqty: String?
+    @NSManaged var slsuffix: String?
     @NSManaged var tdcross: NSNumber?
     @NSManaged var tddate: String?
     @NSManaged var tddesc: String?

@@ -18,12 +18,20 @@ class SLEdit: UIViewController {
     @IBOutlet weak var sldesc: UITextField!
     @IBOutlet weak var slqty: UITextField!
     @IBOutlet weak var slprice: UITextField!
+    @IBOutlet weak var slsuffix: UITextField!
+    @IBOutlet weak var slcategory: UITextField!
     
 	@IBOutlet weak var btnSave: UIBarButtonItem!
 
 
     var item: List? = nil
     
+    var slitemObserver: NSObjectProtocol!
+    var slpriceObserver: NSObjectProtocol!
+    var slqtyObserver: NSObjectProtocol!
+    var sldescObserver: NSObjectProtocol!
+    var slsuffixObserver: NSObjectProtocol!
+    var slcategoryObserver: NSObjectProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,27 +46,55 @@ class SLEdit: UIViewController {
         self.sldesc.clearButtonMode = UITextFieldViewMode.WhileEditing
         self.slqty.clearButtonMode = UITextFieldViewMode.WhileEditing
         self.slprice.clearButtonMode = UITextFieldViewMode.WhileEditing
-		let observerBlock: (NSNotification) -> Void = { [unowned self] (notification) in
-			self.btnSave.enabled = self.formIsValid
-
-		}
-
-		NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slitem, queue: NSOperationQueue.mainQueue(), usingBlock: observerBlock)
-		NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.sldesc, queue: NSOperationQueue.mainQueue(), usingBlock: observerBlock)
-		NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slqty, queue: NSOperationQueue.mainQueue(), usingBlock: observerBlock)
-		NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slprice, queue: NSOperationQueue.mainQueue(), usingBlock: observerBlock)
+        self.slsuffix.clearButtonMode = UITextFieldViewMode.WhileEditing
+        self.slcategory.clearButtonMode = UITextFieldViewMode.WhileEditing
+		
+        slitemObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slitem, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
+            self.btnSave.enabled = self.formIsValid
+            
+            })
+        sldescObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.sldesc, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
+            self.btnSave.enabled = self.formIsValid
+            
+            })
+        slqtyObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slqty, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
+                self.btnSave.enabled = self.formIsValid
+            
+            })
+        slpriceObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slprice, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
+            self.btnSave.enabled = self.formIsValid
+            
+            })
+        slsuffixObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slsuffix, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
+            self.btnSave.enabled = self.formIsValid
+            
+            })
+        slcategoryObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slcategory, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
+            self.btnSave.enabled = self.formIsValid
+            
+            })
 
 		// validate the form and apply it to save butotn.
 		btnSave.enabled = formIsValid
     }
-
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(slitemObserver)
+        NSNotificationCenter.defaultCenter().removeObserver(sldescObserver)
+        NSNotificationCenter.defaultCenter().removeObserver(slqtyObserver)
+        NSNotificationCenter.defaultCenter().removeObserver(slpriceObserver)
+        NSNotificationCenter.defaultCenter().removeObserver(slsuffixObserver)
+        NSNotificationCenter.defaultCenter().removeObserver(slcategoryObserver)
+        
+    }
 	
 	func updateUIFromItem() {
 		if let item = self.item {
-			slitem.text  = item.slitem
-			sldesc.text  = item.sldesc
-			slqty.text   = item.slqty
+			slitem.text = item.slitem
+			sldesc.text = item.sldesc
+			slqty.text = item.slqty
 			slprice.text = item.slprice
+            slcategory.text = item.slcategory
+            slsuffix.text = item.slsuffix
 		}
 	}
     override func didReceiveMemoryWarning() {
@@ -105,9 +141,9 @@ class SLEdit: UIViewController {
 
 				let textField = alert.textFields!.first as UITextField?
 				self.item?.slminqty = textField?.text
-
-
-				self.saveToCoreDate()})
+                
+            
+                    self.saveToCoreDate()})
 			setAction?.enabled = false // initialy disabled
 
 			alert.addAction(setAction!)
@@ -133,7 +169,7 @@ class SLEdit: UIViewController {
         } else {
             createitems()
         }
-        print(item?.slminqty)
+        
         
         dismissVC()
     }
@@ -162,6 +198,8 @@ class SLEdit: UIViewController {
 			&& sldesc.text?.isEmpty  == false
 			&& slqty.text?.isEmpty   == false
 			&& slprice.text?.isEmpty == false
+            && slcategory.text?.isEmpty == false
+            && slsuffix.text?.isEmpty == false
 	}
 	func updateItem() {
 
@@ -177,6 +215,10 @@ class SLEdit: UIViewController {
 			item!.sldesc = sldesc.text
 			item!.slqty = slqty.text
 			item!.slprice = slprice.text
+            item!.slcategory = slcategory.text
+            item!.slsuffix = slsuffix.text
+            
+            
 		} else {
 			print("Form is not valid")
 		}
@@ -206,14 +248,19 @@ class SLEdit: UIViewController {
         item.sldesc = sldesc.text
         item.slqty = slqty.text
         item.slprice = slprice.text
+        item.slcategory = slcategory.text
+        item.slsuffix = slsuffix.text
         item.slist = true
         item.slcross = false
 
 		// why calling the function itself inside its own code it will be called for ever if slitem.text is nil.
         if slitem.text == nil{
-//            createitems()
+//                createitems()
 
         }else{
+            
+    
+        
 			/*
 			why calling edite here i see the edit code is
 			item?.slitem = slitem.text!
@@ -239,6 +286,8 @@ class SLEdit: UIViewController {
         item?.sldesc = sldesc.text!
         item?.slqty = slqty.text!
         item?.slprice = slprice.text!
+        item?.slcategory = slcategory.text!
+        item?.slsuffix = slsuffix.text!
         
         do {
             try moc.save()
