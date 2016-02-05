@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import CoreData
 import EventKit
 
 
-class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MealPlanner1: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,8 +19,7 @@ class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate
     var startDates : [NSDate] = []
     var endDates : [NSDate] = []
     
-    
-    
+    var item : List?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,15 +163,13 @@ class MealPlanner1: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    /*segue to add/edit
+    //segue to add/edit
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        
+        
         if segue.identifier == "mealRecipe" {
             
-            let cell = sender as! UITableViewCell
-            let indexPath = tableView.indexPathForCell(cell)
-            let MPListController:MealRecipe = segue.destinationViewController as! MealRecipe
-            let items:List = frc.objectAtIndexPath(indexPath!) as! List
-            MPListController.item = items
+            
         }
-    }*/
+    }
 }

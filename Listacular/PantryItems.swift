@@ -87,10 +87,10 @@ class PantryItems: UIViewController {
             if qtyStepper.value <= minStepper.value{
                 
                 let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
-                    "Your inventory of \(pitem.text!) is low. Please enter total wanted in pantry.", preferredStyle: UIAlertControllerStyle.Alert)
+                    "Your inventory of \(pitem.text!) is low. Please enter total desired in pantry.", preferredStyle: UIAlertControllerStyle.Alert)
                 
                 alertController.addTextFieldWithConfigurationHandler { [unowned self] (textField: UITextField!) -> Void in
-                    textField.placeholder = "Quantity needed."
+                    textField.placeholder = "Quantity desired."
                     textField.keyboardType = .NumbersAndPunctuation
                     textField.clearButtonMode = UITextFieldViewMode.WhileEditing
                     
@@ -141,18 +141,6 @@ class PantryItems: UIViewController {
         }
         dismissVC()
     }
-
-        func saveitem(sender: AnyObject){
-        
-            if item != nil {
-                edititems()
-        } else {
-            createitems()
-        }
-        
-        dismissVC()
-        
-}
 
     func createitems() {
         
@@ -209,7 +197,11 @@ class PantryItems: UIViewController {
             item!.slsuffix = item!.psuffix
             item!.slcategory = item!.pcategory
             item!.pqty = pqty.text!
-            item!.slminqty = item!.pminstepperlabel
+        //updating slminqty when adding to shoppinglist through alert.
+        let myDouble4 = minStepper.value
+        let myDoubleString = String(myDouble4)
+        item!.slminqty = myDoubleString
+     
             Calslqty(self)
         
     }
@@ -229,7 +221,7 @@ class PantryItems: UIViewController {
         
         }
         func createNewitem() {
-            // just creating an empty item and let give the job to filling it to editItem method.
+            // just creating an empty item and give the job to filling it to editItem method.
             let entityDescription = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
             
             // assign the empty item to self.item.

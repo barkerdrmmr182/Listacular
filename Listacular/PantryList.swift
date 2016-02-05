@@ -166,7 +166,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
-        cell.cellLabel.text = "\(items.pitem!) - Qty: \(items.pqty!)"
+        cell.cellLabel.text = "\(items.pitem!) - \(items.pqty!) \(items.psuffix!)"
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
         moveToSL.hidden = true
         

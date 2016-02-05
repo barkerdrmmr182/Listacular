@@ -33,8 +33,12 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         return frc
     }
     
+    @IBOutlet weak var cartTotalLabel: UILabel!
+    @IBOutlet weak var totalView: UIView!
+    @IBOutlet weak var cartTotal: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func AddNew(sender: AnyObject) {
+    
         
         frc = getFetchRequetController()
         frc.delegate = self
@@ -47,7 +51,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         }
         self.tableView.reloadData()
     }//End AddNew
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,7 +78,11 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.separatorColor = UIColor.blackColor()
         self.tableView.rowHeight = 60
+        self.totalView.backgroundColor = UIColor.lightGrayColor()
+        self.cartTotal.textColor = UIColor.blueColor()
+        self.cartTotalLabel.textColor = UIColor.blueColor()
         moveToPL.hidden = true
+        cartTotal.hidden = true
         tableView.reloadData()
         
         //"edit" bar button item
@@ -180,7 +188,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
-        cell.cellLabel.text = "\(items.slitem!) - Qty: \(items.slqty!)"
+        cell.cellLabel.text = "\(items.slitem!) - \(items.slqty!) \(items.slsuffix!)"
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
         moveToPL.hidden = true
         
@@ -194,7 +202,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
             
             cell.cellLabel.attributedText = attributeString
-            
+            cartTotal.hidden = false
             moveToPL.hidden = false
             
         } else {
@@ -203,6 +211,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             cell.cellLabel.font = UIFont.systemFontOfSize(25)
             self.tableView.rowHeight = 60
             moveToPL.hidden = true
+            cartTotal.hidden = true
         }
         return cell
     }
@@ -244,13 +253,12 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             item.pcategory = item.slcategory
             item.psuffix = item.slsuffix
             
-            
             let myDouble = Double(item.slminqty!)
             let qtystepper = myDouble
             item.pminsteppervalue = qtystepper
             
             item.pminstepperlabel = item.slminqty
-            
+    
             moveToPL.hidden = true
             
         //Handle qty discrepancies
@@ -266,7 +274,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
                 let numberFromString2 = Int(stringNumber2!)
                 
                 let sum = (numberFromString2)! + (numberFromString1)!
-                print(sum)
                 let myInt:Int = sum
                 let myString:String = String(myInt)
                 item.pqty = myString
@@ -278,6 +285,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         }
     }
     
+    //Swipe between tabs
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         if (sender.direction == .Left) {
             self.navigationController!.tabBarController!.selectedIndex = 1

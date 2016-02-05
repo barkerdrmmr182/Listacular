@@ -85,6 +85,12 @@ class PLEdit: UIViewController {
         
     }
     
+    //Dismiss Keyboard when touched outside of textFields
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
+    }
+    
     func updateUIFromItem() {
         if let item = self.item {
             pitem.text = item.pitem

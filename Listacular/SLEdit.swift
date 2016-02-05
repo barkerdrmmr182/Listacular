@@ -86,6 +86,12 @@ class SLEdit: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(slcategoryObserver)
         
     }
+    
+    //Dismiss Keyboard when touched outside of textFields
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
+    }
 	
 	func updateUIFromItem() {
 		if let item = self.item {
@@ -162,18 +168,7 @@ class SLEdit: UIViewController {
         }
         }
 
-    func saveitem(sender: AnyObject) {
-
-        if item != nil {
-            edititems()
-        } else {
-            createitems()
-        }
-        
-        
-        dismissVC()
-    }
-	func createNewitem() {
+    func createNewitem() {
 		guard self.item == nil else {
 			print("trying to create a new item while there is already one.")
 			return

@@ -12,6 +12,8 @@ class MealRecipe: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     
+    var item: List? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,7 +26,7 @@ class MealRecipe: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     
     /*
     // MARK: - Navigation
