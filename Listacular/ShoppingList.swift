@@ -267,15 +267,18 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             }
 
             if (item.slqty != item.pqty) {
-            
+                //get value of string
                 let stringNumber1 = item.slqty
                 let stringNumber2 = item.pqty
+                //convert string to Int
                 let numberFromString1 = Int(stringNumber1!)
                 let numberFromString2 = Int(stringNumber2!)
-                
+                //get sum of Int
                 let sum = (numberFromString2)! + (numberFromString1)!
                 let myInt:Int = sum
+                //convert back Int back to string
                 let myString:String = String(myInt)
+                //delclare string as qty.
                 item.pqty = myString
                 
                             }else{
