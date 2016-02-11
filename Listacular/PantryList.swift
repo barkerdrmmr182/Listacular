@@ -223,7 +223,6 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             item.slminqty = item.pminstepperlabel
             item.slcategory = item.pcategory
             item.slsuffix = item.psuffix
-            
             moveToSL.hidden = true
                 }
         

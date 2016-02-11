@@ -263,9 +263,10 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             item.pcategory = item.slcategory
             item.psuffix = item.slsuffix
             
+            
             let myDouble = Double(item.slminqty!)
             let qtystepper = myDouble
-            item.pminsteppervalue = qtystepper
+            item.pminsteppervalue = qtystepper!
             
             item.pminstepperlabel = item.slminqty
     

@@ -169,7 +169,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
-        cell.cellLabel.text = "\(items.tditem!)"
+        cell.cellLabel.text = "\(items.tditem!) - \(items.tdtime!)"
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
         deleteCompleted.hidden = true
         

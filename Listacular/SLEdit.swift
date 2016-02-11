@@ -13,7 +13,6 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    
     @IBOutlet weak var slitem: UITextField!
     @IBOutlet weak var sldesc: UITextField!
     @IBOutlet weak var slqty: UITextField!
@@ -22,7 +21,6 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var slcategory: UITextField!
     
 	@IBOutlet weak var btnSave: UIBarButtonItem!
-
 
     var item: List? = nil
     
@@ -40,7 +38,6 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         //picker Delegate
         let categoryPickerView = UIPickerView()
         categoryPickerView.delegate = self
@@ -129,8 +126,8 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     func dismissVC() {
         
         navigationController?.popViewControllerAnimated(true)
-        
     }
+    
 	var setAction:UIAlertAction?
     @IBAction func saveButton(sender: AnyObject) {
 		guard formIsValid else {

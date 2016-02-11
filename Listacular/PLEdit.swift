@@ -31,6 +31,7 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     var psuffixObserver: NSObjectProtocol!
     var pcategoryObserver: NSObjectProtocol!
     
+    //Picker Options
     var categoryPickOption = ["Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Snacks", "Other"]
     var suffixPickOption = ["bottle(s)","boxes","can(s)","case(s)", "lbs.", "of them", "package(s)", "other"]
     
@@ -128,12 +129,8 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
         navigationController?.popViewControllerAnimated(true)
     }
     
-    
-   var setAction:UIAlertAction?
-    
-    
+    var setAction:UIAlertAction?
     @IBAction func saveButton(sender: AnyObject) {
-        
         guard formIsValid else {
             print("form is not valid")
             return
@@ -144,7 +141,10 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
         }
         // update the item
         updateItem()
-        func invAlert () {
+        invAlert()
+    }
+    
+    func invAlert () {
         if (item!.pminstepperlabel == nil) {
             let alert = UIAlertController(title: "Minimun Qty.", message: "Please set minimun qty. for pantry.", preferredStyle: UIAlertControllerStyle.Alert)
             
@@ -156,6 +156,7 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
                 // observe the textField value to make the set button only enabled when it's not empty.
                 NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { [unowned self] (notification) in
                     let textField = notification.object as! UITextField
+                    self.item!.pminstepperlabel = textField.text
                     
                     self.setAction!.enabled = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty == false
                 }
@@ -165,7 +166,7 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
             setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {[unowned self](action) -> Void in
                 
                 let textField = alert.textFields!.first as UITextField?
-                self.item?.pminstepperlabel = textField?.text
+                self.item?.pminstepperlabel = textField!.text
                 
                 
                 self.saveToCoreDate()})
@@ -173,27 +174,29 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
             
             alert.addAction(setAction!)
             self.presentViewController(alert, animated: true, completion: nil)
-            
+            dismissVC()
             
         }else{
             
             if item != nil {
                 edititems()
             } else {
-                createitems()
+                createNewitem()
             }
             
             
             dismissVC()
         }
-        }}
+    }
+    
+
     
     func saveitem(sender: AnyObject) {
         
         if item != nil {
             edititems()
         } else {
-            createitems()
+            createNewitem()
         }
         
         
@@ -213,8 +216,20 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
         // from my understanding to your code the values below belongs to the new item only. please change it if needed.
         item.plist = true
         item.pcross = false
+        
+        item.pitem = pitem.text
+        item.pqty = pqty.text
+        item.pdesc = pdesc.text
+        item.pprice = pprice.text
+        item.psuffix = psuffix.text
+        item.pcategory = pcategory.text
+        
+        item.pqtystepperlabel = item.pqty
+        
+        
         // assign the new item to self.item
         self.item = item
+        print(item)
         
     }
     var formIsValid:Bool {
@@ -267,34 +282,34 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 //here
 
     
-    func createitems() {
-        
-        let entityDescripition = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
-        
-        let item = List(entity: entityDescripition!, insertIntoManagedObjectContext: moc)
-        
-        item.pitem = pitem.text
-        item.pqty = pqty.text
-        item.pdesc = pdesc.text
-        item.pprice = pprice.text
-        item.psuffix = psuffix.text
-        item.pcategory = pcategory.text
-        item.plist = true
-        item.pcross = false
-        
-        if pitem.text == nil{
-            createitems()
-            
-        }else{
-            edititems()
-        }
-        
-        do {
-            try moc.save()
-        } catch _ {
-            return
-        }
-    }
+//    func createitems() {
+//        
+//        let entityDescripition = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
+//        
+//        let item = List(entity: entityDescripition!, insertIntoManagedObjectContext: moc)
+//        
+//        item.pitem = pitem.text
+//        item.pqty = pqty.text
+//        item.pdesc = pdesc.text
+//        item.pprice = pprice.text
+//        item.psuffix = psuffix.text
+//        item.pcategory = pcategory.text
+//        item.plist = true
+//        item.pcross = false
+//        
+////        if pitem.text == nil{
+////            createitems()
+////            
+////        }else{
+////            edititems()
+////        }
+////        
+//        do {
+//            try moc.save()
+//        } catch _ {
+//            return
+//        }
+//    }
     
     func edititems() {
         item?.pitem = pitem.text!

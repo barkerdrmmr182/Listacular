@@ -37,11 +37,6 @@ class PantryItems: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if item?.pqtystepperlabel <= item?.pminstepperlabel {
-            print(qtyStepper.value, minStepper.value)
-            invAlert1()
-        }
-        
         if item != nil{
             
             pitem.text = item?.pitem
@@ -72,6 +67,11 @@ class PantryItems: UIViewController {
         minStepper.autorepeat = true
         minStepper.maximumValue = 100
     }
+        
+        if qtyStepper.value <= minStepper.value {
+            print(qtyStepper.value, minStepper.value)
+            invAlert1()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -172,7 +172,7 @@ class PantryItems: UIViewController {
             if item != nil {
                 edititems()
             } else {
-                createitems()
+                createNewitem()
             }
             
             
