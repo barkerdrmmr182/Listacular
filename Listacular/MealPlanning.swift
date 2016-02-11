@@ -1,5 +1,5 @@
 //
-//  MealPlanner1.swift
+//  MealPlanning.swift
 //  Listacular
 //
 //  Created by Will Zimmer on 2/1/16.
@@ -11,7 +11,7 @@ import CoreData
 import EventKit
 
 
-class MealPlanner1: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -145,9 +145,9 @@ class MealPlanner1: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
-        
         cell.textLabel?.text = "\(titles[indexPath.row]) - \(startDates[indexPath.row])"
         cell.backgroundColor = UIColor.clearColor()
+        
         print(cell.textLabel?.text)
         
         return cell
@@ -169,7 +169,6 @@ class MealPlanner1: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         if segue.identifier == "mealRecipe" {
             
-            
         }
-    }
+}
 }

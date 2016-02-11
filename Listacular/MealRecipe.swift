@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import CoreData
+import EventKit
 
 class MealRecipe: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     
+    var recipe = [String]()
+    
     var item: List? = nil
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
+        titleLabel.text = "test"
         
         
     }

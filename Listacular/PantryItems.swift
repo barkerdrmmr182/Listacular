@@ -37,7 +37,13 @@ class PantryItems: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if item?.pqtystepperlabel <= item?.pminstepperlabel {
+            print(qtyStepper.value, minStepper.value)
+            invAlert1()
+        }
+        
         if item != nil{
+            
             pitem.text = item?.pitem
             pdesc.text = item?.pdesc
             pqty.text = item?.pqty
@@ -83,49 +89,96 @@ class PantryItems: UIViewController {
     var setAction:UIAlertAction?
 
     @IBAction func saveButton(sender: AnyObject) {
-    
-            if qtyStepper.value <= minStepper.value{
-                
-                let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
-                    "Your inventory of \(pitem.text!) is low. Please enter total desired in pantry.", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                alertController.addTextFieldWithConfigurationHandler { [unowned self] (textField: UITextField!) -> Void in
-                    textField.placeholder = "Quantity desired."
-                    textField.keyboardType = .NumbersAndPunctuation
-                    textField.clearButtonMode = UITextFieldViewMode.WhileEditing
-                    
-                    NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { [unowned self] (notification) in
-                        let textField = notification.object as! UITextField
-                        
-                        self.setAction!.enabled = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty == false
-                    }
-                }
-                
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler:{[unowned self] _ in self.saveToCoreDate()}))
-                setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {[unowned self](action) -> Void in
-                    
-                    let textField = alertController.textFields!.first as UITextField?
-                    self.item?.slqty = textField?.text
-                    
-                    self.moveToSL(self)
-                    
-                    
-                    self.saveToCoreDate()})
-                setAction?.enabled = false // initialy disabled
-                
-                alertController.addAction(setAction!)
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }else{
-                    if item != nil {
-                        edititems()
-                    } else {
-                        createitems()
-                    }
-                
-                    
-                    dismissVC()
-                }
+        invAlert2()
     }
+    //alertController 
+    func invAlert1() {
+        if qtyStepper.value <= minStepper.value{
+            
+            let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
+                "Your inventory of \(pitem.text!) is low. Please enter total desired in pantry.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alertController.addTextFieldWithConfigurationHandler { [unowned self] (textField: UITextField!) -> Void in
+                textField.placeholder = "Quantity desired."
+                textField.keyboardType = .NumbersAndPunctuation
+                textField.clearButtonMode = UITextFieldViewMode.WhileEditing
+                
+                NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { [unowned self] (notification) in
+                    let textField = notification.object as! UITextField
+                    
+                    self.setAction!.enabled = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty == false
+                }
+            }
+            
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler:nil))
+            setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {[unowned self](action) -> Void in
+                
+                let textField = alertController.textFields!.first as UITextField?
+                self.item?.slqty = textField?.text
+                
+                self.moveToSL(self)
+                
+                
+                self.saveToCoreDate()})
+            setAction?.enabled = false // initialy disabled
+            
+            alertController.addAction(setAction!)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }else{
+            if item != nil {
+                edititems()
+            } else {
+                createitems()
+            }
+            
+            
+            dismissVC()
+        }
+    }
+
+    func invAlert2() {
+        if qtyStepper.value <= minStepper.value{
+            
+            let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
+                "Your inventory of \(pitem.text!) is low. Please enter total desired in pantry.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alertController.addTextFieldWithConfigurationHandler { [unowned self] (textField: UITextField!) -> Void in
+                textField.placeholder = "Quantity desired."
+                textField.keyboardType = .NumbersAndPunctuation
+                textField.clearButtonMode = UITextFieldViewMode.WhileEditing
+                
+                NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { [unowned self] (notification) in
+                    let textField = notification.object as! UITextField
+                    
+                    self.setAction!.enabled = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty == false
+                }
+            }
+            
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler:{[unowned self] _ in self.saveToCoreDate()}))
+            setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {[unowned self](action) -> Void in
+                
+                let textField = alertController.textFields!.first as UITextField?
+                self.item?.slqty = textField?.text
+                
+                self.moveToSL(self)
+                
+                
+                self.saveToCoreDate()})
+            setAction?.enabled = false // initialy disabled
+            
+            alertController.addAction(setAction!)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }else{
+            if item != nil {
+                edititems()
+            } else {
+                createitems()
+            }
+            
+            
+            dismissVC()
+        }
+    }//alertController end
     
     func saveToCoreDate() {
         // save if item is not nil
@@ -205,7 +258,7 @@ class PantryItems: UIViewController {
             Calslqty(self)
         
     }
-    
+    //Calculate slqty.
         func Calslqty(sender: AnyObject) {
             
             let stringNumber1 = item?.slqty
@@ -213,13 +266,22 @@ class PantryItems: UIViewController {
             let numberFromString1 = Int(stringNumber1!)
             let numberFromString2 = Int(stringNumber2!)
         
-            let sum = (numberFromString2)! - (numberFromString1)!
-            let sum1 = (sum) * -1
+            let sum = (numberFromString1)! - (numberFromString2)!
+            let sum1 = (sum)
             let myInt:Int = sum1
             let myString:String = String(myInt)
             item?.slqty = myString
+            //if slqty is <= 0, item does not add to slist.
+            let myInt2 = 0
+            let numberFromString3 = String(myInt2)
+            if item?.slqty <= numberFromString3 {
+                item!.slist = false
+                
+                
+            }
         
         }
+    
         func createNewitem() {
             // just creating an empty item and give the job to filling it to editItem method.
             let entityDescription = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)

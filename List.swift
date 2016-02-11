@@ -11,6 +11,21 @@ import CoreData
 
 
 class List: NSManagedObject {
+    
+    
+    
+    func sectionIdentifier() -> String {
+    if self.slist == true {
+        if self.slcross == true {
+            return "True"
+        } else {
+            return "\(self.slcategory!)"
+        }
+    } else {
+    return "false"
+    }
+    }
+
 
 // Insert code here to add functionality to your managed object subclass
 

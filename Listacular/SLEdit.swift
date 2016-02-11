@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SLEdit: UIViewController {
+class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
@@ -33,9 +33,26 @@ class SLEdit: UIViewController {
     var slsuffixObserver: NSObjectProtocol!
     var slcategoryObserver: NSObjectProtocol!
     
+    //pickerOption array.
+    var categoryPickOption = ["Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Snacks", "Other"]
+    var suffixPickOption = ["bottle(s)","boxes","can(s)","case(s)", "lbs.", "of them", "package(s)", "other"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        //picker Delegate
+        let categoryPickerView = UIPickerView()
+        categoryPickerView.delegate = self
+        slcategory.inputView = categoryPickerView
+        
+        let suffixPickerView = UIPickerView()
+        suffixPickerView.delegate = self
+        slsuffix.inputView = suffixPickerView
+        
+        categoryPickerView.tag = 0
+        suffixPickerView.tag = 1
+        
 		// item not nill means we're editing.
         if item != nil{
 			updateUIFromItem()
@@ -233,6 +250,7 @@ class SLEdit: UIViewController {
 		}
 		 dismissVC()
 	}
+    
     func createitems() {
 
         let entityDescription = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
@@ -247,27 +265,6 @@ class SLEdit: UIViewController {
         item.slsuffix = slsuffix.text
         item.slist = true
         item.slcross = false
-
-		// why calling the function itself inside its own code it will be called for ever if slitem.text is nil.
-        if slitem.text == nil{
-//                createitems()
-
-        }else{
-            
-    
-        
-			/*
-			why calling edite here i see the edit code is
-			item?.slitem = slitem.text!
-			item?.sldesc = sldesc.text!
-			item?.slqty = slqty.text!
-			item?.slprice = slprice.text!
-			
-			
-			which is exactly the same to what the method just doen ABOVE.
-			*/
-//            edititems()
-        }
         
         do {
             try moc.save()
@@ -290,7 +287,41 @@ class SLEdit: UIViewController {
             return
         }
     }
+    //set up pickerView
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
     
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.tag == 0 {
+        return categoryPickOption.count
+        }
+        if pickerView.tag == 1 {
+            return suffixPickOption.count
+        }else {
+            return 1
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView.tag == 0 {
+        return categoryPickOption[row]
+        }
+        if pickerView.tag == 1 {
+            return suffixPickOption[row]
+        }else {
+            return nil
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag == 0 {
+        slcategory.text = categoryPickOption[row]
+        }
+        if pickerView.tag == 1 {
+        slsuffix.text = suffixPickOption[row]
+    }
+    }//end pickerView
     
 }
 

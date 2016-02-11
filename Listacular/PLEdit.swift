@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class PLEdit: UIViewController {
+class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
@@ -31,8 +31,23 @@ class PLEdit: UIViewController {
     var psuffixObserver: NSObjectProtocol!
     var pcategoryObserver: NSObjectProtocol!
     
+    var categoryPickOption = ["Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Snacks", "Other"]
+    var suffixPickOption = ["bottle(s)","boxes","can(s)","case(s)", "lbs.", "of them", "package(s)", "other"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //picker Delegate
+        let categoryPickerView = UIPickerView()
+        categoryPickerView.delegate = self
+        pcategory.inputView = categoryPickerView
+        
+        let suffixPickerView = UIPickerView()
+        suffixPickerView.delegate = self
+        psuffix.inputView = suffixPickerView
+        
+        categoryPickerView.tag = 0
+        suffixPickerView.tag = 1
         
         // item not nill means we're editing.
         if item != nil{
@@ -129,6 +144,7 @@ class PLEdit: UIViewController {
         }
         // update the item
         updateItem()
+        func invAlert () {
         if (item!.pminstepperlabel == nil) {
             let alert = UIAlertController(title: "Minimun Qty.", message: "Please set minimun qty. for pantry.", preferredStyle: UIAlertControllerStyle.Alert)
             
@@ -158,6 +174,7 @@ class PLEdit: UIViewController {
             alert.addAction(setAction!)
             self.presentViewController(alert, animated: true, completion: nil)
             
+            
         }else{
             
             if item != nil {
@@ -169,7 +186,7 @@ class PLEdit: UIViewController {
             
             dismissVC()
         }
-    }
+        }}
     
     func saveitem(sender: AnyObject) {
         
@@ -295,4 +312,40 @@ class PLEdit: UIViewController {
             return
         }
     }
+    
+    //set up pickerView
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.tag == 0 {
+            return categoryPickOption.count
+        }
+        if pickerView.tag == 1 {
+            return suffixPickOption.count
+        }else {
+            return 1
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView.tag == 0 {
+            return categoryPickOption[row]
+        }
+        if pickerView.tag == 1 {
+            return suffixPickOption[row]
+        }else {
+            return nil
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag == 0 {
+            pcategory.text = categoryPickOption[row]
+        }
+        if pickerView.tag == 1 {
+            psuffix.text = suffixPickOption[row]
+        }
+    }//end pickerView
 }

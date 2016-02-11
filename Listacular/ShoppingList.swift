@@ -21,7 +21,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "slcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "slitem", ascending: false)
+        let secondarySortDescription = NSSortDescriptor(key: "slcategory", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
         fetchRequest.predicate = NSPredicate(format:"slist == true")
         return fetchRequest
@@ -29,7 +29,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
     func getFetchRequetController() ->NSFetchedResultsController{
         
-        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "slcross", cacheName: nil)
+        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "sectionIdentifier", cacheName: nil)
         return frc
     }
     
@@ -78,9 +78,8 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.separatorColor = UIColor.blackColor()
         self.tableView.rowHeight = 60
-        self.totalView.backgroundColor = UIColor.lightGrayColor()
-        self.cartTotal.textColor = UIColor.blueColor()
-        self.cartTotalLabel.textColor = UIColor.blueColor()
+        self.cartTotal.textColor = UIColor.blackColor()
+        self.cartTotalLabel.textColor = UIColor.blackColor()
         moveToPL.hidden = true
         cartTotal.hidden = true
         tableView.reloadData()
@@ -111,20 +110,31 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
 		tableView.reloadData()
 
 	}
-//    override func viewDidDisappear(animated: Bool) {
+    
+//    func cartTotalFunc() {
 //        
-//        frc = getFetchRequetController()
-//        frc.delegate = self
+//        itemFetchRequest().returnsObjectsAsFaults = false
 //        
 //        do {
-//            try frc.performFetch()
-//        } catch _ {
-//            print("Failed to perform inital fetch.")
-//            return
+//            let results = try moc.executeFetchRequest(itemFetchRequest())
+//            print("===\(results)")
+//            
+//            // Calculate the grand total.
+//            var grandTotal = 0
+//            for order in results {
+//                let SLP = order.valueForKey("slprice") as! Int
+//                let SLQ = order.valueForKey("slqty") as! Int
+//                grandTotal += SLP * SLQ
+//            }
+//            print("\(grandTotal)")
+//            cartTotal.text = "(\(grandTotal)" as String).double
+//            
+//        } catch let error as NSError {
+//            print(error)
 //        }
-//        self.tableView.reloadData()
+//        
 //    }
-
+//    
     //tableView Data
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let managedObject:NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
@@ -144,14 +154,13 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
     //Table Section Headers
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        let sectionHeader = "Items Needed - #\(frc.sections![section].numberOfObjects)"
-        let sectionHeader1 = "Items in Cart - #\(frc.sections![section].numberOfObjects)"
+        
         if (frc.sections!.count > 0) {
             let sectionInfo = frc.sections![section]
-            if (sectionInfo.name == "0") { // "0" is the string equivalent of false
-                return sectionHeader
+            if (sectionInfo.name == "True") {
+                return "Items in Cart - #\(sectionInfo.numberOfObjects)"
             } else {
-                return sectionHeader1
+                return sectionInfo.name
             }
         } else {
             return nil
@@ -165,11 +174,11 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
         //header background color
-        view.tintColor = UIColor.lightGrayColor()
+        view.tintColor = UIColor.lightGrayColor() //background gray
         
         //header text color
         let headerView: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        headerView.textLabel!.textColor = UIColor.blueColor()
+        headerView.textLabel!.textColor = UIColor.blueColor() //text Blue
         
     }
     
@@ -197,13 +206,14 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             cell.cellLabel.textColor = UIColor.grayColor()
             cell.cellLabel.font = UIFont.systemFontOfSize(20)
             self.tableView.rowHeight = 50
-            
+            //strikeThrough text
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: cell.cellLabel.text!)
             attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
             
             cell.cellLabel.attributedText = attributeString
             cartTotal.hidden = false
             moveToPL.hidden = false
+//            cartTotalFunc()
             
         } else {
             cell.accessoryType = .None

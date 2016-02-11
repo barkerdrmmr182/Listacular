@@ -220,11 +220,14 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
     }//EndSwipeFunc
     
     @IBAction func deleteTasks(sender: AnyObject) {
-        let indexPath = NSIndexPath()
-        let items = frc.objectAtIndexPath(indexPath) as! List
+        let sectionInfo = self.frc.sections![self.frc.sections!.count - 1]
         
-        if items.tdcross == true {
-           //still need to delete section
+        let objectsToAppend = sectionInfo.objects as! [List]
+        for item in objectsToAppend {
+            if item.tdcross == true{
+                self.moc.deleteObject(item)
+                deleteCompleted.hidden = true
+            }
         }
     }
     
@@ -247,5 +250,4 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
             TDListController.item = selectedItem
         }
     }
-    
 }

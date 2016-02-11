@@ -9,47 +9,43 @@
 import UIKit
 import CoreData
 
-class TDEdit: UIViewController {
+class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
     
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     @IBOutlet weak var tditem: UITextField!
     @IBOutlet weak var tddesc: UITextField!
-    @IBOutlet weak var tddate: UIDatePicker!
-    @IBOutlet weak var tdDoneLabel: UILabel!
-    @IBOutlet weak var setDateButton: UIButton!
-    @IBOutlet weak var changeDate: UIButton!
+    @IBOutlet weak var tdDone: UITextField!
+    
     
     var item: List? = nil
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         if item != nil{
             tditem.text = item?.tditem
             tddesc.text = item?.tddesc
-            tdDoneLabel.text = item?.tddate
+            tdDone.text = item?.tdtime
             
         }
         
         // "x" Delete Feature
         self.tditem.clearButtonMode = UITextFieldViewMode.WhileEditing
         self.tddesc.clearButtonMode = UITextFieldViewMode.WhileEditing
-        if (item?.tddate == nil){
-            tdDoneLabel.text = "Enter Date"
-            tddate.hidden = true
-            setDateButton.hidden = false
-            changeDate.hidden = true
-        }else{
-        tdDoneLabel.text = item!.tddate
-            setDateButton.hidden = true
-            changeDate.hidden = false
-            tddate.hidden = true
-        }
-        let currentDate = NSDate()  //5 -  get the current date
-        tddate.minimumDate = currentDate
+        
+
     }
-    
+
+    @IBAction func tdDoneAction(sender: UITextField) {
+        let datePickerView  : UIDatePicker = UIDatePicker()
+        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
+        tdDone.inputView = datePickerView
+        datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+    }
+  
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
         view.endEditing(true)
         super.touchesBegan(touches, withEvent: event)
@@ -63,23 +59,6 @@ class TDEdit: UIViewController {
     func dismissVC() {
         
         navigationController?.popViewControllerAnimated(true)
-    }
-    
-    @IBAction func changeDate(sender: AnyObject) {
-        tddate.hidden = false
-        setDateButton.hidden = true
-        changeDate.hidden = true
-    }
-    @IBAction func setDateButtonPressed(sender: AnyObject) {
-        setDateButton.hidden = true
-        tddate.hidden = false
-    }
-    
-    @IBAction func doneBy(sender: AnyObject) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy hh:mm a"
-        let strDate = dateFormatter.stringFromDate(tddate.date)
-        self.tdDoneLabel.text = strDate
     }
     
     @IBAction func saveButton(sender: AnyObject) {
@@ -101,8 +80,8 @@ class TDEdit: UIViewController {
         
         item.tditem = tditem.text
         item.tddesc = tddesc.text
-        item.tdtime = tdDoneLabel.text
-        item.tddate = tdDoneLabel.text
+        item.tdtime = tdDone.text
+
         item.tdcross = false
         item.tdlist = true
         
@@ -123,8 +102,8 @@ class TDEdit: UIViewController {
     func edititems() {
         item?.tditem = tditem.text!
         item?.tddesc = tddesc.text!
-        item?.tdtime = tdDoneLabel.text!
-        item?.tddate = tdDoneLabel.text!
+        item?.tdtime = tdDone.text!
+        
         
         do {
             try moc.save()
@@ -132,4 +111,19 @@ class TDEdit: UIViewController {
             return
         }
     }
+    
+    func handleDatePicker(sender: UIDatePicker) {
+        let datePickerView  : UIDatePicker = UIDatePicker()
+        let dateFormatter = NSDateFormatter()
+        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
+        dateFormatter.dateFormat = "EE., MMMM dd, yyyy hh:mm a"
+        
+        if tdDone.text == nil {
+        tdDone.text = dateFormatter.stringFromDate(sender.date)
+        }
+        if tdDone.text != nil {
+        tdDone.text = dateFormatter.stringFromDate(sender.date)
+        }
+    }
+    
 }

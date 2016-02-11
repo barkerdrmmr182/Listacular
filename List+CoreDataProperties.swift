@@ -14,6 +14,7 @@ import CoreData
 
 extension List {
 
+    @NSManaged var mpdate: String?
     @NSManaged var mpitem: String?
     @NSManaged var mplist: NSNumber?
     @NSManaged var pcross: NSNumber?
