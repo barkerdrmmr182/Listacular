@@ -21,7 +21,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         
         let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "tdcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "tdlist", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "tddate", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
         fetchRequest.predicate = NSPredicate(format:"tdlist == true")
         return fetchRequest
@@ -29,7 +29,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
     
     func getFetchRequetController() ->NSFetchedResultsController{
         
-        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "tdcross", cacheName: nil)
+        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "sectionIdentifier", cacheName: nil)
         return frc
     }
     
@@ -126,17 +126,16 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
     
     //table section headers
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        let sectionHeader = "Items - #\(frc.sections![section].numberOfObjects)"
-        let sectionHeader1 = "Crossed Off Items - #\(frc.sections![section].numberOfObjects)"
+
         if (frc.sections!.count > 0) {
             let sectionInfo = frc.sections![section]
-            if (sectionInfo.name == "0") { // "0" is the string equivalent of false
-                return sectionHeader
+            if (sectionInfo.name == "True") {
+                return "Completed Tasks"
             } else {
-                return sectionHeader1
+                return sectionInfo.name
             }
         } else {
-            return nil;
+            return nil
         }
     }
     

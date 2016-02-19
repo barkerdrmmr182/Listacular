@@ -14,6 +14,9 @@ import CoreData
 
 extension List {
 
+    @NSManaged var mpcalendar: NSNumber?
+    @NSManaged var mpcross: NSNumber?
+    @NSManaged var mpcategory: String?
     @NSManaged var mpdate: String?
     @NSManaged var mpitem: String?
     @NSManaged var mplist: NSNumber?

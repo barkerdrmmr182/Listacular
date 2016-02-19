@@ -21,10 +21,70 @@ class List: NSManagedObject {
         } else {
             return "\(self.slcategory!)"
         }
-    } else {
-    return "false"
+    
+    }else{
+        if self.plist == true{
+            if self.pcross == true {
+                return "True"
+            } else {
+                return "\(self.pcategory!)"
+            }
+    }else{
+        if self.mplist == true{
+            if self.mpcross == true {
+                return "True"
+            } else {
+                return "\(self.mpcategory!)"
+            }
+    }else{
+        if self.rlist == true {
+                if self.rcross == true {
+                    return "True"
+                } else {
+                    return "\(self.mpcategory!)"
+                }
+    }else{
+        if tdlist == true {
+                    if self.tdcross == true {
+                        return "True"
+                    } else {
+                        return "\(self.tddate!)"
+                    }
+
+                }else{
+            return "false"
+                }
+            }
+        }
+        }
+        }
     }
-    }
+    
+    
+//    func mealSectionIdentifier() -> String {
+//        if self.mplist == true {
+//            if self.mpcross == true {
+//                return "True"
+//            } else {
+//                return "\(self.mpcategory!)"
+//            }
+//        } else {
+//            return "false"
+//        }
+//        }
+    
+
+//    func tdSectionIdentifier() ->String {
+//        if self.tdlist == true {
+//            if self.tdcross == true {
+//                return "True"
+//            } else{
+//                return "\(self.tddate!)"
+//            }
+//        }else{
+//            return "false"
+//        }
+//    }
 
 
 // Insert code here to add functionality to your managed object subclass

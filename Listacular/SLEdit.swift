@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
@@ -32,12 +32,15 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     var slcategoryObserver: NSObjectProtocol!
     
     //pickerOption array.
-    var categoryPickOption = ["Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Snacks", "Other"]
-    var suffixPickOption = ["bottle(s)","boxes","can(s)","case(s)", "lbs.", "of them", "package(s)", "other"]
+    var categoryPickOption = ["Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Produce", "Snacks", "Other"]
+    var suffixPickOption = ["bottle(s)","boxes","can(s)","case(s)", "gallon(s)", "jar(s)", "lbs.", "of them", "package(s)", "other"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //textField Delegates
+        slprice.delegate = self
+        slqty.delegate = self
+        
         //picker Delegate
         let categoryPickerView = UIPickerView()
         categoryPickerView.delegate = self
@@ -63,7 +66,7 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
         self.slsuffix.clearButtonMode = UITextFieldViewMode.WhileEditing
         self.slcategory.clearButtonMode = UITextFieldViewMode.WhileEditing
 		
-        slitemObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slitem, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
+        slitemObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.slitem!, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
             self.btnSave.enabled = self.formIsValid
             
             })
@@ -100,6 +103,9 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(slcategoryObserver)
         
     }
+    
+    
+
     
     //Dismiss Keyboard when touched outside of textFields
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
@@ -160,7 +166,7 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 			setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {[unowned self](action) -> Void in
 
 				let textField = alert.textFields!.first as UITextField?
-				self.item?.slminqty = textField?.text
+				self.item?.slminqty = textField!.text
                 
             
                     self.saveToCoreDate()})
@@ -192,10 +198,11 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
 		// assign the empty item to self.item.
 		let item = List(entity: entityDescription!, insertIntoManagedObjectContext: moc)
-
+        
 		// from my understanding to your code the values below belongs to the new item only. please change it if needed.
 		item.slist = true
 		item.slcross = false
+        print(item)
 		// assign the new item to self.item
 		self.item = item
 
@@ -209,7 +216,9 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 			&& slprice.text?.isEmpty == false
             && slcategory.text?.isEmpty == false
             && slsuffix.text?.isEmpty == false
-	}
+        
+    }
+    
 	func updateItem() {
 
 		// making sure item is not nil.
@@ -226,6 +235,7 @@ class SLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 			item!.slprice = slprice.text
             item!.slcategory = slcategory.text
             item!.slsuffix = slsuffix.text
+            
             
             
 		} else {

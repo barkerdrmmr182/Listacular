@@ -69,7 +69,7 @@ class PantryItems: UIViewController {
     }
         
         if qtyStepper.value <= minStepper.value {
-            print(qtyStepper.value, minStepper.value)
+            
             invAlert1()
         }
     }
@@ -95,8 +95,8 @@ class PantryItems: UIViewController {
     func invAlert1() {
         if qtyStepper.value <= minStepper.value{
             
-            let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
-                "Your inventory of \(pitem.text!) is low. Please enter total desired in pantry.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "Minimum Inventory Alert!", message:
+                "Your inventory of \(pitem.text!) is low. How many would you like to add to your shopping list?", preferredStyle: UIAlertControllerStyle.Alert)
             
             alertController.addTextFieldWithConfigurationHandler { [unowned self] (textField: UITextField!) -> Void in
                 textField.placeholder = "Quantity desired."
@@ -116,6 +116,7 @@ class PantryItems: UIViewController {
                 let textField = alertController.textFields!.first as UITextField?
                 self.item?.slqty = textField?.text
                 
+                
                 self.moveToSL(self)
                 
                 
@@ -128,7 +129,7 @@ class PantryItems: UIViewController {
             if item != nil {
                 edititems()
             } else {
-                createitems()
+                createNewitem()
             }
             
             
@@ -139,8 +140,8 @@ class PantryItems: UIViewController {
     func invAlert2() {
         if qtyStepper.value <= minStepper.value{
             
-            let alertController = UIAlertController(title: "Minimum Inventory Alert", message:
-                "Your inventory of \(pitem.text!) is low. Please enter total desired in pantry.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "Minimum Inventory Alert!", message:
+                "Your inventory of \(pitem.text!) is low. How many would you like to add to your shopping list?", preferredStyle: UIAlertControllerStyle.Alert)
             
             alertController.addTextFieldWithConfigurationHandler { [unowned self] (textField: UITextField!) -> Void in
                 textField.placeholder = "Quantity desired."
@@ -254,33 +255,7 @@ class PantryItems: UIViewController {
         let myDouble4 = minStepper.value
         let myDoubleString = String(myDouble4)
         item!.slminqty = myDoubleString
-     
-            Calslqty(self)
-        
     }
-    //Calculate slqty.
-        func Calslqty(sender: AnyObject) {
-            
-            let stringNumber1 = item?.slqty
-            let stringNumber2 = item?.pqty
-            let numberFromString1 = Int(stringNumber1!)
-            let numberFromString2 = Int(stringNumber2!)
-        
-            let sum = (numberFromString1)! - (numberFromString2)!
-            let sum1 = (sum)
-            let myInt:Int = sum1
-            let myString:String = String(myInt)
-            item?.slqty = myString
-            //if slqty is <= 0, item does not add to slist.
-            let myInt2 = 0
-            let numberFromString3 = String(myInt2)
-            if item?.slqty <= numberFromString3 {
-                item!.slist = false
-                
-                
-            }
-        
-        }
     
         func createNewitem() {
             // just creating an empty item and give the job to filling it to editItem method.

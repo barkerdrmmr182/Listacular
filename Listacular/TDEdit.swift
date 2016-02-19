@@ -16,6 +16,7 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
     @IBOutlet weak var tditem: UITextField!
     @IBOutlet weak var tddesc: UITextField!
     @IBOutlet weak var tdDone: UITextField!
+    @IBOutlet weak var tdtime: UITextField!
     
     
     var item: List? = nil
@@ -27,7 +28,8 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
         if item != nil{
             tditem.text = item?.tditem
             tddesc.text = item?.tddesc
-            tdDone.text = item?.tdtime
+            tdDone.text = item?.tddate
+            tdtime.text = item?.tdtime
             
         }
         
@@ -40,11 +42,17 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
 
     @IBAction func tdDoneAction(sender: UITextField) {
         let datePickerView  : UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
+        datePickerView.datePickerMode = UIDatePickerMode.Date
         tdDone.inputView = datePickerView
         datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
     }
   
+    @IBAction func tdtimeAction(sender: AnyObject) {
+        let timePickerView  : UIDatePicker = UIDatePicker()
+        timePickerView.datePickerMode = UIDatePickerMode.Time
+        tdtime.inputView = timePickerView
+        timePickerView.addTarget(self, action: Selector("handleTimePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+    }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
         view.endEditing(true)
@@ -80,7 +88,8 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
         
         item.tditem = tditem.text
         item.tddesc = tddesc.text
-        item.tdtime = tdDone.text
+        item.tddate = tdDone.text
+        item.tdtime = tditem.text
 
         item.tdcross = false
         item.tdlist = true
@@ -102,8 +111,8 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
     func edititems() {
         item?.tditem = tditem.text!
         item?.tddesc = tddesc.text!
-        item?.tdtime = tdDone.text!
-        
+        item?.tddate = tdDone.text!
+        item?.tdtime = tdtime.text!
         
         do {
             try moc.save()
@@ -115,14 +124,28 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
     func handleDatePicker(sender: UIDatePicker) {
         let datePickerView  : UIDatePicker = UIDatePicker()
         let dateFormatter = NSDateFormatter()
-        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
-        dateFormatter.dateFormat = "EE., MMMM dd, yyyy hh:mm a"
+        datePickerView.datePickerMode = UIDatePickerMode.Date
+        dateFormatter.dateFormat = "EE., MMMM dd, yyyy"
         
         if tdDone.text == nil {
         tdDone.text = dateFormatter.stringFromDate(sender.date)
         }
         if tdDone.text != nil {
         tdDone.text = dateFormatter.stringFromDate(sender.date)
+        }
+    }
+    
+    func handleTimePicker(sender: UIDatePicker) {
+        let datePickerView  : UIDatePicker = UIDatePicker()
+        let dateFormatter = NSDateFormatter()
+        datePickerView.datePickerMode = UIDatePickerMode.Time
+        dateFormatter.dateFormat = "HH:mm a"
+        
+        if tdtime.text == nil {
+            tdtime.text = dateFormatter.stringFromDate(sender.date)
+        }
+        if tdtime.text != nil {
+            tdtime.text = dateFormatter.stringFromDate(sender.date)
         }
     }
     

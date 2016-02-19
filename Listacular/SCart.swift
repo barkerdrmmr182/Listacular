@@ -213,9 +213,9 @@ class SCart: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDa
             item.pcross = false
             item.sclist = false
             item.pitem = item.scitem
-            item.pqty = item.scqty
+//            item.pqty = item.scqty
             item.pdesc = item.scdesc
-            item.pprice = item.scprice
+//            item.pprice = item.scprice
             
         }
         self.performSegueWithIdentifier("moveToPL", sender: self)

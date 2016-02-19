@@ -209,11 +209,10 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             //strikeThrough text
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: cell.cellLabel.text!)
             attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
-            
+//            cartTotalFunc()
             cell.cellLabel.attributedText = attributeString
             cartTotal.hidden = false
             moveToPL.hidden = false
-//            cartTotalFunc()
             
         } else {
             cell.accessoryType = .None
@@ -256,14 +255,14 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             item.plist = true
             item.pcross = false
             item.slist = false
-            item.pitem = item.slitem
             
+            item.pitem = item.slitem
             item.pdesc = item.sldesc
             item.pprice = item.slprice
             item.pcategory = item.slcategory
             item.psuffix = item.slsuffix
             
-            
+            print(item)
             let myDouble = Double(item.slminqty!)
             let qtystepper = myDouble
             item.pminsteppervalue = qtystepper!
@@ -272,12 +271,14 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
             moveToPL.hidden = true
             
-        //Handle qty discrepancies
+        //Handle qty discrepancies 
             if (item.pqty == nil){
                 item.pqty = item.slqty
+                let myInt0:Int = 0
+                let myString0:String = String(myInt0)
+                item.slqty = myString0
             }
-
-            if (item.slqty != item.pqty) {
+            if (item.pitem == item.slitem) {
                 //get value of string
                 let stringNumber1 = item.slqty
                 let stringNumber2 = item.pqty
@@ -292,12 +293,16 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
                 //delclare string as qty.
                 item.pqty = myString
                 
-                            }else{
-                
+                let myInt0:Int = 0
+                let myString0:String = String(myInt0)
+                item.slqty = myString0
+            }else{
                 item.pqty = item.slqty
-        }
+            }
+            
         }
     }
+    
     
     //Swipe between tabs
     func handleSwipes(sender:UISwipeGestureRecognizer) {

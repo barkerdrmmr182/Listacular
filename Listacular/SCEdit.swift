@@ -28,8 +28,9 @@ class SCEdit: UIViewController {
         if item != nil{
             scitem.text = item?.scitem
             scdesc.text = item?.scdesc
-            scqty.text = item?.scqty
-            scprice.text = item?.scprice
+//            scqty.text = item?.scqty
+//            scprice.text = item?.scprice
+            
         }
         
         // "x" Delete Feature
@@ -82,8 +83,8 @@ class SCEdit: UIViewController {
         
         item.scitem = scitem.text
         item.scdesc = scdesc.text
-        item.scqty = scqty.text
-        item.scprice = scprice.text
+//        item.scqty = scqty.text
+//        item.scprice = scprice.text
         item.sclist = true
         item.sccross = false
         
@@ -104,8 +105,8 @@ class SCEdit: UIViewController {
     func edititems() {
         item?.scitem = scitem.text!
         item?.scdesc = scdesc.text!
-        item?.scqty = scqty.text!
-        item?.scprice = scprice.text!
+//        item?.scqty = scqty.text!
+//        item?.scprice = scprice.text!
         
         do {
             try moc.save()

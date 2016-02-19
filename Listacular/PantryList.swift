@@ -21,7 +21,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         
         let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "pcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "pitem", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "pcategory", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
         fetchRequest.predicate = NSPredicate(format:"plist == true")
         return fetchRequest
@@ -29,7 +29,7 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     
     func getFetchRequetController() ->NSFetchedResultsController{
         
-        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "pcross", cacheName: nil)
+        frc = NSFetchedResultsController(fetchRequest: itemFetchRequest(), managedObjectContext: moc, sectionNameKeyPath: "sectionIdentifier", cacheName: nil)
         return frc
     }
     
@@ -123,17 +123,15 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
     
     //table section headers
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        let sectionHeader = "Pantry Inventory - #\(frc.sections![section].numberOfObjects)"
-        let sectionHeader1 = "Inventory Needed - #\(frc.sections![section].numberOfObjects)"
         if (frc.sections!.count > 0) {
             let sectionInfo = frc.sections![section]
-            if (sectionInfo.name == "0") { // "0" is the string equivalent of false
-                return sectionHeader
+            if (sectionInfo.name == "True") {
+                return "Inventory Needed!"
             } else {
-                return sectionHeader1
+                return sectionInfo.name
             }
         } else {
-            return nil;
+            return nil
         }
     }
     
@@ -217,18 +215,44 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             item.slcross = false
             item.plist = false
             item.slitem = item.pitem
-            item.slqty = item.pqty
             item.sldesc = item.pdesc
+
             item.slprice = item.pprice
             item.slminqty = item.pminstepperlabel
             item.slcategory = item.pcategory
             item.slsuffix = item.psuffix
             moveToSL.hidden = true
-                }
-        
-
+            
+            //handle qty. discrepancies
+            if (item.slqty == nil){
+                item.slqty = item.pqty
+                let myInt0:Int = 0
+                let myString2:String = String(myInt0)
+                item.pqty! = myString2
+            }
+            if (item.slitem == item.pitem) {
+                //get value of string
+                let stringNumber1 = item.slqty
+                let stringNumber2 = item.pqty
+                //convert string to Int
+                let numberFromString1 = Int(stringNumber1!)
+                let numberFromString2 = Int(stringNumber2!)
+                //get sum of Int
+                let sum = (numberFromString2)! + (numberFromString1)!
+                let myInt:Int = sum
+                //convert back Int back to string
+                let myString:String = String(myInt)
+                //delclare string as qty.
+                item.slqty = myString
+                
+                let myInt0:Int = 0
+                let myString2:String = String(myInt0)
+                item.pqty! = myString2
+        }
+    }
     }
     
+
     //SwipeFunc
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         if (sender.direction == .Left) {
