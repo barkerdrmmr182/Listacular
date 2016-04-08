@@ -75,15 +75,15 @@ class SCart: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDa
         tableView.reloadData()
         
         //"edit" bar button item
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SCart.editButtonPressed))
     }
     
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
         if tableView.editing == true{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SCart.editButtonPressed))
         }else{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SCart.editButtonPressed))
         }
 
     }

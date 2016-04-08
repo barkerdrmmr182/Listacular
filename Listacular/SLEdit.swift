@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+@objc
 
 class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
@@ -32,8 +33,8 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
     var slcategoryObserver: NSObjectProtocol!
     
     //pickerOption array.
-    var categoryPickOption = ["Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Produce", "Snacks", "Other"]
-    var suffixPickOption = ["bottle(s)","boxes","can(s)","case(s)", "gallon(s)", "jar(s)", "lbs.", "of them", "package(s)", "other"]
+    var categoryPickOption = ["Baking", "Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Produce", "Snacks", "Other"]
+    var suffixPickOption = ["bottle(s)","box(es)","can(s)","case(s)", "gallon(s)", "jar(s)", "lbs.", "of them", "package(s)", "other"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,8 +96,8 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
 		btnSave.enabled = formIsValid
     }
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(slitemObserver)
-        NSNotificationCenter.defaultCenter().removeObserver(sldescObserver)
+        NSNotificationCenter.defaultCenter().removeObserver(slitemObserver!)
+        NSNotificationCenter.defaultCenter().removeObserver(sldescObserver!)
         NSNotificationCenter.defaultCenter().removeObserver(slqtyObserver)
         NSNotificationCenter.defaultCenter().removeObserver(slpriceObserver)
         NSNotificationCenter.defaultCenter().removeObserver(slsuffixObserver)
@@ -202,6 +203,13 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
 		// from my understanding to your code the values below belongs to the new item only. please change it if needed.
 		item.slist = true
 		item.slcross = false
+        
+        item.slitem = slitem.text
+        item.sldesc = sldesc.text
+        item.slqty = slqty.text
+        item.slprice = slprice.text
+        item.slcategory = slcategory.text
+        item.slsuffix = slsuffix.text
         print(item)
 		// assign the new item to self.item
 		self.item = item

@@ -63,8 +63,8 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
             return
         }
         //SwipeGesture
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(ToDoList.handleSwipes(_:)))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(ToDoList.handleSwipes(_:)))
         rightSwipe.direction = .Right
         leftSwipe.direction = .Left
         view.addGestureRecognizer(rightSwipe)
@@ -80,15 +80,15 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         tableView.reloadData()
         
         //"edit" bar button item
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ToDoList.editButtonPressed))
     }
     
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
         if tableView.editing == true{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ToDoList.editButtonPressed))
         }else{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ToDoList.editButtonPressed))
         }
         
     }//end edit button

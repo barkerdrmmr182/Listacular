@@ -23,7 +23,8 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         
         if item != nil{
             tditem.text = item?.tditem
@@ -43,15 +44,17 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
     @IBAction func tdDoneAction(sender: UITextField) {
         let datePickerView  : UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.Date
+        datePickerView.minimumDate = NSDate()
         tdDone.inputView = datePickerView
-        datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+        datePickerView.addTarget(self, action: #selector(TDEdit.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
   
     @IBAction func tdtimeAction(sender: AnyObject) {
         let timePickerView  : UIDatePicker = UIDatePicker()
         timePickerView.datePickerMode = UIDatePickerMode.Time
+        timePickerView.minimumDate = NSDate()
         tdtime.inputView = timePickerView
-        timePickerView.addTarget(self, action: Selector("handleTimePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+        timePickerView.addTarget(self, action: #selector(TDEdit.handleTimePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
@@ -136,10 +139,10 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
     }
     
     func handleTimePicker(sender: UIDatePicker) {
-        let datePickerView  : UIDatePicker = UIDatePicker()
+        let timePickerView  : UIDatePicker = UIDatePicker()
         let dateFormatter = NSDateFormatter()
-        datePickerView.datePickerMode = UIDatePickerMode.Time
-        dateFormatter.dateFormat = "HH:mm a"
+        timePickerView.datePickerMode = UIDatePickerMode.Time
+        dateFormatter.dateFormat = "hh:mm a"
         
         if tdtime.text == nil {
             tdtime.text = dateFormatter.stringFromDate(sender.date)

@@ -61,8 +61,8 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
             return
         }
         //Swipe Between Tabs
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PantryList.handleSwipes(_:)))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PantryList.handleSwipes(_:)))
         rightSwipe.direction = .Right
         leftSwipe.direction = .Left
         view.addGestureRecognizer(rightSwipe)
@@ -77,15 +77,15 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         tableView.reloadData()
         
         //"edit" bar button item
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PantryList.editButtonPressed))
     }
     //"edit" button code
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
         if tableView.editing == true{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PantryList.editButtonPressed))
         }else{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PantryList.editButtonPressed))
         }
         
     }//end "edit" button

@@ -73,8 +73,8 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         }
         
         //Swipe Between Tabs
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(MealPlanning.handleSwipes(_:)))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(MealPlanning.handleSwipes(_:)))
         rightSwipe.direction = .Right
         leftSwipe.direction = .Left
         view.addGestureRecognizer(rightSwipe)
@@ -88,7 +88,7 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         tableView.reloadData()
         
         //"edit" bar button item
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MealPlanning.editButtonPressed))
         
         //MARK: Get Permission From Calendar
 //        let eventStore = EKEventStore()
@@ -148,9 +148,9 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
         if tableView.editing == true{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MealPlanning.editButtonPressed))
         }else{
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("editButtonPressed"))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MealPlanning.editButtonPressed))
         }
         
     }//end edit button
