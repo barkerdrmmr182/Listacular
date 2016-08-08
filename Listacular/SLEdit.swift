@@ -33,7 +33,7 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
     var slcategoryObserver: NSObjectProtocol!
     
     //pickerOption array.
-    var categoryPickOption = ["Baking", "Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Produce", "Snacks", "Other"]
+    var categoryPickOption = ["Baking", "Bread", "Breakfast", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Produce", "Snacks", "Other"]
     var suffixPickOption = ["bottle(s)","box(es)","can(s)","case(s)", "gallon(s)", "jar(s)", "lbs.", "of them", "package(s)", "other"]
     
     override func viewDidLoad() {
@@ -104,8 +104,6 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
         NSNotificationCenter.defaultCenter().removeObserver(slcategoryObserver)
         
     }
-    
-    
 
     
     //Dismiss Keyboard when touched outside of textFields
@@ -183,8 +181,6 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
 			} else {
 				createitems()
 			}
-			print(item?.slminqty)
-
 			dismissVC()
         }
         }
@@ -210,7 +206,7 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
         item.slprice = slprice.text
         item.slcategory = slcategory.text
         item.slsuffix = slsuffix.text
-        print(item)
+        
 		// assign the new item to self.item
 		self.item = item
 

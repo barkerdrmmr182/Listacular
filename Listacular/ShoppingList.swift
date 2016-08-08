@@ -122,19 +122,21 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
 //            // Calculate the grand total.
 //            var grandTotal = 0
 //            for order in results {
+//                
+//                
 //                let SLP = order.valueForKey("slprice") as! Int
 //                let SLQ = order.valueForKey("slqty") as! Int
 //                grandTotal += SLP * SLQ
 //            }
 //            print("\(grandTotal)")
-//            cartTotal.text = "(\(grandTotal)" as String).double
+//            cartTotal.text = "$\(grandTotal)" as String
 //            
 //        } catch let error as NSError {
 //            print(error)
 //        }
 //        
 //    }
-//    
+    
     //tableView Data
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let managedObject:NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
@@ -262,7 +264,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             item.pcategory = item.slcategory
             item.psuffix = item.slsuffix
             
-            print(item)
             let myDouble = Double(item.slminqty!)
             let qtystepper = myDouble
             item.pminsteppervalue = qtystepper!

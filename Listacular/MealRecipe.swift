@@ -154,7 +154,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
                 event.startDate = NSDate()
                 event.endDate = NSDate()
                 event.allDay = true
-                event.notes = "See Meal Planning on Listacular"
+                event.notes = "\(self.Recipe.text!) - See Meal Planning on Listacular"
                 event.calendar = eventStore.defaultCalendarForNewEvents
                 
                 var event_id = "\(self.meal.text!)"

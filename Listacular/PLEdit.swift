@@ -32,7 +32,7 @@ class PLEdit: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     var pcategoryObserver: NSObjectProtocol!
     
     //Picker Options
-    var categoryPickOption = ["Baking", "Bread", "Breakfast/Cereal", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Produce", "Snacks", "Other"]
+    var categoryPickOption = ["Baking", "Bread", "Breakfast", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Produce", "Snacks", "Other"]
     var suffixPickOption = ["bottle(s)","box(es)","can(s)","case(s)", "gallon(s)", "jar(s)", "lbs.", "of them", "package(s)", "other"]
     
     override func viewDidLoad() {
