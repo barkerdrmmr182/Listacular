@@ -240,10 +240,28 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
         
         
-        
+        //Subtract from Pantry
+        if (items.mpitem == items.pitem){
+            //get value of string
+            let stringNumber0 = items.rqty0
+            let stringNumber1 = items.pqty
+            //convert string to Int
+            let numberFromString0 = Int(stringNumber0!)
+            let numberFromString1 = Int(stringNumber1!)
+            //get sum of Int
+            let sum = (numberFromString1)! - (numberFromString0)!
+            let myInt:Int = sum
+            //convert back Int back to string
+            let myString:String = String(myInt)
+            //delclare string as qty.
+            items.pqty = myString
+            
+        }
+
         return cell
 }
-    
+
+
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()
     }

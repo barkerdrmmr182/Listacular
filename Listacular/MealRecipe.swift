@@ -34,10 +34,10 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
     @IBOutlet weak var meal: UITextField!
     @IBOutlet weak var recipeItem: UITextField!
     @IBOutlet weak var direction: UITextView!
-    @IBAction func addBtn(sender: AnyObject) {
-//        add()
-    }
+    @IBOutlet weak var rqty: UITextField!
     
+    
+    var savedEventId: String = ""
     var item: List? = nil
     
     var mealDayPicker = [["Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], ["Breakfast","Lunch","Dinner","Snacks"]]
@@ -104,6 +104,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
             meal.text = item.mpcategory
             recipeItem.text = item.ringredients
             direction.text = item.rdirections
+            rqty.text = item.rqty0
         }
     }
     override func didReceiveMemoryWarning() {
@@ -134,46 +135,41 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
     }
     
     //add Meal to Calendar
-    func addToCalendar(){
+    func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
+        let event = EKEvent(eventStore: eventStore)
         
+        event.title = title
+        event.startDate = startDate
+        event.endDate = endDate
+        event.calendar = eventStore.defaultCalendarForNewEvents
+        event.notes = "\(self.Recipe.text!) - See Meal Planning on Listacular"
+        
+        do {
+            try eventStore.saveEvent(event, span: .ThisEvent)
+            savedEventId = event.eventIdentifier
+        } catch {
+            let openSettingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
+            UIApplication.sharedApplication().openURL(openSettingsUrl!)
+            
+            print("Access Denied")
+        }
+    }
+    
+    func addToCalendar(){
         let eventStore = EKEventStore()
         
-        eventStore.requestAccessToEntityType( EKEntityType.Event, completion:{(granted, error) in
-            let calendars = eventStore.calendarsForEntityType(.Event)
-            
-            for calendar in calendars {
-            if calendar.title == "Calendar" {
-                
-            if (granted) && (error == nil) {
-                print("granted \(granted)")
-                print("error \(error)")
-                
-                let event = EKEvent(eventStore: eventStore)
-                
-                event.title = "\(self.meal.text!)"
-                event.startDate = NSDate()
-                event.endDate = NSDate()
-                event.allDay = true
-                event.notes = "\(self.Recipe.text!) - See Meal Planning on Listacular"
-                event.calendar = eventStore.defaultCalendarForNewEvents
-                
-                var event_id = "\(self.meal.text!)"
-                do{
-                    try eventStore.saveEvent(event, span: .ThisEvent)
-                    event_id = event.eventIdentifier
-                }
-                catch let error as NSError {
-                    print("json error: \(error.localizedDescription)")
-                }
-                
-                if(event_id != ""){
-                    print("event added !")    
-                }
-                }
-                }
-            }
-        })
+        let startDate = NSDate()
+        let endDate = startDate.dateByAddingTimeInterval(60 * 60) // One hour
+        
+        if (EKEventStore.authorizationStatusForEntityType(.Event) != EKAuthorizationStatus.Authorized) {
+            eventStore.requestAccessToEntityType(.Event, completion: {
+                granted, error in
+                self.createEvent(eventStore, title: "\(self.meal.text!)", startDate: startDate, endDate: endDate)
+            })
+        } else {
+            createEvent(eventStore, title: "\(self.meal.text!)", startDate: startDate, endDate: endDate)
         }
+    }
     
     func createNewitem() {
         guard self.item == nil else {
@@ -215,6 +211,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
             item!.mpcategory = meal.text
             item!.ringredients = recipeItem.text
             item!.rdirections = direction.text
+            item!.rqty0 = rqty.text
             
         } else {
             print("Form is not valid")
@@ -246,6 +243,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         item.mpcategory = meal.text
         item.ringredients = recipeItem.text
         item.rdirections = direction.text
+        item.rqty0 = rqty.text
         item.mplist = true
         item.mpcross = false
         
@@ -261,43 +259,13 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         item?.mpcategory = meal.text!
         item?.ringredients = recipeItem.text!
         item?.rdirections = direction.text!
-        
+        item?.rqty0 = rqty.text!
         do {
             try moc.save()
         } catch {
             return
         }
     }
-    /*add Btn
-    func add() {
-            let alertController = UIAlertController(title: "Add Ingredients", message:
-                "Add Ingredients", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            alertController.addTextFieldWithConfigurationHandler { [unowned self] (textField: UITextField!) -> Void in
-                textField.placeholder = "Ingredients."
-                textField.keyboardType = .Default
-                textField.clearButtonMode = UITextFieldViewMode.WhileEditing
-                
-                NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { [unowned self] (notification) in
-                    let textField = notification.object as! UITextField
-                    
-                    self.setAction!.enabled = textField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty == false
-                }
-            }
-            
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler:{[unowned self] _ in self.saveToCoreDate()}))
-            setAction = UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: {[unowned self](action) -> Void in
-                
-                let textField = alertController.textFields!.first as UITextField?
-                self.ringredients.append((textField?.text)!)
-                
-               self.updateItem() })
-            setAction?.enabled = false // initialy disabled
-            
-            alertController.addAction(setAction!)
-            self.presentViewController(alertController, animated: true, completion: nil)
-    } //end add*/
-    
    
     //set up pickerView
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -319,5 +287,5 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         meal.text = dayOfWeek + " " + mealOfDay
     print(meal.text!)
     }//end pickerView
-
+    
 }

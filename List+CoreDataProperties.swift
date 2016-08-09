@@ -57,5 +57,6 @@ extension List {
     @NSManaged var ringredients: String?
     @NSManaged var rdirections: String?
     @NSManaged var rcross: NSNumber?
+    @NSManaged var rqty0: String?
 
 }
