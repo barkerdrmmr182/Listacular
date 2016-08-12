@@ -23,7 +23,7 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         let fetchRequest = NSFetchRequest(entityName: "List")
         let primarySortDescription = NSSortDescriptor(key: "mpcross", ascending: true)
-        let secondarySortDescription = NSSortDescriptor(key: "mpcategory", ascending: true)
+        let secondarySortDescription = NSSortDescriptor(key: "mpdate", ascending: true)
         fetchRequest.sortDescriptors = [primarySortDescription, secondarySortDescription]
         fetchRequest.predicate = NSPredicate(format:"mplist == true")
         return fetchRequest
@@ -51,14 +51,9 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         }
         self.tableView.reloadData()
     }//End AddNew
-
     
-//    var titles : [String] = []
-//    var startDates : [NSDate] = []
-//    var endDates : [NSDate] = []
+    let eventStore = EKEventStore()
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -145,6 +140,48 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
 //        }//End Meals From Calendar
     }//End ViewDidLoad
     
+    //Calendar Permissions
+    func checkCalendarAuthorizationStatus() {
+        let status = EKEventStore.authorizationStatusForEntityType(EKEntityType.Event)
+        
+        switch (status) {
+        case EKAuthorizationStatus.NotDetermined:
+            // This happens on first-run
+            requestAccessToCalendar()
+        case EKAuthorizationStatus.Authorized: break
+            // Things are in line with being able to show the calendars in the table view
+            
+        case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied:
+            // We need to help them give us permission
+           requestAccessToCalendar()
+        }
+    }
+    
+    func requestAccessToCalendar() {
+        //alert for access denied
+        let alert = UIAlertController(title: "Calendar Access Denied", message: "Please allow access to your calendar.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        
+        alert.addAction(cancelAction)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .Cancel) { (alertAction) in
+            //Link to app settings
+            if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.sharedApplication().openURL(appSettings)
+            }
+        }
+        
+        alert.addAction(settingsAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        print("Access Denied")
+    }
+    
+    
+
+    
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
         if tableView.editing == true{
@@ -164,6 +201,7 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             print("Failed to perform inital fetch.")
             return
         }
+        checkCalendarAuthorizationStatus()
         tableView.reloadData()
         
     }
@@ -235,7 +273,7 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
-        cell.cellLabel?.text = "\(items.mpitem!)"
+        cell.cellLabel?.text = "\(items.mpcategory!) - \(items.mpitem!)"
         cell.backgroundColor = UIColor.clearColor()
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
         

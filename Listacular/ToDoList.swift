@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EventKit
 import CoreData
 
 class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, TDCellDelegate {
@@ -49,7 +50,12 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         self.tableView.reloadData()
     }
     @IBOutlet weak var deleteCompleted: UIButton!
+    let eventStore = EKEventStore()
     
+    override func viewWillAppear(animated: Bool) {
+        checkCalendarAuthorizationStatus()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,6 +88,47 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         //"edit" bar button item
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ToDoList.editButtonPressed))
     }
+    
+    
+    //Calendar Permissions
+    func checkCalendarAuthorizationStatus() {
+        let status = EKEventStore.authorizationStatusForEntityType(EKEntityType.Event)
+        
+        switch (status) {
+        case EKAuthorizationStatus.NotDetermined:
+            // This happens on first-run
+            requestAccessToCalendar()
+        case EKAuthorizationStatus.Authorized: break
+            // Things are in line with being able to show the calendars in the table view
+            
+        case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied:
+            // We need to help them give us permission
+            requestAccessToCalendar()
+        }
+    }
+    
+    func requestAccessToCalendar() {
+        //alert for access denied
+        let alert = UIAlertController(title: "Calendar Access Denied", message: "Please allow access to your calendar.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        
+        alert.addAction(cancelAction)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .Cancel) { (alertAction) in
+            //Link to app settings
+            if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.sharedApplication().openURL(appSettings)
+            }
+        }
+        
+        alert.addAction(settingsAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        print("Access Denied")
+    }
+
     
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
@@ -168,7 +215,7 @@ class ToDoList: UIViewController, NSFetchedResultsControllerDelegate, UITableVie
         let items = frc.objectAtIndexPath(indexPath) as! List
         cell.backgroundColor = UIColor.clearColor()
         cell.tintColor = UIColor.grayColor()
-        cell.cellLabel.text = "\(items.tditem!) - \(items.tdtime!)"
+        cell.cellLabel.text = "\(items.tditem!) - \(items.tddate!)"
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
         deleteCompleted.hidden = true
         

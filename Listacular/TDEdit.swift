@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EventKit
 import CoreData
 
 class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
@@ -16,9 +17,9 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
     @IBOutlet weak var tditem: UITextField!
     @IBOutlet weak var tddesc: UITextField!
     @IBOutlet weak var tdDone: UITextField!
-    @IBOutlet weak var tdtime: UITextField!
     
     
+    var savedEventId: String = ""
     var item: List? = nil
         
     override func viewDidLoad() {
@@ -30,7 +31,7 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
             tditem.text = item?.tditem
             tddesc.text = item?.tddesc
             tdDone.text = item?.tddate
-            tdtime.text = item?.tdtime
+            
             
         }
         
@@ -43,19 +44,15 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
 
     @IBAction func tdDoneAction(sender: UITextField) {
         let datePickerView  : UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.Date
+        let dateFormatter = NSDateFormatter()
+        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
+        dateFormatter.dateFormat = "EE., MMM dd, yyyy h:mm a"
         datePickerView.minimumDate = NSDate()
         tdDone.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(TDEdit.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
   
-    @IBAction func tdtimeAction(sender: AnyObject) {
-        let timePickerView  : UIDatePicker = UIDatePicker()
-        timePickerView.datePickerMode = UIDatePickerMode.Time
-        timePickerView.minimumDate = NSDate()
-        tdtime.inputView = timePickerView
-        timePickerView.addTarget(self, action: #selector(TDEdit.handleTimePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
-    }
+    
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
         view.endEditing(true)
@@ -80,6 +77,7 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
             createitems()
         }
         
+        addToCalendar()
         dismissVC()
     }
     
@@ -92,7 +90,7 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
         item.tditem = tditem.text
         item.tddesc = tddesc.text
         item.tddate = tdDone.text
-        item.tdtime = tditem.text
+        
 
         item.tdcross = false
         item.tdlist = true
@@ -115,7 +113,7 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
         item?.tditem = tditem.text!
         item?.tddesc = tddesc.text!
         item?.tddate = tdDone.text!
-        item?.tdtime = tdtime.text!
+        
         
         do {
             try moc.save()
@@ -127,8 +125,8 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
     func handleDatePicker(sender: UIDatePicker) {
         let datePickerView  : UIDatePicker = UIDatePicker()
         let dateFormatter = NSDateFormatter()
-        datePickerView.datePickerMode = UIDatePickerMode.Date
-        dateFormatter.dateFormat = "EE., MMMM dd, yyyy"
+        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
+        dateFormatter.dateFormat = "EE., MMM dd, yyyy h:mm a"
         
         if tdDone.text == nil {
         tdDone.text = dateFormatter.stringFromDate(sender.date)
@@ -138,18 +136,48 @@ class TDEdit: UIViewController, UITextFieldDelegate, UIPickerViewDelegate {
         }
     }
     
-    func handleTimePicker(sender: UIDatePicker) {
-        let timePickerView  : UIDatePicker = UIDatePicker()
-        let dateFormatter = NSDateFormatter()
-        timePickerView.datePickerMode = UIDatePickerMode.Time
-        dateFormatter.dateFormat = "hh:mm a"
+       
+    //add To Do to Calendar
+    func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
+        let event = EKEvent(eventStore: eventStore)
         
-        if tdtime.text == nil {
-            tdtime.text = dateFormatter.stringFromDate(sender.date)
-        }
-        if tdtime.text != nil {
-            tdtime.text = dateFormatter.stringFromDate(sender.date)
+        event.title = title
+        event.startDate = startDate
+        event.endDate = endDate
+        event.calendar = eventStore.defaultCalendarForNewEvents
+        event.notes = "\(self.tditem.text!) - See To Do List on Listacular"
+        
+        do {
+            try eventStore.saveEvent(event, span: .ThisEvent)
+            savedEventId = event.eventIdentifier
+        } catch {
+//            let openSettingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
+//            UIApplication.sharedApplication().openURL(openSettingsUrl!)
+            
+            print("Access Denied")
         }
     }
+    
+    func addToCalendar(){
+        let eventStore = EKEventStore()
+        
+        let formatter = NSDateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "US_en")
+        formatter.dateFormat = "EE., MMMM dd, yyyy h:mm a"
+        let date = formatter.dateFromString(tdDone.text!)
+        
+        let startDate = date
+        let endDate = startDate!.dateByAddingTimeInterval(60 * 60)
+        
+        if (EKEventStore.authorizationStatusForEntityType(.Event) != EKAuthorizationStatus.Authorized) {
+            eventStore.requestAccessToEntityType(.Event, completion: {
+                granted, error in
+                self.createEvent(eventStore, title: "\(self.tditem.text!)", startDate: startDate!, endDate: endDate)
+            })
+        } else {
+            createEvent(eventStore, title: "\(self.tditem.text!)", startDate: startDate!, endDate: endDate)
+        }
+    }
+
     
 }

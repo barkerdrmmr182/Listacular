@@ -104,7 +104,6 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
         NSNotificationCenter.defaultCenter().removeObserver(slcategoryObserver)
         
     }
-
     
     //Dismiss Keyboard when touched outside of textFields
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){

@@ -34,7 +34,7 @@ class List: NSManagedObject {
             if self.mpcross == true {
                 return "True"
             } else {
-                return "\(self.mpcategory!)"
+                return "\(self.mpdate!)"
             }
     }else{
         if self.rlist == true {
@@ -59,32 +59,6 @@ class List: NSManagedObject {
         }
         }
     }
-    
-    
-//    func mealSectionIdentifier() -> String {
-//        if self.mplist == true {
-//            if self.mpcross == true {
-//                return "True"
-//            } else {
-//                return "\(self.mpcategory!)"
-//            }
-//        } else {
-//            return "false"
-//        }
-//        }
-    
-
-//    func tdSectionIdentifier() ->String {
-//        if self.tdlist == true {
-//            if self.tdcross == true {
-//                return "True"
-//            } else{
-//                return "\(self.tddate!)"
-//            }
-//        }else{
-//            return "false"
-//        }
-//    }
 
 
 // Insert code here to add functionality to your managed object subclass

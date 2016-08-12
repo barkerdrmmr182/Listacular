@@ -31,16 +31,17 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         return frc
     }
     @IBOutlet weak var Recipe: UITextField!
-    @IBOutlet weak var meal: UITextField!
+    @IBOutlet weak var mealOfDay: UITextField!
     @IBOutlet weak var recipeItem: UITextField!
-    @IBOutlet weak var direction: UITextView!
+    @IBOutlet weak var dayOfWeek: UITextField!
+   
     @IBOutlet weak var rqty: UITextField!
     
     
     var savedEventId: String = ""
     var item: List? = nil
     
-    var mealDayPicker = [["Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], ["Breakfast","Lunch","Dinner","Snacks"]]
+    var mealDayPicker = ["Breakfast","Lunch","Dinner","Snacks"]
     
     var RecipeObserver: NSObjectProtocol!
     var mealObserver: NSObjectProtocol!
@@ -55,11 +56,10 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         //mealPicker delegate
         let mealDaypicker = UIPickerView()
         mealDaypicker.delegate = self
-        meal.inputView = mealDaypicker
-        //mealPicker Default Row
-        mealDaypicker.selectRow(0, inComponent: 0, animated: true)
-        mealDaypicker.selectRow(0, inComponent: 1, animated: true)
-        meal.delegate = self
+        mealOfDay.inputView = mealDaypicker
+        mealOfDay.delegate = self
+        dayOfWeek.delegate = self
+        
         
         // item not nill means we're editing.
         if item != nil{
@@ -67,14 +67,14 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         }
         
         self.Recipe.clearButtonMode = UITextFieldViewMode.WhileEditing
-        self.meal.clearButtonMode = UITextFieldViewMode.WhileEditing
+        self.mealOfDay.clearButtonMode = UITextFieldViewMode.WhileEditing
         self.recipeItem.clearButtonMode = UITextFieldViewMode.WhileEditing
         
         RecipeObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.Recipe, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
             self.btnSave.enabled = self.formIsValid
             
             })
-        mealObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.meal, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
+        mealObserver = NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: self.mealOfDay, queue: NSOperationQueue.mainQueue(), usingBlock: { [unowned self] (notification) in
             self.btnSave.enabled = self.formIsValid
             
             })
@@ -101,9 +101,9 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
     func updateUIFromItem() {
         if let item = self.item {
             Recipe.text = item.mpitem
-            meal.text = item.mpcategory
+            mealOfDay.text = item.mpcategory
             recipeItem.text = item.ringredients
-            direction.text = item.rdirections
+            dayOfWeek.text = item.mpdate
             rqty.text = item.rqty0
         }
     }
@@ -127,12 +127,53 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         // create newItem if it's nil
         if item == nil {
             createNewitem()
+            
         }
         // update the item
         updateItem()
-        addToCalendar()
-        saveToCoreDate()
+        checkCalendarAuthorizationStatus()
+        
     }
+    
+    //Calendar Permissions
+    func checkCalendarAuthorizationStatus() {
+        let status = EKEventStore.authorizationStatusForEntityType(EKEntityType.Event)
+        
+        switch (status) {
+        case EKAuthorizationStatus.NotDetermined:
+            // This happens on first-run
+            requestAccessToCalendar()
+        case EKAuthorizationStatus.Authorized:
+            // Things are in line with being able to show the calendars in the table view
+            saveToCoreDate()
+            addToCalendar()
+        case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied:
+            // We need to help them give us permission
+            requestAccessToCalendar()
+        }
+    }
+    
+    func requestAccessToCalendar() {
+        //alert for access denied
+        let alert = UIAlertController(title: "Calendar Access Denied", message: "Please allow access to your calendar.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .Cancel) { (alertAction) in
+            //Link to app settings
+            if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.sharedApplication().openURL(appSettings)
+            }
+        }
+        
+        alert.addAction(settingsAction)
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        print("Access Denied")
+    }
+
     
     //add Meal to Calendar
     func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
@@ -147,9 +188,28 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         do {
             try eventStore.saveEvent(event, span: .ThisEvent)
             savedEventId = event.eventIdentifier
+            
         } catch {
-            let openSettingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
-            UIApplication.sharedApplication().openURL(openSettingsUrl!)
+//            let openSettingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
+//            UIApplication.sharedApplication().openURL(openSettingsUrl!)
+            
+//            //alert for access denied
+//            let alert = UIAlertController(title: "Calendar Access Denied", message: "Please allow access to your calendar.", preferredStyle: UIAlertControllerStyle.Alert)
+//            
+//            let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: {[unowned self] _ in self.saveToCoreDate()})
+//            
+//            alert.addAction(cancelAction)
+//            
+//            let settingsAction = UIAlertAction(title: "Settings", style: .Cancel) { (alertAction) in
+//                //Link to app settings
+//                if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+//                    UIApplication.sharedApplication().openURL(appSettings)
+//                }
+//            }
+//            
+//            alert.addAction(settingsAction)
+//            
+//            self.presentViewController(alert, animated: true, completion: nil)
             
             print("Access Denied")
         }
@@ -158,17 +218,23 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
     func addToCalendar(){
         let eventStore = EKEventStore()
         
-        let startDate = NSDate()
-        let endDate = startDate.dateByAddingTimeInterval(60 * 60) // One hour
+        let formatter = NSDateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "US_en")
+        formatter.dateFormat = "EE., MMMM dd, yyyy h:mm a"
+        let date = formatter.dateFromString(dayOfWeek.text!)
+        
+        let startDate = date
+        let endDate = startDate!.dateByAddingTimeInterval(60 * 60) // One hour
         
         if (EKEventStore.authorizationStatusForEntityType(.Event) != EKAuthorizationStatus.Authorized) {
             eventStore.requestAccessToEntityType(.Event, completion: {
                 granted, error in
-                self.createEvent(eventStore, title: "\(self.meal.text!)", startDate: startDate, endDate: endDate)
+                self.createEvent(eventStore, title: "\(self.mealOfDay.text!)", startDate: startDate!, endDate: endDate)
             })
         } else {
-            createEvent(eventStore, title: "\(self.meal.text!)", startDate: startDate, endDate: endDate)
+            createEvent(eventStore, title: "\(self.mealOfDay.text!)", startDate: startDate!, endDate: endDate)
         }
+        
     }
     
     func createNewitem() {
@@ -193,8 +259,8 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         // make sure all is not null.
         //TODO: you may check for the number values is only numbers too.
         return Recipe.text?.isEmpty  == false
-            && meal.text?.isEmpty  == false
-            && direction.text?.isEmpty   == false
+            && mealOfDay.text?.isEmpty  == false
+            && dayOfWeek.text?.isEmpty   == false
             && recipeItem.text?.isEmpty == false
     }
     func updateItem() {
@@ -208,14 +274,15 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
             
             // update the item with what in the text fields.
             item!.mpitem = Recipe.text
-            item!.mpcategory = meal.text
+            item!.mpcategory = mealOfDay.text
             item!.ringredients = recipeItem.text
-            item!.rdirections = direction.text
+            item!.mpdate = dayOfWeek.text
             item!.rqty0 = rqty.text
             
         } else {
             print("Form is not valid")
         }
+        
     }
 
     /**
@@ -240,9 +307,9 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         let item = List(entity: entityDescription!, insertIntoManagedObjectContext: moc)
         
         item.mpitem = Recipe.text
-        item.mpcategory = meal.text
+        item.mpcategory = mealOfDay.text
         item.ringredients = recipeItem.text
-        item.rdirections = direction.text
+        item.mpdate = dayOfWeek.text
         item.rqty0 = rqty.text
         item.mplist = true
         item.mpcross = false
@@ -256,9 +323,9 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
 
     func edititems() {
         item?.mpitem = Recipe.text!
-        item?.mpcategory = meal.text!
+        item?.mpcategory = mealOfDay.text!
         item?.ringredients = recipeItem.text!
-        item?.rdirections = direction.text!
+        item?.mpdate = dayOfWeek.text!
         item?.rqty0 = rqty.text!
         do {
             try moc.save()
@@ -266,26 +333,51 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
             return
         }
     }
+    
+    @IBAction func dayOfWeek(sender: AnyObject) {
+        let datePickerView  : UIDatePicker = UIDatePicker()
+        let dateFormatter = NSDateFormatter()
+        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
+        dateFormatter.dateFormat = "EE., MMM dd, yyyy h:mm a"
+        datePickerView.minimumDate = NSDate()
+        dayOfWeek.inputView = datePickerView
+        datePickerView.addTarget(self, action: #selector(MealRecipe.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
+    }
+
+    
+    
+    func handleDatePicker(sender: UIDatePicker) {
+        let datePickerView  : UIDatePicker = UIDatePicker()
+        let dateFormatter = NSDateFormatter()
+        datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
+        dateFormatter.dateFormat = "EE., MMM dd, yyyy h:mm a"
+        
+        if dayOfWeek.text == nil {
+            dayOfWeek.text = dateFormatter.stringFromDate(sender.date)
+        }
+        if dayOfWeek.text != nil {
+            dayOfWeek.text = dateFormatter.stringFromDate(sender.date)
+        }
+    }
    
     //set up pickerView
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return mealDayPicker.count
+        return 1
         }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return mealDayPicker[component].count
+        return mealDayPicker.count
     }
     
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return mealDayPicker[component][row]
+        return mealDayPicker[row]
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let dayOfWeek = mealDayPicker[0][pickerView.selectedRowInComponent(0)]
-        let mealOfDay = mealDayPicker[1][pickerView.selectedRowInComponent(1)]
-        meal.text = dayOfWeek + " " + mealOfDay
-    print(meal.text!)
+        
+        mealOfDay.text = mealDayPicker[row]
+        print(mealOfDay.text!)
     }//end pickerView
     
 }

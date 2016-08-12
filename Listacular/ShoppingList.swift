@@ -111,31 +111,42 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
 
 	}
     
-//    func cartTotalFunc() {
-//        
-//        itemFetchRequest().returnsObjectsAsFaults = false
-//        
-//        do {
-//            let results = try moc.executeFetchRequest(itemFetchRequest())
-//            print("===\(results)")
-//            
-//            // Calculate the grand total.
-//            var grandTotal = 0
-//            for order in results {
-//                
-//                
-//                let SLP = order.valueForKey("slprice") as! Int
-//                let SLQ = order.valueForKey("slqty") as! Int
-//                grandTotal += SLP * SLQ
-//            }
-//            print("\(grandTotal)")
-//            cartTotal.text = "$\(grandTotal)" as String
-//            
-//        } catch let error as NSError {
-//            print(error)
-//        }
-//        
-//    }
+    
+    
+    func cartTotalFunc() {
+        
+        
+        itemFetchRequest().returnsObjectsAsFaults = false
+        
+        do {
+            let results = try moc.executeFetchRequest(itemFetchRequest())
+            print("===\(results)")
+            
+            // Calculate the grand total.
+            var grandTotal = 0
+            for order in results {
+                
+                
+                let SLP = Double(order.valueForKey("slprice") as! String)
+                let SLQ = Double(order.valueForKey("slqty") as! String)
+                let SLP1 = round(SLP!)
+                let SLQ1 = round(SLQ!)
+                let SLP2 = Int(SLP1)
+                let SLQ2 = Int(SLQ1)
+                grandTotal += SLP2 * SLQ2
+                
+                print(round(SLP!))
+                print(round(SLQ!))
+            }
+            print("\(grandTotal)")
+            
+            cartTotal.text = "$\(grandTotal)" as String
+            
+        } catch let error as NSError {
+            print(error)
+        }
+        
+    }
     
     //tableView Data
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -211,7 +222,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             //strikeThrough text
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: cell.cellLabel.text!)
             attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
-//            cartTotalFunc()
+            cartTotalFunc()
             cell.cellLabel.attributedText = attributeString
             cartTotal.hidden = false
             moveToPL.hidden = false
