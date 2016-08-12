@@ -37,6 +37,8 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     @IBOutlet weak var totalView: UIView!
     @IBOutlet weak var cartTotal: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var listTotalLabel: UILabel!
+    @IBOutlet weak var listTotal: UILabel!
     @IBAction func AddNew(sender: AnyObject) {
     
         
@@ -51,6 +53,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         }
         self.tableView.reloadData()
     }//End AddNew
+    
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +85,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         self.cartTotalLabel.textColor = UIColor.blackColor()
         moveToPL.hidden = true
         cartTotal.hidden = true
+        
         tableView.reloadData()
         
         //"edit" bar button item
@@ -126,6 +130,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             
             // Calculate the grand total.
             var grandTotal = 0
+            var grandTotal1 = 0
             for order in results {
                 let cross = order.valueForKey("slcross") as! Bool
                 
@@ -138,12 +143,16 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
                 if (cross == true) {
                 grandTotal += SLP2 * SLQ2
                 
-                print(round(SLP!))
-                print(round(SLQ!))
+                print(SLP2)
+                print(SLQ2)
             }
+                if (cross != true){
+                    grandTotal1 += SLP2 * SLQ2
+                }
             
             print("\(grandTotal)")
-            
+                
+            listTotal.text = "$\(grandTotal1)" as String
             cartTotal.text = "$\(grandTotal)" as String
             }
         } catch let error as NSError {
@@ -216,7 +225,9 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         cell.tintColor = UIColor.grayColor()
         cell.cellLabel.text = "\(items.slitem!) - \(items.slqty!) \(items.slsuffix!)"
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
+        cartTotalFunc()
         moveToPL.hidden = true
+        
         
         if (items.slcross == true) {
             cell.accessoryType = .Checkmark
@@ -226,7 +237,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             //strikeThrough text
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: cell.cellLabel.text!)
             attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 2, range: NSMakeRange(0, attributeString.length))
-            cartTotalFunc()
+            
             cell.cellLabel.attributedText = attributeString
             cartTotal.hidden = false
             moveToPL.hidden = false
@@ -236,6 +247,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             cell.cellLabel.textColor = UIColor.blackColor()
             cell.cellLabel.font = UIFont.systemFontOfSize(25)
             self.tableView.rowHeight = 60
+            
             moveToPL.hidden = true
             cartTotal.hidden = true
         }
@@ -278,6 +290,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             item.pprice = item.slprice
             item.pcategory = item.slcategory
             item.psuffix = item.slsuffix
+            cartTotal.hidden = true
             
             let myDouble = Double(item.slminqty!)
             let qtystepper = myDouble
