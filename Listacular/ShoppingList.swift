@@ -114,34 +114,38 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     
     
     func cartTotalFunc() {
-        
+       
         
         itemFetchRequest().returnsObjectsAsFaults = false
         
         do {
+            
+            
             let results = try moc.executeFetchRequest(itemFetchRequest())
             print("===\(results)")
             
             // Calculate the grand total.
             var grandTotal = 0
             for order in results {
-                
+                let cross = order.valueForKey("slcross") as! Bool
                 
                 let SLP = Double(order.valueForKey("slprice") as! String)
                 let SLQ = Double(order.valueForKey("slqty") as! String)
-                let SLP1 = round(SLP!)
-                let SLQ1 = round(SLQ!)
+                let SLP1 = ceil(SLP!)
+                let SLQ1 = ceil(SLQ!)
                 let SLP2 = Int(SLP1)
                 let SLQ2 = Int(SLQ1)
+                if (cross == true) {
                 grandTotal += SLP2 * SLQ2
                 
                 print(round(SLP!))
                 print(round(SLQ!))
             }
+            
             print("\(grandTotal)")
             
             cartTotal.text = "$\(grandTotal)" as String
-            
+            }
         } catch let error as NSError {
             print(error)
         }
