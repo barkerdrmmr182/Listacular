@@ -263,27 +263,36 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         item.mpdate = dayOfWeek.text
         item.rqty0 = rqty.text
         
+        func itemFetchRequest1() -> NSFetchRequest{
+            
+            let fetchRequest = NSFetchRequest(entityName: "List")
+            fetchRequest.predicate = NSPredicate(format:"pitem %@", item.pitem!)
+            fetchRequest.predicate = NSPredicate(format:"pqty %@", item.pqty!)
+            return fetchRequest
         
-//        //Subtract from Pantry
-//        if (item.ringredients == item.pitem){
-//            //get value of string
-//            let stringNumber0 = item.rqty0
-//            let stringNumber1 = item.pqty
-//            //convert string to Int
-//            let numberFromString0 = Int(stringNumber0!)
-//            let numberFromString1 = Int(stringNumber1!)
-//            //get sum of Int
-//            let sum = (numberFromString1)! - (numberFromString0)!
-//            let myInt:Int = sum
-//            //convert back Int back to string
-//            let myString:String = String(myInt)
-//            //delclare string as qty.
-//            item.pqty = myString
-//            
-//        }else{
-//            print(item.pitem)
-//            print(item.ringredients)
-//        }
+        }
+        itemFetchRequest1()
+        
+        //Subtract from Pantry
+        if (item.ringredients == item.pitem){
+            //get value of string
+            let stringNumber0 = item.rqty0
+            let stringNumber1 = item.pqty
+            //convert string to Int
+            let numberFromString0 = Int(stringNumber0!)
+            let numberFromString1 = Int(stringNumber1!)
+            //get sum of Int
+            let sum = (numberFromString1)! - (numberFromString0)!
+            let myInt:Int = sum
+            //convert back Int back to string
+            let myString:String = String(myInt)
+            //delclare string as qty.
+            item.pqty = myString
+            
+        }else{
+            print(item.pitem)
+            print(item.ringredients)
+        }
         
     }
     var formIsValid:Bool {

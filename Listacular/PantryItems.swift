@@ -114,7 +114,16 @@ class PantryItems: UIViewController {
             setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {[unowned self](action) -> Void in
                 
                 let textField = alertController.textFields!.first as UITextField?
-                self.item?.slqty = textField?.text
+                if (self.item?.slqty == nil){
+                    self.item?.slqty = textField?.text
+                }else{
+                    var total = 0
+                    let oldQty = Int((self.item?.slqty!)!)
+                    let addQty = Int((textField?.text)!)
+                    total = (oldQty! + addQty!)
+                    self.item?.slqty = String(total)
+                }
+
                 
                 
                 self.moveToSL(self)
@@ -159,8 +168,15 @@ class PantryItems: UIViewController {
             setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: {[unowned self](action) -> Void in
                 
                 let textField = alertController.textFields!.first as UITextField?
+                if (self.item?.slqty == nil){
                 self.item?.slqty = textField?.text
-                
+                }else{
+                    var total = 0
+                    let oldQty = Int((self.item?.slqty!)!)
+                    let addQty = Int((textField?.text)!)
+                    total = (oldQty! + addQty!)
+                    self.item?.slqty = String(total)
+                }
                 self.moveToSL(self)
                 
                 
