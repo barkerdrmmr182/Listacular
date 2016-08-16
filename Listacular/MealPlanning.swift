@@ -35,9 +35,8 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         return frc
     }
 
-
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var addNewBtn: UIBarButtonItem!
     @IBAction func AddNew(sender: AnyObject) {
         
         frc = getFetchRequetController()
@@ -53,7 +52,7 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
     }//End AddNew
     
     let eventStore = EKEventStore()
-    
+    var calendars: [EKCalendar]?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,62 +84,9 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         //"edit" bar button item
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MealPlanning.editButtonPressed))
         
-        //MARK: Get Permission From Calendar
-//        let eventStore = EKEventStore()
-//        
-//        
-//        switch EKEventStore.authorizationStatusForEntityType(.Event) {
-//        case .Authorized:
-//            readEvents()
-//        case .Denied:
-//            print("Access denied")
-//        case .NotDetermined:
-//            
-//            eventStore.requestAccessToEntityType(.Event, completion: { (granted: Bool, NSError) -> Void in
-//                if granted {
-//                    self.readEvents()
-//                    
-//                }else{
-//                    print("Access denied")
-//                }
-//                
-//                
-//                
-//            })
-//        default:
-//            print("Case Default")
-//        }
-//        self.tableView.reloadData()
-//    }
-    
-    
-    //Get Meals Events From Calendar
-//    func readEvents() {
-//        
-//        let eventStore = EKEventStore()
-//        let calendars = eventStore.calendarsForEntityType(.Event)
-//        
-//        for calendar in calendars {
-//            if calendar.title == "Meal Planning" {
-//                
-//                let oneWeekAgo = NSDate(timeIntervalSinceNow: -7*24*3600)
-//                let oneWeekAfter = NSDate(timeIntervalSinceNow: +7*24*3600)
-//                
-//                let predicate = eventStore.predicateForEventsWithStartDate(oneWeekAgo, endDate: oneWeekAfter, calendars: [calendar])
-//                
-//                let events = eventStore.eventsMatchingPredicate(predicate)
-//                
-//                for event in events {
-//                    
-//                    titles.append(event.title)
-//                    startDates.append(event.startDate)
-//                    endDates.append(event.endDate)
-//                }
-//            }
-//        }//End Meals From Calendar
     }//End ViewDidLoad
     
-    //Calendar Permissions
+    //MARK: Get Permission From Calendar
     func checkCalendarAuthorizationStatus() {
         let status = EKEventStore.authorizationStatusForEntityType(EKEntityType.Event)
         
@@ -148,12 +94,14 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         case EKAuthorizationStatus.NotDetermined:
             // This happens on first-run
             requestAccessToCalendar()
-        case EKAuthorizationStatus.Authorized: break
+//            addNewBtn.enabled = false
+        case EKAuthorizationStatus.Authorized:
             // Things are in line with being able to show the calendars in the table view
-            
+            addNewBtn.enabled = true
         case EKAuthorizationStatus.Restricted, EKAuthorizationStatus.Denied:
             // We need to help them give us permission
-           requestAccessToCalendar()
+            requestAccessToCalendar()
+//            addNewBtn.enabled = false
         }
     }
     
@@ -178,9 +126,6 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         
         print("Access Denied")
     }
-    
-    
-
     
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
@@ -257,12 +202,7 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         let numberOfRowsInSection = frc.sections?[section].numberOfObjects
         return numberOfRowsInSection!
     }
-    //Segue when Row Selected.
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        
-//        self.performSegueWithIdentifier("mealRecipe", sender: self)
-//        
-//    }
+   
     //Configure Cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MealPlanningCell
@@ -278,26 +218,9 @@ class MealPlanning: UIViewController, NSFetchedResultsControllerDelegate, UITabl
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
         
         
-        //Subtract from Pantry
-        if (items.mpitem == items.pitem){
-            //get value of string
-            let stringNumber0 = items.rqty0
-            let stringNumber1 = items.pqty
-            //convert string to Int
-            let numberFromString0 = Int(stringNumber0!)
-            let numberFromString1 = Int(stringNumber1!)
-            //get sum of Int
-            let sum = (numberFromString1)! - (numberFromString0)!
-            let myInt:Int = sum
-            //convert back Int back to string
-            let myString:String = String(myInt)
-            //delclare string as qty.
-            items.pqty = myString
-            
-        }
-
+        
         return cell
-}
+    }
 
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {

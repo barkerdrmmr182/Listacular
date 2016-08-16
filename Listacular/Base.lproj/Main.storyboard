@@ -399,6 +399,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="addNewBtn" destination="Q7S-BP-hnQ" id="gJM-bT-ut0"/>
                         <outlet property="tableView" destination="sEN-NO-ogF" id="kwQ-1B-P5E"/>
                         <segue destination="IFR-kF-625" kind="show" identifier="mealRecipe" id="Lkb-SQ-zS7"/>
                     </connections>

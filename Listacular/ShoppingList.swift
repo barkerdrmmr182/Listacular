@@ -124,7 +124,7 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
             
             
             let results = try moc.executeFetchRequest(itemFetchRequest())
-            print("===\(results)")
+//            print("===\(results)")
             
             // Calculate the grand total.
             var grandTotal = 0
@@ -141,14 +141,14 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
                 if (cross == true) {
                 grandTotal += SLP2 * SLQ2
                 
-                print(SLP2)
-                print(SLQ2)
+//                print(SLP2)
+//                print(SLQ2)
             }
                 if (cross != true){
                     grandTotal1 += SLP2 * SLQ2
                 }
             
-            print("\(grandTotal)")
+//            print("\(grandTotal)")
                 
             listTotal.text = "$\(grandTotal1)" as String
             cartTotal.text = "$\(grandTotal)" as String

@@ -34,7 +34,7 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
     
     //pickerOption array.
     var categoryPickOption = ["Baking", "Bread", "Breakfast", "Canned Foods", "Cleaning", "Dairy", "Deli", "Drinks", "Frozen", "Fruit","Kitchen", "Household", "Meats", "Pets", "Produce", "Snacks", "Other"]
-    var suffixPickOption = ["bottle(s)","box(es)","can(s)","case(s)", "gallon(s)", "jar(s)", "lbs.", "of them", "package(s)", "other"]
+    var suffixPickOption = ["bottle(s)","box(es)","can(s)","case(s)", "gallon(s)", "jar(s)", "lbs.", "of them", "ounces", "package(s)", "other"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,7 +208,7 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
         
 		// assign the new item to self.item
 		self.item = item
-
+        print(self.item)
 	}
 	var formIsValid:Bool {
 		// make sure all is not null. 

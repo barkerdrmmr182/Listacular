@@ -158,7 +158,17 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         //alert for access denied
         let alert = UIAlertController(title: "Calendar Access Denied", message: "Please allow access to your calendar.", preferredStyle: UIAlertControllerStyle.Alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (alertAction) in
+            if self.item == nil {
+                self.createNewitem()
+                
+            }else{
+            // update the item
+            self.updateItem()
+            }
+            self.dismissVC()
+        }
+
         
         let settingsAction = UIAlertAction(title: "Settings", style: .Cancel) { (alertAction) in
             //Link to app settings
@@ -215,6 +225,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         formatter.dateFormat = "EE., MMMM dd, yyyy h:mm a"
         let date = formatter.dateFromString(dayOfWeek.text!)
         
+        
         let startDate = date
         let endDate = startDate!.dateByAddingTimeInterval(60 * 60) // One hour
         
@@ -245,6 +256,34 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         item.mpcross = false
         // assign the new item to self.item
         self.item = item
+        
+        item.mpitem = Recipe.text
+        item.mpcategory = mealOfDay.text
+        item.ringredients = recipeItem.text
+        item.mpdate = dayOfWeek.text
+        item.rqty0 = rqty.text
+        
+        
+//        //Subtract from Pantry
+//        if (item.ringredients == item.pitem){
+//            //get value of string
+//            let stringNumber0 = item.rqty0
+//            let stringNumber1 = item.pqty
+//            //convert string to Int
+//            let numberFromString0 = Int(stringNumber0!)
+//            let numberFromString1 = Int(stringNumber1!)
+//            //get sum of Int
+//            let sum = (numberFromString1)! - (numberFromString0)!
+//            let myInt:Int = sum
+//            //convert back Int back to string
+//            let myString:String = String(myInt)
+//            //delclare string as qty.
+//            item.pqty = myString
+//            
+//        }else{
+//            print(item.pitem)
+//            print(item.ringredients)
+//        }
         
     }
     var formIsValid:Bool {
