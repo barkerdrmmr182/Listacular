@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import EventKit
 
+
 class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
@@ -190,28 +191,19 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
             savedEventId = event.eventIdentifier
             
         } catch {
-//            let openSettingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
-//            UIApplication.sharedApplication().openURL(openSettingsUrl!)
-            
-//            //alert for access denied
-//            let alert = UIAlertController(title: "Calendar Access Denied", message: "Please allow access to your calendar.", preferredStyle: UIAlertControllerStyle.Alert)
-//            
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: {[unowned self] _ in self.saveToCoreDate()})
-//            
-//            alert.addAction(cancelAction)
-//            
-//            let settingsAction = UIAlertAction(title: "Settings", style: .Cancel) { (alertAction) in
-//                //Link to app settings
-//                if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
-//                    UIApplication.sharedApplication().openURL(appSettings)
-//                }
-//            }
-//            
-//            alert.addAction(settingsAction)
-//            
-//            self.presentViewController(alert, animated: true, completion: nil)
             
             print("Access Denied")
+        }
+    }
+    
+    func deleteEvent(eventStore: EKEventStore, eventIdentifier: String) {
+        let eventToRemove = eventStore.eventWithIdentifier(eventIdentifier)
+        if (eventToRemove != nil) {
+            do {
+                try eventStore.removeEvent(eventToRemove!, span: .ThisEvent)
+            } catch {
+                print("Deleted")
+            }
         }
     }
     
@@ -235,7 +227,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
             createEvent(eventStore, title: "\(self.mealOfDay.text!)", startDate: startDate!, endDate: endDate)
         }
         
-    }
+    }//end Calendars
     
     func createNewitem() {
         guard self.item == nil else {
@@ -257,7 +249,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
     }
     var formIsValid:Bool {
         // make sure all is not null.
-        //TODO: you may check for the number values is only numbers too.
+        //TODO: 
         return Recipe.text?.isEmpty  == false
             && mealOfDay.text?.isEmpty  == false
             && dayOfWeek.text?.isEmpty   == false

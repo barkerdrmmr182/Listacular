@@ -78,7 +78,8 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         
         //"edit" bar button item
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PantryList.editButtonPressed))
-    }
+    }//end viewDidLoad
+    
     //"edit" button code
     func editButtonPressed(){
         tableView.setEditing(!tableView.editing, animated: true)
@@ -168,8 +169,25 @@ class PantryList: UIViewController, NSFetchedResultsControllerDelegate, UITableV
         cell.cellLabel.font = UIFont.systemFontOfSize(25)
         moveToSL.hidden = true
         
+        let pqtyHighlight = Int(items.pqty!)
+        let minStepperInt = Int(items.pminsteppervalue!)
+        
+        //if qty <= minimum highlight row
+        if (pqtyHighlight <= minStepperInt){
+            cell.backgroundColor = UIColor(red: 255/255, green: 0/255, blue: 0/255, alpha: 0.25)
+            
+        }else{
+            cell.backgroundColor = UIColor.clearColor()
+        }
+        //if qty == 0 move to seciton1
+//        let zeroQty = Int(items.pqty!)
+//        if (zeroQty == 0){
+//            items.pcross = true
+//        }else{
+//            items.pcross = false
+//        }
+        
         if (items.pcross == true) {
-            cell.accessoryType = .Checkmark
             cell.cellLabel.textColor = UIColor.grayColor()
             cell.cellLabel.font = UIFont.systemFontOfSize(20)
             self.tableView.rowHeight = 50

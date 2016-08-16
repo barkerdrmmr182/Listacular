@@ -115,8 +115,6 @@ class ShoppingList: UIViewController, NSFetchedResultsControllerDelegate, UITabl
 
 	}
     
-    
-    
     func cartTotalFunc() {
        
         
