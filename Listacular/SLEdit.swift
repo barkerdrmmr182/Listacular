@@ -141,9 +141,13 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
 		// create newItem if it's nil 
 		if item == nil {
 			createNewitem()
+            invAlert()
 		}
 		// update the item
 		updateItem()
+        invAlert()
+    }
+    func invAlert(){
         if (item!.slminqty == nil) {
 			let alert = UIAlertController(title: "Minimun Qty.", message: "Please set minimun qty. for pantry.", preferredStyle: UIAlertControllerStyle.Alert)
 
@@ -182,7 +186,8 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
 			}
 			dismissVC()
         }
-        }
+    }
+    
 
     func createNewitem() {
 		guard self.item == nil else {
@@ -208,6 +213,7 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
         
 		// assign the new item to self.item
 		self.item = item
+        
         print(self.item)
 	}
 	var formIsValid:Bool {

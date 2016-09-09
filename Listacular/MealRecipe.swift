@@ -240,18 +240,35 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         
     }//end Calendars
     
+    func itemFetchRequest1() -> NSFetchRequest{
+        let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let pItemFetch = NSFetchRequest(entityName: "List")
+        let sortDescription = NSSortDescriptor(key: "pitem", ascending: true)
+        pItemFetch.sortDescriptors = [sortDescription]
+        pItemFetch.predicate = NSPredicate(format:"pitem == %@", item!.ringredients!)
+        
+        do {
+            try moc.executeFetchRequest(pItemFetch) 
+        } catch {
+            fatalError("Failed to fetch employees: \(error)")
+        }
+        
+        return pItemFetch
+        
+    }
+
+    
     func createNewitem() {
         guard self.item == nil else {
             print("trying to create a new item while there is already one.")
             return
         }
-        // just creating an empty item and let give the job to filling it to editItem method.
         let entityDescription = NSEntityDescription.entityForName("List", inManagedObjectContext: moc)
         
         // assign the empty item to self.item.
         let item = List(entity: entityDescription!, insertIntoManagedObjectContext: moc)
         
-        // from my understanding to your code the values below belongs to the new item only. please change it if needed.
+        
         item.mplist = true
         item.mpcross = false
         // assign the new item to self.item
@@ -263,21 +280,15 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         item.mpdate = dayOfWeek.text
         item.rqty0 = rqty.text
         
-        func itemFetchRequest1() -> NSFetchRequest{
-            
-            let fetchRequest = NSFetchRequest(entityName: "List")
-            fetchRequest.predicate = NSPredicate(format:"pitem %@", item.pitem!)
-            fetchRequest.predicate = NSPredicate(format:"pqty %@", item.pqty!)
-            return fetchRequest
-        
-        }
         itemFetchRequest1()
         
-        //Subtract from Pantry
-        if (item.ringredients == item.pitem){
+        let fetch = itemFetchRequest1()
+        let plistItems = try! moc.executeFetchRequest(fetch)
+        let plistItem = plistItems[0] as! List
+
             //get value of string
             let stringNumber0 = item.rqty0
-            let stringNumber1 = item.pqty
+            let stringNumber1 = plistItem.pqty
             //convert string to Int
             let numberFromString0 = Int(stringNumber0!)
             let numberFromString1 = Int(stringNumber1!)
@@ -287,12 +298,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
             //convert back Int back to string
             let myString:String = String(myInt)
             //delclare string as qty.
-            item.pqty = myString
-            
-        }else{
-            print(item.pitem)
-            print(item.ringredients)
-        }
+            plistItem.pqty = myString
         
     }
     var formIsValid:Bool {
