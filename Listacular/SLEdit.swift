@@ -141,7 +141,7 @@ class SLEdit: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIP
 		// create newItem if it's nil 
 		if item == nil {
 			createNewitem()
-            invAlert()
+            
 		}
 		// update the item
 		updateItem()
