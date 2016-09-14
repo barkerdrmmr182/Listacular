@@ -250,7 +250,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         do {
             try moc.executeFetchRequest(pItemFetch) 
         } catch {
-            fatalError("Failed to fetch employees: \(error)")
+            fatalError("Failed to fetch pitem: \(error)")
         }
         
         return pItemFetch
@@ -279,8 +279,7 @@ class MealRecipe: UIViewController, UITextFieldDelegate, UIPickerViewDataSource,
         item.ringredients = recipeItem.text
         item.mpdate = dayOfWeek.text
         item.rqty0 = rqty.text
-        
-        itemFetchRequest1()
+
         
         let fetch = itemFetchRequest1()
         let plistItems = try! moc.executeFetchRequest(fetch)
